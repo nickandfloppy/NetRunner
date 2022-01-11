@@ -1,8 +1,8 @@
-# WinBot
-WinBot is a Discord bot designed specifically for use in the [WinWorld Discord server](https://discord.gg/HepVSYH).
+# MinBot
+A fork of Starman0620's WinBot, modified for use in nick and floppy's corner.
 
 ## Usage/Build instructions
-1. Clone the repository: ``https://github.com/CamK06/WinBot.git`` and move into the project directory: ``cd WinBot``
+1. Clone the repository: ``http://git.nick99nack.com/nick99nack/MinBot.git`` and move into the project directory: ``cd WinBot``
 2. Build the source code: ``dotnet build -c Release -r linux-x64``
 3. Change into the build directory: ``cd bin/Release/net5.0/linux-x64/``
 4. Run the bot: ``./WinBot`` or just ``WinBot`` for Windows. This will generate a blank configuration file for you.
@@ -17,4 +17,4 @@ Steps:
 2. Extract Roboto-Regular.ttf into the bot's working directory
 3. Install Roboto-Regular.ttf on your system
 
-*If you're on Windows there's some changes you need to make to the build process but I'm sure you can figure that out, as you do.*
+Note: This bot has been modified for a specific system configuration and may not work out of the box. This repo is mainly here for me to keep track of edits.
