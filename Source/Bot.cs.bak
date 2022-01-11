@@ -4,7 +4,6 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 using DSharpPlus;
 using DSharpPlus.Entities;

@@ -24,7 +24,7 @@ namespace WinBot.Commands.Main
             string json = "";
             using(HttpClient http = new HttpClient())
 #if !TOFU
-                json = await http.GetStringAsync("https://api.mcsrvstat.us/2/comserv.winworldpc.com");
+                json = await http.GetStringAsync("https://api.mcsrvstat.us/2/mc.nick99nack.com");
 #else
                 json = await http.GetStringAsync("https://api.mcsrvstat.us/2/cgmc.nick99nack.com");
 #endif
@@ -39,9 +39,9 @@ namespace WinBot.Commands.Main
                 eb.WithThumbnail(Context.Guild.IconUrl);
                 eb.WithTitle((string)serverInfo.motd.clean[0]);
 #if !TOFU
-                eb.AddField("Address", "comserv.winworldpc.com", true);
+                eb.AddField("Address", "mc.nick99nack.com", true);
                 eb.AddField("Versions", "1.5.2 -> 1.16.5", true);
-		eb.AddField("Dynmap", "http://comserv.winworldpc.com:8123/", true);
+		eb.AddField("Dynmap", "http://mc.nick99nack.com/", true);
 #else
                 eb.AddField("Address", "cgmc.nick99nack.com", true);
                 eb.AddField("Versions", "1.5.2 -> 1.16.5 & Bedrock", true);
