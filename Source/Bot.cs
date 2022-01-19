@@ -113,10 +113,13 @@ namespace WinBot
             TempManager.Init();
             DailyReportSystem.Init();
             MagickNET.Initialize();
+			No.Init();
 
             await client.UpdateStatusAsync(new DiscordActivity() { Name = config.status });
             Log.Information("Ready");
         }
+		
+		
 
         void HookEvents()
         {

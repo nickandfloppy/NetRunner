@@ -66,8 +66,8 @@ namespace WinBot.Commands.Main
                 // Add the command to the main text
                 if(finalString.Contains($"{command.Name}")) 
                     continue;
-                if (!string.IsNullOrWhiteSpace(finalString)) finalString += $" | `{command.Name}`";
-                else finalString = $"`{command.Name}`";
+                if (!string.IsNullOrWhiteSpace(finalString)) finalString += $" | {command.Name}";
+                else finalString = $"{command.Name}";
             }
 
             if(finalString.Length <= 0)
