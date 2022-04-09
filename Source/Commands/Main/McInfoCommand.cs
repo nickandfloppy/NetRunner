@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -18,16 +19,27 @@ namespace WinBot.Commands.Main
         [Category(Category.Main)]
         public async Task McInfo(CommandContext Context)
         {
+            string server = "";
+            string dynmap = "";
+            string versions = "";
+            if (Context.Guild.Id == 764493398983049246) {
+                server = "mc.nick99nack.com";
+                dynmap = "http://mc.nick99nack.com/";
+                versions = "1.5.2 -> 1.16.5";
+            } else if (Context.Guild.Id == 955969771994742874) {
+                server = "hiden64.ddns.net";
+                dynmap = "http://hiden64.ddns.net:8123/";
+                versions = "1.7.x -> 1.18.x";
+            } else
+                throw new Exception("This server does not have a server configured");
+
             await Context.Channel.TriggerTypingAsync();
 
             // Download the server info
             string json = "";
             using(HttpClient http = new HttpClient())
-#if !TOFU
-                json = await http.GetStringAsync("https://api.mcsrvstat.us/2/mc.nick99nack.com");
-#else
-                json = await http.GetStringAsync("https://api.mcsrvstat.us/2/cgmc.nick99nack.com");
-#endif
+                json = await http.GetStringAsync($"https://api.mcsrvstat.us/2/{server}");
+
             dynamic serverInfo = JsonConvert.DeserializeObject(json);
             
             // Format the info in an embed
@@ -38,15 +50,9 @@ namespace WinBot.Commands.Main
             if((bool)serverInfo.online) {
                 eb.WithThumbnail(Context.Guild.IconUrl);
                 eb.WithTitle((string)serverInfo.motd.clean[0]);
-#if !TOFU
-                eb.AddField("Address", "mc.nick99nack.com", true);
-                eb.AddField("Versions", "1.5.2 -> 1.16.5", true);
-		eb.AddField("Dynmap", "http://mc.nick99nack.com/", true);
-#else
-                eb.AddField("Address", "cgmc.nick99nack.com", true);
-                eb.AddField("Versions", "1.5.2 -> 1.16.5 & Bedrock", true);
-                eb.AddField("Dynmap", "http://cgmc.nick99nack.com:8123/", true);
-#endif
+                eb.AddField("Address", server, true);
+                eb.AddField("Versions", versions, true);
+		        eb.AddField("Dynmap", dynmap, true);
                 eb.AddField("Online?", ((bool)serverInfo.online) ? "Yes" : "No", true);
                 eb.AddField("Users Count", $"{(int)serverInfo.players.online}/{(int)serverInfo.players.max}", true);
                 if((int)serverInfo.players.online > 0) {
