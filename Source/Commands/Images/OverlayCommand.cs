@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -49,23 +50,24 @@ namespace WinBot.Commands.Images
                 args.extension = img.Format.ToString().ToLower();
 
             // Save the image
-            await msg.ModifyAsync("Saving...\nThis may take a while depending on the image size");
-            string finalimgFile = TempManager.GetTempFile(seed+"-overlay." + args.extension, true);
+            MemoryStream imgStream = new MemoryStream();
             if(args.extension.ToLower() != "gif")
-                img.Write(finalimgFile);
+                img.Write(imgStream);
             else
-                gif.Write(finalimgFile);
+                gif.Write(imgStream);
+            imgStream.Position = 0;
 
             // Send the image
             await msg.ModifyAsync("Uploading...\nThis may take a while depending on the image size");
-            await Context.Channel.SendFileAsync(finalimgFile);
+            await Context.Channel.SendFileAsync(imgStream, "overlay."+args.extension);
             await msg.DeleteAsync();
-            TempManager.RemoveTempFile(seed+"-overlay."+args.extension);
         }
 
         void DoOverlay(MagickImage image, ImageArgs args)
         {
             // Validate the image argument
+            if(string.IsNullOrWhiteSpace(args.textArg))
+                throw new System.Exception("No overlay provided!");
             args.textArg = args.textArg.Replace("/", "").Replace("\\", "").Replace(".", "");
             if(!ResourceExists(args.textArg + ".png", ResourceType.Resource))
                 throw new System.Exception($"Image '{args.textArg}' does not exist!");

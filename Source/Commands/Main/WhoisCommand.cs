@@ -24,7 +24,7 @@ namespace WinBot.Commands.Main
             try {
                 // Set up the embed
                 DiscordEmbedBuilder Embed = new DiscordEmbedBuilder();
-                Embed.WithColor(DiscordColor.Gold);
+                Embed.WithColor(DiscordColor.Gold);   
 
                 // Basic user info
                 if (user.AvatarUrl != null) {

@@ -36,10 +36,10 @@ namespace WinBot
         // DSharpPlus
         public static DiscordClient client;
         public static CommandsNextExtension commands;
+        public static Stopwatch sw = Stopwatch.StartNew();
 
         // Bot
         public static BotConfig config;
-		public static Stopwatch sw = Stopwatch.StartNew();
 
         public async Task RunBot()
         {
@@ -112,14 +112,15 @@ namespace WinBot
             Leveling.Init();
             TempManager.Init();
             DailyReportSystem.Init();
-            MagickNET.Initialize();
-			No.Init();
+            MagickNET.Initialize(); 
+#if !TOFU
+            if(Bot.config.ids.rssChannel != 0)
+                await WWRSS.Init();
+#endif
 
             await client.UpdateStatusAsync(new DiscordActivity() { Name = config.status });
             Log.Information("Ready");
         }
-		
-		
 
         void HookEvents()
         {
@@ -127,7 +128,7 @@ namespace WinBot
             client.Ready += Ready;
             client.MessageCreated += CommandHandler.HandleMessage;
             client.MessageUpdated += (DiscordClient client, MessageUpdateEventArgs e) => {
-                if(DateTime.Now.Subtract(e.Message.Timestamp.DateTime).TotalMinutes < 1)
+                if(DateTime.Now.Subtract(e.Message.Timestamp.DateTime).TotalMinutes < 1 && DateTime.Now.Subtract(e.Message.Timestamp.DateTime).TotalSeconds > 2)
                     CommandHandler.HandleCommand(e.Message, e.Author);
                 return Task.CompletedTask;
             };
@@ -229,14 +230,16 @@ namespace WinBot
         public ulong mutedRole { get; set; } = 0;
 #if TOFU
         public ulong welcomeChannel { get; set; } = 0;
+#else
+        public ulong rssChannel { get; set; } = 0;
 #endif
     }
 
     class APIConfig
     {
+        public string wikihowAPIKey { get; set; } = "";
+        public string catAPIKey { get; set; } = "";
         public string weatherAPI { get; set; } = "";
-		public string catAPIKey { get; set; } = "";
-		public string wikihowAPIKey { get; set; } = "";
     }
 
     class Global

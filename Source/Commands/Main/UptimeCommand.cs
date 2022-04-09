@@ -18,12 +18,13 @@ namespace WinBot.Commands.Main
             /*await Context.ReplyAsync($"Uptime: **{Convert.ToInt32(Bot.sw.ElapsedMilliseconds)}**");*/
 			
 			TimeSpan t = TimeSpan.FromMilliseconds(Convert.ToInt32(Bot.sw.ElapsedMilliseconds));
-			string answer = string.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", 
-                        t.Days,
-						t.Hours, 
-                        t.Minutes, 
-                        t.Seconds);
-			await Context.ReplyAsync($"Uptime: **{answer}**");
+			string uptime = "";
+		    if (t.Days != 00) uptime += $"{Convert.ToString(t.Days)}d ";
+			if (t.Hours != 00) uptime += $"{Convert.ToString(t.Hours)}h ";
+			if (t.Minutes != 00) uptime += $"{Convert.ToString(t.Minutes)}m ";
+			if (t.Seconds != 00) uptime += $"{Convert.ToString(t.Seconds)}s";
+
+			await Context.ReplyAsync($"Uptime: **{uptime}**");
         }
     }
 }

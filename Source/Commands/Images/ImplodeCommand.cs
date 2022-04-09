@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -35,16 +36,12 @@ namespace WinBot.Commands.Images
             MagickImageCollection gif = null;
             if(args.extension.ToLower() != "gif") {
                 img = new MagickImage(tempImgFile);
-                img.Scale(img.Width/2, img.Height/2);
-                img.Implode(args.scale*.3f, PixelInterpolateMethod.Undefined);
-                img.Scale(img.Width*2, img.Height*2);
+                DoImplode(img, args);
             }
             else {
                 gif = new MagickImageCollection(tempImgFile);
                 foreach(var frame in gif) {
-                    frame.Scale(frame.Width/2, frame.Height/2);
-                    frame.Implode(args.scale*.3f, PixelInterpolateMethod.Undefined);
-                    frame.Scale(frame.Width*2, frame.Height*2);
+                    DoImplode((MagickImage)frame, args);
                 }
             }
             TempManager.RemoveTempFile(seed+"-implodeDL."+args.extension);
@@ -52,18 +49,24 @@ namespace WinBot.Commands.Images
                 args.extension = img.Format.ToString().ToLower();
 
             // Save the image
-            await msg.ModifyAsync("Saving...\nThis may take a while depending on the image size");
-            string finalimgFile = TempManager.GetTempFile(seed+"-implode." + args.extension, true);
+            MemoryStream imgStream = new MemoryStream();
             if(args.extension.ToLower() != "gif")
-                img.Write(finalimgFile);
+                img.Write(imgStream);
             else
-                gif.Write(finalimgFile);
+                gif.Write(imgStream);
+            imgStream.Position = 0;
 
             // Send the image
             await msg.ModifyAsync("Uploading...\nThis may take a while depending on the image size");
-            await Context.Channel.SendFileAsync(finalimgFile);
+            await Context.Channel.SendFileAsync(imgStream, "implode."+args.extension);
             await msg.DeleteAsync();
-            TempManager.RemoveTempFile(seed+"-implode."+args.extension);
+        }
+
+        public static void DoImplode(MagickImage img, ImageArgs args)
+        {
+            img.Scale(img.Width/2, img.Height/2);
+            img.Implode(args.scale*.3f, PixelInterpolateMethod.Undefined);
+            img.Scale(img.Width*2, img.Height*2);
         }
     }
 }

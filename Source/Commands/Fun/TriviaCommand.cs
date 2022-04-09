@@ -12,6 +12,7 @@ using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Interactivity.Extensions;
 
 using WinBot.Misc;
+using WinBot.Util;
 using WinBot.Commands.Attributes;
 
 using Newtonsoft.Json;
@@ -23,7 +24,7 @@ namespace WinBot.Commands.Main
         [Command("trivia")]
         [Aliases("t")]
         [Description("Get a random trivia question")]
-        [Usage("[category]")]
+        [Usage("[category] or [lb/stats]")]
         [Category(Category.Main)]
         public async Task Trivia(CommandContext Context, string input = null)
         {
@@ -31,6 +32,45 @@ namespace WinBot.Commands.Main
             if(input != null && input.ToLower() == "stats") {
                 User u = UserData.GetOrCreateUser(Context.User);
                 await Context.ReplyAsync($"You've answered {u.totalTrivia} questions. Of those, {u.correctTrivia} ({Math.Round((float)u.correctTrivia/(float)u.totalTrivia*100.0f)}%) were correct");
+                return;
+            }
+            else if(input != null && input.ToLower() == "lb") {
+                
+                List<User> leaderboard = UserData.users.OrderByDescending(x => x.correctTrivia).ToList();
+                foreach(User tUser in leaderboard)
+                    tUser.triviaScore = (int)((float)tUser.correctTrivia/(float)tUser.totalTrivia*100.0f)*tUser.correctTrivia;
+                leaderboard = leaderboard.OrderByDescending(x => x.triviaScore).ToList();
+
+                // Generate an embed description
+                string description = "";
+                int userCounter = 0;
+                bool hasDisplayedCurrentUser = false;
+                foreach(User lbUser in leaderboard) {
+                    double percentage = Math.Round((float)lbUser.correctTrivia/(float)lbUser.totalTrivia*100.0f);
+
+                    if(userCounter < 10) {
+                        description += $"**{userCounter+1}.** {lbUser.username} - {percentage}% ({lbUser.correctTrivia}/{lbUser.totalTrivia})\n";
+                        if(lbUser.id == Context.User.Id)
+                            hasDisplayedCurrentUser = true;
+                    }
+                    else if(lbUser.id == Context.User.Id) {
+                        description += $"**{userCounter+1}.** {lbUser.username} - {percentage}% ({lbUser.correctTrivia}/{lbUser.totalTrivia})\n";
+                        if(userCounter != 10) 
+                            description += "...";
+                    }
+                    else if(userCounter == 10 && !hasDisplayedCurrentUser) {
+                        description += "...\n";
+                    }
+                    userCounter++;
+                }
+
+                // Create the embed
+                DiscordEmbedBuilder lbeb = new DiscordEmbedBuilder();
+                lbeb.WithColor(DiscordColor.Gold);
+                lbeb.WithThumbnail(Bot.client.GetUserAsync(leaderboard[0].id).Result.GetAvatarUrl(DSharpPlus.ImageFormat.Jpeg));
+                lbeb.WithDescription(description);
+                lbeb.WithFooter("Note: this leaderboard is ordered by [correctPercentage]*[correctAnswers]");
+                await Context.ReplyAsync("", lbeb.Build());
                 return;
             }
 

@@ -77,7 +77,7 @@ namespace WinBot.Util
 
             // Tenor handling
             WebClient client = new WebClient();
-            if(args.url.Contains("tenor.com/") && !args.url.Contains(".gif")) {
+            if(args.url.Contains("tenor.com/") && !args.url.Contains("c.tenor")) {
 
                 // Download the tenor webpage
                 string html = client.DownloadString(args.url);
@@ -125,7 +125,7 @@ namespace WinBot.Util
             Int64 fileSize = Convert.ToInt64(client.ResponseHeaders["Content-Length"]);
             if (!client.ResponseHeaders["Content-Type"].Contains("image") || client.ResponseHeaders["Content-Type"].Contains("svg"))
                 throw new Exception("Invalid or no image!");
-            if(fileSize > 33554432)
+            if(fileSize > 104900000)
                 throw new Exception("Your image must be below 32MB in size!");
             args.extension = client.ResponseHeaders["Content-Type"].Split("image/").Last();
 
@@ -139,7 +139,7 @@ namespace WinBot.Util
         }
     }
 
-    class ImageArgs
+    public class ImageArgs
     {
         public string url { get; set; } = null;
         public string extension { get; set; }
