@@ -30,7 +30,10 @@ namespace WinBot.Commands.Main
                 server = "hiden64.ddns.net";
                 dynmap = "http://hiden64.ddns.net:8123/";
                 versions = "1.7.x -> 1.18.x";
-            } else
+            } else if (Context.Guild.Id == 936271948927881276) {
+                server = "mc.nick99nack.com:25560";
+                versions = "1.16.5";
+            }else
                 throw new Exception("This server does not have a server configured");
 
             await Context.Channel.TriggerTypingAsync();
@@ -52,7 +55,8 @@ namespace WinBot.Commands.Main
                 eb.WithTitle((string)serverInfo.motd.clean[0]);
                 eb.AddField("Address", server, true);
                 eb.AddField("Versions", versions, true);
-		        eb.AddField("Dynmap", dynmap, true);
+                if (dynmap != "")
+		            eb.AddField("Dynmap", dynmap, true);
                 eb.AddField("Online?", ((bool)serverInfo.online) ? "Yes" : "No", true);
                 eb.AddField("Users Count", $"{(int)serverInfo.players.online}/{(int)serverInfo.players.max}", true);
                 if((int)serverInfo.players.online > 0) {
