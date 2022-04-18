@@ -354,3 +354,6 @@ WorkingDirectory/
 
 # VSCode
 .vscode/
+
+# Notepad++ BAK files
+*.bak
