@@ -2,7 +2,7 @@
 A fork of Starman0620's WinBot, modified for use in nick and floppy's corner.
 
 ## Usage/Build instructions
-1. Clone the repository: ``[https://github.com/nickandfloppy/NetRunner.git](https://github.com/nickandfloppy/NetRunner.git)`` and move into the project directory: ``cd NetRunner``
+1. Clone the repository: [https://github.com/nickandfloppy/NetRunner.git](https://github.com/nickandfloppy/NetRunner.git) and move into the project directory: ``cd NetRunner``
 2. Build the source code: ``dotnet build -c Release -r linux-x64``
 3. Change into the build directory: ``cd bin/Release/net5.0/linux-x64/``
 4. Run the bot: ``./WinBot`` or just ``WinBot`` for Windows. This will generate a blank configuration file for you.
