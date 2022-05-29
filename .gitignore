@@ -357,3 +357,6 @@ WorkingDirectory/
 
 # Notepad++ BAK files
 *.bak
+
+# Ignore all files suffixed with .ignore
+*.ignore
