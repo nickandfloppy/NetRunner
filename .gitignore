@@ -360,3 +360,6 @@ WorkingDirectory/
 
 # Ignore all files suffixed with .ignore
 *.ignore
+
+# Ignore rebuild script
+rebuild.bat
