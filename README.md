@@ -6,7 +6,7 @@ A fork of Starman0620's WinBot, modified for use in nick and floppy's corner.
 2. Build the source code: ``dotnet build -c Release``
 3. Change into the build directory: ``cd bin/Release/net5.0/``
 4. Run the bot: ``./WinBot`` or just ``WinBot`` for Windows. This will generate a blank configuration file for you.
-5. Edit the ``config.json``  file and add your token into the token field, aswell as your client ID and log channel if you want one
+5. Edit the ``config.json``  file and add your token into the token field, as well as your client ID and log channel if you want one
 6. Run the bot once more, as before. Once it has started up (It'll output "Ready" to the terminal), you should be good to go into Discord and use it.
 
 ## Post-install instructions
