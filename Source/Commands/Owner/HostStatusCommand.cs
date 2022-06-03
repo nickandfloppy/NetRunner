@@ -23,7 +23,7 @@ namespace WinBot.Commands.Owner
         [Aliases("host", "hostinfo")]
         [Category(Category.Owner)]
         [RequireOwner]
-        public async Task ServerList(CommandContext Context)
+        public async Task HostStatus(CommandContext Context)
         {
             DiscordEmbedBuilder Embed = new DiscordEmbedBuilder();
             Embed.WithColor(DiscordColor.Gold);
