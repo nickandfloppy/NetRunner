@@ -25,7 +25,7 @@ namespace WinBot.Commands.Main
             try {
                 // Set up the embed
                 DiscordEmbedBuilder Embed = new DiscordEmbedBuilder();
-                Embed.WithColor(DiscordColor.Gold);   
+                Embed.WithColor(user.Color);   
 
                 // Basic user info
                 if (user.AvatarUrl != null) {
@@ -38,22 +38,26 @@ namespace WinBot.Commands.Main
                 }
                 string isBot = user.IsBot ? "Yes" : "No";
                 string isOwner = user.IsOwner ? "Yes" : "No";
+                string hasMFA;
+                if (((DiscordUser)user).MfaEnabled == null) hasMFA = "COCK";
+                else hasMFA = (bool) (((DiscordUser)user).MfaEnabled) ? "Yes" : "No";
 
-                Embed.AddField("**Information**", $"**ID:** {user.Id.ToString()}\n**Bot:** {isBot}\n**Badges:** {ParseFlags(user.Flags)}", true);
+                Embed.AddField("**Information**", $"**Mention:** <@{user.Id.ToString()}>\n**ID:** {user.Id.ToString()}\n**Bot:** {isBot}\n**MFA:** {hasMFA}\n**Badges:** {ParseFlags(user.Flags)}", true);
 
                 // Embed dates
                 Embed.AddField("**Joined**", $"**Discord:** {(int)DateTime.Now.Subtract(user.CreationTimestamp.DateTime).TotalDays} days ago\n**->**<t:{user.CreationTimestamp.ToUnixTimeSeconds()}:f>\n**Guild:** {(int)DateTime.Now.Subtract(user.JoinedAt.DateTime).TotalDays} days ago\n**->**<t:{user.JoinedAt.ToUnixTimeSeconds()}:f>", true);
 
                 // User roles
-                string roles = "";
-                int roleCount = 0;
+                string roles = "`@everyone`, ";
+                int roleCount = 1;
                 foreach (DiscordRole role in user.Roles) {
                     roles += role.Mention + ", ";
                     roleCount += 1;
                 }
                 roles = roles.Substring(0, roles.Length - 2);
-                Embed.AddField("Guild Specific", $"**Nickname:** {user.Nickname}\n**Roles ({roleCount}): {roles}**\n**Owner:** {isOwner}");
-
+                string guild = user.Guild.Name == null ? "None" : user.Guild.Name;
+                Embed.AddField("Guild Specific", $"**Nickname:** {user.Nickname}\n**Roles ({roleCount}): {roles}**\n**Owner:** {isOwner}\n**Hierarchy Position:** {user.Hierarchy.ToString()}");
+                Embed.AddField("Guild", guild);
                 await Context.ReplyAsync("", Embed.Build());
             }
             catch (Exception ex) {
@@ -62,6 +66,7 @@ namespace WinBot.Commands.Main
         }
 
         public static string ParseFlags(Enum flags) {
+            if (flags == null) return "None";
             string flagString = flags.ToString();
             flagString = flagString.Replace("BugHunterLevelOne", "<:bughunter_1:980875953301508137> ");
             flagString = flagString.Replace("BugHunterLevelTwo", "<:bughunter_2:980875953192468630> ");
@@ -77,8 +82,8 @@ namespace WinBot.Commands.Main
             flagString = flagString.Replace("TeamUser", "");
             flagString = flagString.Replace("VerifiedBot", "");
             flagString = flagString.Replace("VerifiedBotDeveloper", "<:developer:980875953301508139> ");
-            
-            return flagString.Substring(0, flagString.Length - 1);
+            if (flagString == "None") return flagString;
+            else return flagString.Substring(0, flagString.Length - 1);
         }
     }
 }
