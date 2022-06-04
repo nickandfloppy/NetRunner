@@ -22,6 +22,7 @@ namespace WinBot.Commands.NerdStuff
         {
             DiscordEmbedBuilder Embed = new DiscordEmbedBuilder();
             DateTime result = DateTime.Now;
+            DateTime firstRecord = new DateTime(2017, 03, 19);
             if (date == null) {
                 string day = result.Day < 10 ? $"0{result.Day}" : $"{result.Day}";
                 string month = result.Month < 10 ? $"0{result.Month}" : $"{result.Month}";
@@ -37,6 +38,8 @@ namespace WinBot.Commands.NerdStuff
                     date = $"{result.Year}-{month}-{day}";
                 }
             }
+            if (result <= firstRecord) await Context.ReplyAsync("Date specified is before first record (2017-03-19)");return;
+            if (result > DateTime.Now) await Context.ReplyAsync("Date specified is in the future");return;
             Embed.WithTitle($"CWX Outlook for {date}");
             Embed.WithColor(DiscordColor.Gold);
             Embed.WithDescription($"[Full Forecast](http://www.convectiveweather.co.uk/forecast.php?date={date})");
