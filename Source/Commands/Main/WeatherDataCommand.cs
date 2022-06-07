@@ -30,7 +30,7 @@ namespace WinBot.Commands.Main
 					using (WebClient client = new WebClient()) {
 						json = client.DownloadString("http://api.weather.diskfloppy.me/v1/current_conditions");
 					}
-					time = "Now! (Live data)";
+					time = DateTime.Now.ToString();
 				} catch {
 					try {
 						using (WebClient client = new WebClient()) {
