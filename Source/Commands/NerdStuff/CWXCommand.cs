@@ -18,7 +18,7 @@ namespace WinBot.Commands.NerdStuff
         //[Description("Sends a map of radio MUF")]
         [Usage("[yyyy-mm-dd")]
         [Category(Category.NerdStuff)]
-        public async Task MUF(CommandContext Context, string date = null)
+        public async Task CWX(CommandContext Context, string date = null)
         {
             DiscordEmbedBuilder Embed = new DiscordEmbedBuilder();
             DateTime result = DateTime.Now;
@@ -31,15 +31,15 @@ namespace WinBot.Commands.NerdStuff
                 try {
                     result = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 } catch {
-                    throw new Exception("Date must be in yyyy-MM-dd format!");
-                } finally {
+                    await Context.ReplyAsync("Must be in yyyy-MM-dd format!");
+               } finally {
                     string day = result.Day < 10 ? $"0{result.Day}" : $"{result.Day}";
                     string month = result.Month < 10 ? $"0{result.Month}" : $"{result.Month}";
                     date = $"{result.Year}-{month}-{day}";
                 }
             }
-            if (result <= firstRecord) await Context.ReplyAsync("Date specified is before first record (2017-03-19)");return;
-            if (result > DateTime.Now) await Context.ReplyAsync("Date specified is in the future");return;
+            if (result <= firstRecord) { await Context.ReplyAsync("Date specified is before first record (2017-03-19)"); return; }
+            else if (result > DateTime.Now) { await Context.ReplyAsync("Date specified is in the future"); return; }
             Embed.WithTitle($"CWX Outlook for {date}");
             Embed.WithColor(DiscordColor.Gold);
             Embed.WithDescription($"[Full Forecast](http://www.convectiveweather.co.uk/forecast.php?date={date})");
