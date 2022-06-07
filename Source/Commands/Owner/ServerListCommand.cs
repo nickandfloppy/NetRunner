@@ -27,7 +27,7 @@ namespace WinBot.Commands.Owner
             Embed.WithColor(DiscordColor.Gold);
             string output = "";
             foreach (var guild in Bot.client.Guilds) {
-                output += $"{guild.Value.Members}\n";
+                output += $"{guild.Value.Name}\n";
             }
             Embed.WithTitle("Servers");
             Embed.WithDescription(output);
