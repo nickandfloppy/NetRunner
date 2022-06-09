@@ -42,7 +42,7 @@ namespace WinBot.Commands.Main
                 if (((DiscordUser)user).MfaEnabled == null) hasMFA = "COCK";
                 else hasMFA = (bool) (((DiscordUser)user).MfaEnabled) ? "Yes" : "No";
 
-                Embed.AddField("**Information**", $"**Mention:** <@{user.Id.ToString()}>\n**ID:** {user.Id.ToString()}\n**Bot:** {isBot}\n**MFA:** {hasMFA}\n**Badges:** {ParseFlags(user.Flags)}", true);
+                Embed.AddField("**Information**", $"**Mention:** <@{user.Id.ToString()}>\n**ID:** {user.Id.ToString()}\n**Bot:** {isBot}\n**Badges:** {ParseFlags(user.Flags)}", true);
 
                 // Embed dates
                 Embed.AddField("**Joined**", $"**Discord:** {(int)DateTime.Now.Subtract(user.CreationTimestamp.DateTime).TotalDays} days ago\n**->**<t:{user.CreationTimestamp.ToUnixTimeSeconds()}:f>\n**Guild:** {(int)DateTime.Now.Subtract(user.JoinedAt.DateTime).TotalDays} days ago\n**->**<t:{user.JoinedAt.ToUnixTimeSeconds()}:f>", true);
