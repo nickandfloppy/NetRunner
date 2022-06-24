@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -6,7 +5,6 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Util;
 using WinBot.Commands.Attributes;
 
 using Newtonsoft.Json;
@@ -16,24 +14,23 @@ namespace WinBot.Commands.Fun
     public class CatCommand : BaseCommandModule
     {
         [Command("cat")]
-        [Description("Gets a random cat photo")]
+        [Description("Gets a random picture of a cat")]
         [Category(Category.Fun)]
         public async Task Cat(CommandContext Context)
         {
             string json = "";
-            // Download the json string from the API
+            // Grab the json string from the API
             using (WebClient client = new WebClient())
-                json = client.DownloadString($"https://api.thecatapi.com/v1/images/search?api_key={Bot.config.apiKeys.catAPIKey}");
+                json = client.DownloadString("https://cataas.com/cat?json=true");
             dynamic output = JsonConvert.DeserializeObject(json); // Deserialize the string into a dynamic object
 
-            // Create and send the embed
-            var eb = new DiscordEmbedBuilder();
-            eb.WithColor(DiscordColor.Gold);
-            eb.WithTitle("Here's Your Random Cat!");
-            eb.WithImageUrl((string)output[0].url);
-            eb.WithTimestamp(DateTime.Now);
-            await Context.ReplyAsync("", eb.Build());
-            await Task.Delay(1);
+            // Send the image in an embed
+			DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
+			eb.WithTitle("Random cat");
+			eb.WithColor(DiscordColor.Gold);
+			eb.WithFooter($"ID: {output.id}");
+			eb.WithImageUrl($"https://cataas.com{(string)output.url}");
+			await Context.ReplyAsync("", eb.Build());
         }
     }
 }
