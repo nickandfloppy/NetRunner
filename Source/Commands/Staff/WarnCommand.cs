@@ -26,7 +26,7 @@ namespace WinBot.Commands.Main
             string date = $"{now.Day}/{now.Month}/{now.Year}";
             warnEmbed.WithTitle($":warning: {Context.Guild.Name} · Warn");
             warnEmbed.WithDescription($"**You've been warned for the following reason:**```{reason}```");
-            warnEmbed.WithFooter($"Punishment · ${date}", Context.Guild.IconUrl);
+            warnEmbed.WithFooter($"Punishment · {date}", Context.Guild.IconUrl);
             warnEmbed.WithColor(new DiscordColor("#ffff00"));
             await user.SendMessageAsync(warnEmbed);
             await Context.RespondAsync($"`{user.Username}#{user.Discriminator}` has been warned for {reason}");
