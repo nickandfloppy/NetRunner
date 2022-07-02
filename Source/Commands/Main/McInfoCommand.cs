@@ -29,7 +29,7 @@ namespace WinBot.Commands.Main
             } else if (Context.Guild.Id == 955969771994742874) {
                 server = "hiden.pw";
                 dynmap = "https://mc.hiden.pw/";
-                versions = "1.7.x -> 1.19";
+                versions = "1.7.x -> 1.19.x";
             } else if (Context.Guild.Id == 936271948927881276) {
                 server = "mc.nick99nack.com:25560";
                 versions = "1.16.5";
