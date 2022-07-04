@@ -19,17 +19,19 @@ namespace WinBot.Commands.Main
         public async Task Warn(CommandContext Context, DiscordMember user, [RemainingText] string reason = null)
         {
             if (reason == null)
-                reason = "No reason given";
+                reason = "No reason given"; // Default reason
                 
             DiscordEmbedBuilder warnEmbed = new DiscordEmbedBuilder();
             DateTime now = DateTime.Now;
             string date = $"{now.Day}/{now.Month}/{now.Year}";
             warnEmbed.WithTitle($":warning: {Context.Guild.Name} · Warn");
-            warnEmbed.WithDescription($"**You've been warned for the following reason:**```{reason}```");
+            warnEmbed.WithDescription($"**{Context.Message.Author.Username}#{Context.Message.Author.Discriminator} warned you for the following reason:**```{reason}```");
             warnEmbed.WithFooter($"Punishment · {date}", Context.Guild.IconUrl);
             warnEmbed.WithColor(new DiscordColor("#ffff00"));
+
+            // Send a message in the current channel and an embed to the user
             await user.SendMessageAsync(warnEmbed);
-            await Context.RespondAsync($"`{user.Username}#{user.Discriminator}` has been warned for {reason}");
+            await Context.RespondAsync($"`{user.Username}#{user.Discriminator}` has been warned for \"{reason}\"");
         }
     }
 }
