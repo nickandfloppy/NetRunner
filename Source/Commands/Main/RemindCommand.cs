@@ -29,8 +29,8 @@ namespace WinBot.Commands.Main
                     await Context.ReplyAsync("No reminders currently set");
                 else {
                     foreach (List<string> reminder in Global.reminders) {
-                        if (string.IsNullOrWhiteSpace(reminder[1])) eb.AddField("[No text]", reminder[2]);
-                        else eb.AddField(reminder[1], reminder[2]);
+                        if (string.IsNullOrWhiteSpace(reminder[1])) eb.AddField("[No text]", $"{reminder[2]} (Expires <t:{reminder[0]}:R>)");
+                        else eb.AddField(reminder[1], $"{reminder[2]} (Expires <t:{reminder[0]}:R>)");
                     }
                     eb.WithFooter($"{Global.reminders.Count} total");
                     await Context.ReplyAsync("", eb.Build());
@@ -75,9 +75,9 @@ namespace WinBot.Commands.Main
                     throw new Exception("Invalid time unit!");
             }
             List<string> temp = new List<string>();
-            temp.Add($"{DateTime.Now.ToString()}");
+            temp.Add($"{DateTimeOffset.Now.ToUnixTimeSeconds() + (t.Interval / 1000)}");
             temp.Add(message);
-            temp.Add($"Set by {Context.User.Username} (Duration {timeStr})");
+            temp.Add($"Set by {Context.User.Username}");
             Global.reminders.Add(temp);
             // Start the timer
             t.AutoReset = false;
