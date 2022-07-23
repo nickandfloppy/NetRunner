@@ -23,14 +23,17 @@ namespace WinBot.Commands.Main
             string dynmap = "";
             string versions = "";
             if (Context.Guild.Id == 764493398983049246) {
+                // The Corner
                 server = "mc.nickandfloppy.com";
                 dynmap = "http://mc.nickandfloppy.com/";
                 versions = "1.7.2 -> 1.16.5";
             } else if (Context.Guild.Id == 955969771994742874) {
+                // hiden's shithole
                 server = "hiden.pw";
                 dynmap = "https://mc.hiden.pw/";
                 versions = "1.7.x -> 1.19.x";
             } else if (Context.Guild.Id == 936271948927881276) {
+                // Sled Dog
                 server = "mc.nickandfloppy.com:25560";
                 versions = "1.16.5";
             }else
