@@ -31,7 +31,7 @@ namespace WinBot.Commands.Main
                 // hiden's shithole
                 server = "hiden.pw";
                 dynmap = "https://mc.hiden.pw/";
-                versions = "1.7.x -> 1.19.x";
+                versions = "1.7.2 -> 1.19";
             } else if (Context.Guild.Id == 936271948927881276) {
                 // Sled Dog
                 server = "mc.nickandfloppy.com:25560";
