@@ -1,6 +1,8 @@
 using System;
 using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
+
 
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
@@ -55,7 +57,7 @@ namespace WinBot.Commands.Main
 			// Set up the embed
             if((bool)serverInfo.online) {
                 eb.WithThumbnail(Context.Guild.IconUrl);
-                eb.WithTitle((string)serverInfo.motd.clean[0]);
+                eb.WithTitle(WebUtility.HtmlDecode((string)serverInfo.motd.clean[0]));
                 eb.AddField("Address", server, true);
                 eb.AddField("Versions", versions, true);
                 if (dynmap != "")
