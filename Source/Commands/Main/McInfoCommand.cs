@@ -1,6 +1,8 @@
 using System;
 using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
+
 
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
@@ -31,7 +33,7 @@ namespace WinBot.Commands.Main
                 // hiden's shithole
                 server = "hiden.pw";
                 dynmap = "https://mc.hiden.pw/";
-                versions = "1.7.x -> 1.19.x";
+                versions = "1.7.2 -> 1.19";
             } else if (Context.Guild.Id == 936271948927881276) {
                 // Sled Dog
                 server = "mc.nickandfloppy.com:25560";
@@ -55,7 +57,7 @@ namespace WinBot.Commands.Main
 			// Set up the embed
             if((bool)serverInfo.online) {
                 eb.WithThumbnail(Context.Guild.IconUrl);
-                eb.WithTitle((string)serverInfo.motd.clean[0]);
+                eb.WithTitle(WebUtility.HtmlDecode((string)serverInfo.motd.clean[0]));
                 eb.AddField("Address", server, true);
                 eb.AddField("Versions", versions, true);
                 if (dynmap != "")
