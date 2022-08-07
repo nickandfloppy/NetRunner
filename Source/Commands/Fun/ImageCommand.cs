@@ -101,7 +101,7 @@ idRecalc:
             }
             // If we're removing an image
             else if(command.ToLower() == "del") {
-                if(!PermissionMethods.HasPermission(Context.Member.PermissionsIn(Context.Channel), Permissions.ManageMessages) && Context.User.Id != Bot.client.CurrentApplication.Owners.FirstOrDefault().Id)
+                if(!Bot.client.CurrentApplication.Owners.Contains(Context.User))
                     throw new System.Exception("You lack the sufficient permissions to run this command");
 
                 if(image == null)

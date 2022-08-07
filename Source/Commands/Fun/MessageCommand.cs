@@ -100,7 +100,7 @@ idRecalc:
                 await Context.ReplyAsync($"Successfully added your message! ID: `{ID}`");
             }
             else if(textArgs.ToLower().Split(" ").FirstOrDefault() == "del") {
-                if(!PermissionMethods.HasPermission(Context.Member.PermissionsIn(Context.Channel), Permissions.ManageMessages) && Context.User.Id != Bot.client.CurrentApplication.Owners.FirstOrDefault().Id)
+                if(!Bot.client.CurrentApplication.Owners.Contains(Context.User))
                     throw new Exception("You lack the sufficient permissions to run this command");
                 string message = textArgs.Split(" ").LastOrDefault();
                 if(message == null)
