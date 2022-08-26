@@ -12,7 +12,7 @@ namespace WinBot.Util
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = "C:\\Program Files\\Git\\bin\\bash.exe",
+                    FileName = "/bin/bash",
                     Arguments = $"-c \"{escapedArgs}\"",
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
