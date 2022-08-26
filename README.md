@@ -17,4 +17,4 @@ Steps:
 2. Extract Roboto-Regular.ttf into the bot's working directory
 3. Install Roboto-Regular.ttf on your system
 
-Note: This bot has been modified for a specific system configuration and may not work out of the box. This repo is mainly here to keep track of edits.
+Note: This bot has been modified for a specific system configuration and may not work out of the box. This repo is mainly here to keep track of edits. For a version modified for arm64 Linux systems, go to the [linux-arm64](https://github.com/nickandfloppy/NetRunner/tree/linux-arm64) branch.
