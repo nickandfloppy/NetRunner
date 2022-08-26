@@ -114,10 +114,8 @@ namespace WinBot
             TempManager.Init();
             DailyReportSystem.Init();
             MagickNET.Initialize(); 
-#if !TOFU
             if(Bot.config.ids.rssChannel != 0)
                 await WWRSS.Init();
-#endif
 
             await client.UpdateStatusAsync(new DiscordActivity() { Name = config.status });
             Log.Information("Ready");
@@ -133,7 +131,6 @@ namespace WinBot
                     CommandHandler.HandleCommand(e.Message, e.Author);
                 return Task.CompletedTask;
             };
-#if TOFU
             client.GuildMemberAdded += async (DiscordClient client, GuildMemberAddEventArgs e) => {
                 if(!Global.mutedUsers.Contains(e.Member.Id))
                     await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to Cerro Gordo! Be sure to read the <#774567486069800960> before chatting!");
@@ -142,7 +139,6 @@ namespace WinBot
                     await e.Member.GrantRoleAsync(Global.mutedRole, "succ");
                 }
             };
-#endif
             // Commands
             commands.CommandErrored += CommandHandler.HandleError;
 
@@ -258,10 +254,8 @@ namespace WinBot
         
         // Moderation
         public static List<ulong> blacklistedUsers = new List<ulong>();
-#if TOFU
         public static List<ulong> mutedUsers = new List<ulong>();
         public static DiscordRole mutedRole;
         public static DiscordChannel welcomeChannel = null;
-#endif
     }
 }

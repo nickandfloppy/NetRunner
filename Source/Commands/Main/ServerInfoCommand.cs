@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-
+using System.Collections.Generic;
 using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
@@ -15,8 +15,22 @@ namespace WinBot.Commands.Main
         [Description("Gets info about the current server")]
         [Category(Category.Main)]
         [Aliases("guild", "guildinfo", "server")]
-        public async Task ServerInfo(CommandContext Context)
+        public async Task ServerInfo(CommandContext Context, string mode = null)
         {
+            if (mode == "emojis") {
+                DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
+                int animatedEmojis = 0;
+                int staticEmojis = 0;
+                foreach (DiscordEmoji emoji in Context.Guild.Emojis.Values) {
+                    if (emoji.IsAnimated) animatedEmojis += 1;
+                    else staticEmojis += 1;
+                }
+                eb.WithDescription($@"```cs
+Emojis: {Context.Guild.Emojis.Count}
+-[Anim]: {animatedEmojis}
+-[Regular]: {staticEmojis}```");
+                await Context.ReplyAsync("", eb.Build());
+            } else if (mode == "extended") {
             DiscordGuild Guild = Context.Guild;
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             int animatedEmojis = 0;
@@ -69,18 +83,23 @@ namespace WinBot.Commands.Main
             }
 
             string guildTier = "";
+            string[] limits = new string[7];
             switch (Guild.PremiumTier.ToString()) {
                 case "None":
                     guildTier = "No level";
+                    limits = new string[7]{"8 MB", "96 kbps", "100", "50", "50", "500,000", "5,000"};
                     break;
                 case "Tier_1":
                     guildTier = "Level 1";
+                    limits = new string[7]{"8 MB", "128 kbps", "200", "100", "100", "500,000", "5,000"};
                     break;
                 case "Tier_2":
                     guildTier = "Level 2";
+                    limits = new string[7]{"50 MB", "256 kbps", "300", "150", "150", "500,000", "5,000"};
                     break;
                 case "Tier_3":
                     guildTier = "Level 3";
+                    limits = new string[7]{"100 MB", "384 kbps", "500", "250", "250", "500,000", "5,000"};
                     break;
                 case "Unknown":
                     guildTier = "Unknown";
@@ -89,6 +108,13 @@ namespace WinBot.Commands.Main
                     guildTier = Guild.PremiumTier.ToString();
                     break;
             }
+            string limitsString = $@"```cs
+            Attachment: {limits[0]}
+            Bitrate: {limits[1]}
+            Emojis: {limits[2]}
+             - [Anim]: {limits[3]}
+             - [Regular]: {limits[4]}
+             ```";
             string contentFilter = "";
             switch (Guild.ExplicitContentFilter.ToString()) {
                 case "AllMembers":
@@ -158,9 +184,7 @@ Roles: {Guild.Roles.Count}
  - [Managed] {roles[0]}
  - [Regular] {roles[1]}
 ```", true);
-            /*eb.AddField("Limits", $@"```cs
-Placeholder
-```");*/
+            eb.AddField("Limits", limitsString);
 
             eb.AddField("Features", $@"```
 {features}
@@ -171,6 +195,10 @@ Placeholder
             eb.WithImageUrl(Guild.BannerUrl);
             
             await Context.ReplyAsync("", eb.Build());
+            
+        } else {
+            await Context.ReplyAsync("h");
+        }
         }
 
         public static string parseFeatures (string features) {
