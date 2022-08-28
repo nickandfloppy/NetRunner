@@ -24,20 +24,24 @@ namespace WinBot.Commands.Main
             string server = "";
             string dynmap = "";
             string versions = "";
+	    string whitelist = "";
             if (Context.Guild.Id == 764493398983049246) {
                 // The Corner
                 server = "mc.nickandfloppy.com";
                 dynmap = "http://mc.nickandfloppy.com/";
                 versions = "1.7.2 -> 1.16.5";
+		whitelist = "No.";
             } else if (Context.Guild.Id == 955969771994742874) {
                 // hiden's shithole
                 server = "hiden.pw";
                 dynmap = "https://mc.hiden.pw/";
-                versions = "1.7.2 -> 1.19";
+                versions = "1.7.2 -> 1.19.2";
+		whitelist = "Yes. Ask to be whitelisted.";
             } else if (Context.Guild.Id == 936271948927881276) {
                 // Sled Dog
                 server = "mc.nickandfloppy.com:25560";
                 versions = "1.16.5";
+		whitelist = "No."
             }else
                 throw new Exception("This server does not have a server configured");
 
@@ -67,6 +71,7 @@ namespace WinBot.Commands.Main
                 if((int)serverInfo.players.online > 0) {
 					eb.AddField("Users", $"{string.Join('\n', serverInfo.players.list)}", true);
 				}
+		eb.AddField("Has a whitelist?", whitelist, true);
                 eb.AddField("Supports Cracked Accounts?", "No. It never will, just buy the game or stop asking.", true);
             }
             else {
