@@ -23,7 +23,7 @@ namespace WinBot.Commands.Fun
             string json = "";
             // Download the json string from the API
             using (WebClient client = new WebClient())
-                json = client.DownloadString("https://cataas.com/cat?json=true");
+                json = client.DownloadString($"https://api.thecatapi.com/v1/images/search?api_key={Bot.config.apiKeys.catAPIKey}");
             dynamic output = JsonConvert.DeserializeObject(json); // Deserialize the string into a dynamic object
 
             // Create and send the embed
