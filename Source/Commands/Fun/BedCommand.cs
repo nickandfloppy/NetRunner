@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Threading.Tasks;
@@ -78,10 +79,10 @@ namespace WinBot.Commands.Fun
 			
 			// Save the image to a temporary file
             bmp.Save();
-            string imagePath = TempManager.GetTempFile($"bed-{image}-{screenname}-{Context.User.Id}.png", true);
+            string imagePath = TempManager.GetTempFile($"bed-{image}-" + DateTime.Now.Ticks + "-{Context.User.Id}.png", true);
             img.Save(imagePath);
             await Context.Channel.SendFileAsync(imagePath);
-            TempManager.RemoveTempFile($"bed-{image}-{screenname}-{Context.User.Id}.png");
+            TempManager.RemoveTempFile($"bed-{image}-" + DateTime.Now.Ticks + "-{Context.User.Id}.png");
 		}
 		
         static string[] images = { "NONE", "mehdi", "agp", "agp2" };

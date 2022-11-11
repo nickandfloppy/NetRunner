@@ -14,7 +14,7 @@ namespace WinBot.Commands.Main
     {
         [Command("avatar")]
         [Description("Gets a user's avatar")]
-        [Aliases("php")]
+        [Aliases("pfp")]
         [Usage("[user]")]
         [Category(Category.Main)]
         public async Task Avatar(CommandContext Context, [RemainingText] DiscordMember user)
