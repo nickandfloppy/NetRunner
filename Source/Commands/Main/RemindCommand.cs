@@ -23,7 +23,7 @@ namespace WinBot.Commands.Main
         {
             if (timeStr == "list") {
 		        DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
-                eb.WithTitle("Current Reminders");
+                eb.WithTitle("Global Reminders");
                 eb.WithColor(DiscordColor.Gold);
                 if (Global.reminders.Count == 0)
                     await Context.ReplyAsync("No reminders currently set");
