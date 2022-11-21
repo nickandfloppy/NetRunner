@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -173,6 +173,7 @@ namespace WinBot
                 config.prefix = ".";
                 config.ids = new IDConfig();
                 config.apiKeys = new APIConfig();
+                config.minecraftServers = new MCServer[]{new MCServer()};
 
                 // Write the config and quit
                 File.WriteAllText(GetResourcePath("config", ResourceType.Config), JsonConvert.SerializeObject(config, Formatting.Indented));
@@ -227,6 +228,7 @@ namespace WinBot
         public string status { get; set; }
         public IDConfig ids { get; set; }
         public APIConfig apiKeys { get; set; }
+        public MCServer[] minecraftServers { get; set; }
     }
     
     class IDConfig
