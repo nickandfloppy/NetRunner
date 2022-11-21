@@ -1,5 +1,5 @@
 # NetRunner
-A fork of Starman0620's WinBot, modified for use in nick and floppy's corner.
+A fork of CamK06's WinBot, modified for use in The Corner.
 
 ## Usage/Build instructions
 1. Clone the repository: ``https://github.com/nickandfloppy/NetRunner.git`` and move into the project directory: ``cd NetRunner``
