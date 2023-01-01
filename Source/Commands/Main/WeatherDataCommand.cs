@@ -34,8 +34,8 @@ namespace WinBot.Commands.Main
 				} catch {
 					try {
 						using (WebClient client = new WebClient()) {
-							json = client.DownloadString("http://weather.diskfloppy.me/weatherData.json");
-							time = client.DownloadString("http://weather.diskfloppy.me/got.txt");
+							json = client.DownloadString("https://weather.diskfloppy.me/data/weatherData.json");
+							time = client.DownloadString("https://weather.diskfloppy.me/data/got.txt");
                         }
 					} catch {
 						eb.WithTitle("Unable to retrieve weather data!");
