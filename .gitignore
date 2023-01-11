@@ -363,3 +363,6 @@ WorkingDirectory/
 
 # Ignore rebuild script
 rebuild.bat
+
+# Ignore MacOS garbage
+*.DS_Store
