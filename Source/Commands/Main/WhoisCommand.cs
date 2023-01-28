@@ -42,7 +42,7 @@ namespace WinBot.Commands.Main
                 if (((DiscordUser)user).MfaEnabled == null) hasMFA = "COCK";
                 else hasMFA = (bool) (((DiscordUser)user).MfaEnabled) ? "Yes" : "No";
 
-                Embed.AddField("**Information**", $"**Mention:** <@{user.Id.ToString()}>\n**ID:** {user.Id.ToString()}\n**Bot:** {isBot}\n**Badges:** {ParseFlags(user.Flags)}", true);
+                Embed.AddField("**Information**", $"**Mention:** <@{user.Id.ToString()}>\n**ID:** {user.Id.ToString()}\n**Bot:** {isBot}", true);
 
                 // Embed dates
                 Embed.AddField("**Joined**", $"**Discord:** {(int)DateTime.Now.Subtract(user.CreationTimestamp.DateTime).TotalDays} days ago\n**->**<t:{user.CreationTimestamp.ToUnixTimeSeconds()}:f>\n**Guild:** {(int)DateTime.Now.Subtract(user.JoinedAt.DateTime).TotalDays} days ago\n**->**<t:{user.JoinedAt.ToUnixTimeSeconds()}:f>", true);
@@ -56,34 +56,13 @@ namespace WinBot.Commands.Main
                 }
                 roles = roles.Substring(0, roles.Length - 2);
                 string guild = user.Guild.Name == null ? "None" : user.Guild.Name;
-                Embed.AddField("Guild Specific", $"**Nickname:** {user.Nickname}\n**Roles ({roleCount}): {roles}**\n**Owner:** {isOwner}\n**Hierarchy Position:** {user.Hierarchy.ToString()}");
+                Embed.AddField("Guild Specific", $"**Nickname:** {user.Nickname}\n**Roles ({roleCount}): {roles}**\n**Owner:** {isOwner});
                 Embed.AddField("Guild", guild);
                 await Context.ReplyAsync("", Embed.Build());
             }
             catch (Exception ex) {
                 await Context.ReplyAsync("Error: " + ex.Message + "\nStack Trace:" + ex.StackTrace);
             }
-        }
-
-        public static string ParseFlags(Enum flags) {
-            if (flags == null) return "None";
-            string flagString = flags.ToString();
-            flagString = flagString.Replace("BugHunterLevelOne", "<:bughunter_1:980875953301508137> ");
-            flagString = flagString.Replace("BugHunterLevelTwo", "<:bughunter_2:980875953192468630> ");
-            flagString = flagString.Replace("DiscordCertifiedModerator", "");
-            flagString = flagString.Replace("DiscordEmployee", "<:staff:980875953263751168> ");
-            flagString = flagString.Replace("DiscordPartner", "<:partner:980875953339236372> ");
-            flagString = flagString.Replace("EarlySupporter", "<:early_supporter:980875953213431828> ");
-            flagString = flagString.Replace("HouseBalance", "<:balance:980875953116938290> ");
-            flagString = flagString.Replace("HouseBravery", "<:bravery:980875953167290429> ");
-            flagString = flagString.Replace("HouseBrilliance", "<:brilliance:980875953217630208> ");
-            flagString = flagString.Replace("HypeSquadEvents", "<:hypesquad_events:980875953263759441> ");
-            flagString = flagString.Replace("System", "");
-            flagString = flagString.Replace("TeamUser", "");
-            flagString = flagString.Replace("VerifiedBot", "");
-            flagString = flagString.Replace("VerifiedBotDeveloper", "<:developer:980875953301508139> ");
-            if (flagString == "None") return flagString;
-            else return flagString.Substring(0, flagString.Length - 1);
         }
     }
 }
