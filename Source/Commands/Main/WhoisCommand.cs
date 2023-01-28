@@ -56,7 +56,7 @@ namespace WinBot.Commands.Main
                 }
                 roles = roles.Substring(0, roles.Length - 2);
                 string guild = user.Guild.Name == null ? "None" : user.Guild.Name;
-                Embed.AddField("Guild Specific", $"**Nickname:** {user.Nickname}\n**Roles ({roleCount}): {roles}**\n**Owner:** {isOwner});
+                Embed.AddField("Guild Specific", $"**Nickname:** {user.Nickname}\n**Roles ({roleCount}): {roles}**\n**Owner:** {isOwner}");
                 Embed.AddField("Guild", guild);
                 await Context.ReplyAsync("", Embed.Build());
             }
