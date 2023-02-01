@@ -24,20 +24,24 @@ namespace WinBot.Commands.Main
             string server = "";
             string dynmap = "";
             string versions = "";
+            string isCracked = "";
             if (Context.Guild.Id == 764493398983049246) {
                 // The Corner
                 server = "mc.nickandfloppy.com";
                 dynmap = "http://mc.nickandfloppy.com/";
                 versions = "1.7.2 -> 1.16.5";
+                isCracked = "No. It never will, just buy the game or stop asking.";
             } else if (Context.Guild.Id == 955969771994742874) {
-                // hiden's shithole
+                // HIDEN's Shithole
                 server = "hiden.pw";
                 dynmap = "https://mc.hiden.pw/";
-                versions = "1.7.2 -> 1.19.2";
+                versions = "1.7.x -> 1.19.x";
+                isCracked = "Yes.";
             } else if (Context.Guild.Id == 936271948927881276) {
                 // Sled Dog
                 server = "mc.nickandfloppy.com:25560";
                 versions = "1.16.5";
+                isCracked = "No. It never will, just buy the game or stop asking.";
             }else
                 throw new Exception("This server does not have a server configured");
 
@@ -67,7 +71,7 @@ namespace WinBot.Commands.Main
                 if((int)serverInfo.players.online > 0) {
 					eb.AddField("Users", $"{string.Join('\n', serverInfo.players.list)}", true);
 				}
-                eb.AddField("Supports Cracked Accounts?", "No. It never will, just buy the game or stop asking.", true);
+                eb.AddField("Supports Cracked Accounts?", isCracked, true);
             }
             else {
                 eb.WithTitle("Server is Offline!");
