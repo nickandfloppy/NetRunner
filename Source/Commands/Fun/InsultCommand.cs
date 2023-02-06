@@ -23,9 +23,9 @@ namespace WinBot.Commands.fun {
                 json = await http.GetStringAsync($"http://evilinsult.com/generate_insult.php?lang=en&type=json");
 
             dynamic insultText = JsonConvert.DeserializeObject(json);  // Deserialize the thang
-				// Send the thing
-				eb.WithTitle("You got insulted. Ha...");
-				eb.WithColor(new DiscordColor("#02cc09"));
+                // Send the thing
+                eb.WithTitle("You got insulted. Ha...");
+                eb.WithColor(new DiscordColor("#02cc09"));
                 eb.WithDescription($"{insultText.insult}");
 		
 			await Context.ReplyAsync("", eb.Build());
