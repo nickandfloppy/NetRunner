@@ -59,7 +59,7 @@ namespace HBot.Commands.Main
                 if((int)serverInfo.players.online > 0) {
 					eb.AddField("Users", $"{string.Join('\n', serverInfo.players.list)}", true);
 				}
-                eb.AddField("Supports Cracked Accounts?", "No. It never will, just buy the game or stop asking.", true);
+                eb.AddField("Supports Cracked Accounts?", server.crackedInfo, true);
             }
             else {
                 eb.WithTitle("Server is Offline!");
