@@ -1,8 +1,8 @@
-# NetRunner
-A fork of CamK06's WinBot, modified for use in The Corner.
+# HBot
+A Fork of nick99nack's/floppydisk's NetRunner, which in turn is a fork of CamK06's WinBot, modified for general use (and to become it's own thing). 
 
 ## Usage/Build instructions
-1. Clone the repository: ``https://github.com/nickandfloppy/NetRunner.git`` and move into the project directory: ``cd NetRunner``
+1. Clone the repository: ``https://github.com/HIDEN64/HBot.git`` and move into the project directory: ``cd HBot``
 2. Build the source code: ``dotnet build -c Release``
 3. Change into the build directory: ``cd bin/Release/net6.0/``
 4. Run the bot: ``./WinBot`` or just ``WinBot`` for Windows. This will generate a blank configuration file for you.
@@ -16,5 +16,3 @@ Steps:
 1. Download the font family https://fonts.google.com/specimen/Roboto
 2. Extract Roboto-Regular.ttf into the bot's working directory
 3. Install Roboto-Regular.ttf on your system
-
-Note: This bot has been modified for a specific system configuration and may not work out of the box. This repo is mainly here to keep track of edits. For a version modified for arm64 Linux systems, go to the [linux-arm64](https://github.com/nickandfloppy/NetRunner/tree/linux-arm64) branch.
