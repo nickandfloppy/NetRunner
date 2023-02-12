@@ -5,11 +5,11 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace WinBot.Commands.fun {
+namespace HBot.Commands.fun {
     public class InsultCommand : BaseCommandModule {
         [Command("insult")]
         [Description("Insults you. Fun.")]

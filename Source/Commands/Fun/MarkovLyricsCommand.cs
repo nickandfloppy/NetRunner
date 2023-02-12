@@ -10,12 +10,12 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Util;
-using WinBot.Commands.Attributes;
+using HBot.Util;
+using HBot.Commands.Attributes;
 
 using MarkovSharp.TokenisationStrategies;
 
-namespace WinBot.Commands.Fun
+namespace HBot.Commands.Fun
 {
     public class MarkovQuoteCommand : BaseCommandModule
     {

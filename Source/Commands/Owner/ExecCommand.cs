@@ -5,11 +5,11 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
-using WinBot.Util;
+using HBot.Util;
 
-namespace WinBot.Commands.Owner
+namespace HBot.Commands.Owner
 {
     public class ExecCommand : BaseCommandModule
     {

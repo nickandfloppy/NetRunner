@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class YearCommand : BaseCommandModule
     {

@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace WinBot.Util
+namespace HBot.Util
 {
     public static class Shell
     {

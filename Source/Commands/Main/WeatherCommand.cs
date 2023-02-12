@@ -4,13 +4,13 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
 using RestSharp;
 
 using Newtonsoft.Json;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class WeatherCommand : BaseCommandModule
     {

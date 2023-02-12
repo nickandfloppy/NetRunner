@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Util;
-using static WinBot.Util.ResourceManager;
-using WinBot.Commands.Attributes;
+using HBot.Util;
+using static HBot.Util.ResourceManager;
+using HBot.Commands.Attributes;
 
-namespace WinBot.Commands.Fun
+namespace HBot.Commands.Fun
 {
     public class BedCommand : BaseCommandModule
     {

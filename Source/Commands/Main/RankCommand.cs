@@ -7,13 +7,13 @@ using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Commands.Attributes;
-using static WinBot.Util.ResourceManager;
-using WinBot.Misc;
-using WinBot.Util;
+using HBot.Commands.Attributes;
+using static HBot.Util.ResourceManager;
+using HBot.Misc;
+using HBot.Util;
 using System.Text.RegularExpressions;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class RankCommand : BaseCommandModule
     {

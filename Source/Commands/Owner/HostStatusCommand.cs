@@ -6,15 +6,15 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
-using WinBot.Misc;
-using WinBot.Util;
-using WinBot;
+using HBot.Misc;
+using HBot.Util;
+using HBot;
 
 using Serilog;
 
-namespace WinBot.Commands.Owner
+namespace HBot.Commands.Owner
 {
     public class HostStatusCommand : BaseCommandModule
     {

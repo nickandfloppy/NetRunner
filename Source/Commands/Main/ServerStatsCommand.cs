@@ -9,16 +9,16 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
 using ScottPlot;
 
-using WinBot.Misc;
-using WinBot.Util;
+using HBot.Misc;
+using HBot.Util;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class ServerStatsCommand : BaseCommandModule
     {

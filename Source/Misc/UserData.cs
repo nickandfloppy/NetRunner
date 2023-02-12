@@ -9,9 +9,9 @@ using Serilog;
 
 using Newtonsoft.Json;
 
-using static WinBot.Util.ResourceManager;
+using static HBot.Util.ResourceManager;
 
-namespace WinBot.Misc
+namespace HBot.Misc
 {
     public class UserData
     {

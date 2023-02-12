@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Commands.Attributes;
-using WinBot.Misc;
+using HBot.Commands.Attributes;
+using HBot.Misc;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class LevelMessageCommand : BaseCommandModule
     {

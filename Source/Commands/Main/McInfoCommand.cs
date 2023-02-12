@@ -8,12 +8,12 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Misc;
-using WinBot.Commands.Attributes;
+using HBot.Misc;
+using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class McInfoCommand : BaseCommandModule
     {

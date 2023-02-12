@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace WinBot.Util
+namespace HBot.Util
 {
     public static class ResourceManager
     {

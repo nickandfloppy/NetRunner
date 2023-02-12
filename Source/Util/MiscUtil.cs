@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace WinBot.Util
+namespace HBot.Util
 {
     public static class MiscUtil
     {

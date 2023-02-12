@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
-using WinBot.Misc;
+using HBot.Misc;
 
 using Serilog;
 
-namespace WinBot.Commands.Owner
+namespace HBot.Commands.Owner
 {
     public class KillCommand : BaseCommandModule
     {

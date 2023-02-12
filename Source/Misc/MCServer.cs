@@ -12,9 +12,9 @@ using Newtonsoft.Json;
 
 using Serilog;
 
-using static WinBot.Util.ResourceManager;
+using static HBot.Util.ResourceManager;
 
-namespace WinBot.Misc
+namespace HBot.Misc
 {
     public class MCServer
     {

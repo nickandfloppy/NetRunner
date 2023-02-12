@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
-namespace WinBot.Commands.Fun
+namespace HBot.Commands.Fun
 {
     public class GZTrCommand : BaseCommandModule
     {

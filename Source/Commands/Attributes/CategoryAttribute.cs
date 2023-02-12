@@ -1,6 +1,6 @@
 using System;
 
-namespace WinBot.Commands.Attributes
+namespace HBot.Commands.Attributes
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Parameter, AllowMultiple = false)]
     public sealed class CategoryAttribute : Attribute

@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Util;
-using WinBot.Commands.Attributes;
+using HBot.Util;
+using HBot.Commands.Attributes;
 
 using ImageMagick;
 
-namespace WinBot.Commands.Images
+namespace HBot.Commands.Images
 {
     public class DeepfryCommand : BaseCommandModule
     {

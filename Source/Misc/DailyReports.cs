@@ -12,10 +12,10 @@ using DSharpPlus.EventArgs;
 
 using Serilog;
 
-using static WinBot.Util.ResourceManager;
-using WinBot.Util;
+using static HBot.Util.ResourceManager;
+using HBot.Util;
 
-namespace WinBot.Misc
+namespace HBot.Misc
 {
 	public class DailyReportSystem
 	{

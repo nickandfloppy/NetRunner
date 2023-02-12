@@ -6,7 +6,7 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.CommandsNext;
 
-namespace WinBot.Commands
+namespace HBot.Commands
 {
     public class CommandHandler
     {

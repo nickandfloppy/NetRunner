@@ -12,9 +12,9 @@ using Newtonsoft.Json;
 
 using Serilog;
 
-using WinBot.Util;
+using HBot.Util;
 
-namespace WinBot.Misc
+namespace HBot.Misc
 {
     public class WWRSS
     {

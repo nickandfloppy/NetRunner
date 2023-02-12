@@ -10,16 +10,16 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using static WinBot.Util.ResourceManager;
-using WinBot.Misc;
-using WinBot.Util;
-using WinBot.Commands.Attributes;
+using static HBot.Util.ResourceManager;
+using HBot.Misc;
+using HBot.Util;
+using HBot.Commands.Attributes;
 
 using MarkovSharp.TokenisationStrategies;
 
 using Newtonsoft.Json;
 
-namespace WinBot.Commands.Fun
+namespace HBot.Commands.Fun
 {
     public class MarkovCommand : BaseCommandModule
     {

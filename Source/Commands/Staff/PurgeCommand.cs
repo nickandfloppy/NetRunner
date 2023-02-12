@@ -5,9 +5,9 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
-namespace WinBot.Commands.Staff
+namespace HBot.Commands.Staff
 {
     public class PurgeCommand : BaseCommandModule
     {

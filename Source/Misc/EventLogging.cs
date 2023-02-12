@@ -6,7 +6,7 @@ using DSharpPlus.EventArgs;
 
 using Serilog;
 
-namespace WinBot.Misc
+namespace HBot.Misc
 {
     public class EventLogging
     {

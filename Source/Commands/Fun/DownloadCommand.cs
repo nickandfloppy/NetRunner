@@ -8,12 +8,12 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Util;
-using WinBot.Commands.Attributes;
+using HBot.Util;
+using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace WinBot.Commands.Fun
+namespace HBot.Commands.Fun
 {
     public class DownloadCommand : BaseCommandModule
     {
@@ -21,7 +21,7 @@ namespace WinBot.Commands.Fun
         string[] verbs = null;
 
         [Command("dl")]
-        [Description("You wouldn't download a WinBot!")]
+        [Description("You wouldn't download a HBot!")]
         [Usage("[verb] [noun] [args] (arguments: -noa -red -would -will -inline)")]
         [Category(Category.Fun)]
         public async Task Dl(CommandContext Context, string verb = null, [RemainingText] string noun = null)

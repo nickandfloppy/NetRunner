@@ -7,7 +7,7 @@ using Serilog.Core;
 using Serilog.Events;
 using Serilog.Configuration;
 
-namespace WinBot.Util
+namespace HBot.Util
 {
     public class DiscordSink : ILogEventSink
     {

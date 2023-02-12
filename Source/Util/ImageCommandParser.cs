@@ -7,7 +7,7 @@ using DSharpPlus.CommandsNext;
 
 using ImageMagick;
 
-namespace WinBot.Util
+namespace HBot.Util
 {
     class ImageCommandParser
     {

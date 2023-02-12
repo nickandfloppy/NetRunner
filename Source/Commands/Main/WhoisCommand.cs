@@ -5,10 +5,10 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Util;
-using WinBot.Commands.Attributes;
+using HBot.Util;
+using HBot.Commands.Attributes;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class WhoisCommand : BaseCommandModule
     {

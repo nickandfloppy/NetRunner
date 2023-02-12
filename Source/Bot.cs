@@ -19,14 +19,14 @@ using Newtonsoft.Json;
 using Serilog;
 using Microsoft.Extensions.Logging;
 
-using WinBot.Util;
-using WinBot.Misc;
-using WinBot.Commands;
-using static WinBot.Util.ResourceManager;
+using HBot.Util;
+using HBot.Misc;
+using HBot.Commands;
+using static HBot.Util.ResourceManager;
 
 using ImageMagick;
 
-namespace WinBot
+namespace HBot
 {
     class Bot
     {
@@ -56,7 +56,7 @@ namespace WinBot
                 .WriteTo.DiscordSink()
                 .CreateLogger();
             ILoggerFactory logFactory = new LoggerFactory().AddSerilog();
-            Log.Information($"WinBot {VERSION}");
+            Log.Information($"HBot {VERSION}");
             Log.Information($"Starting bot...");
 
             VerifyIntegrity();

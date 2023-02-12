@@ -5,11 +5,11 @@ using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Commands.Attributes;
-using WinBot.Misc;
-using WinBot.Util;
+using HBot.Commands.Attributes;
+using HBot.Misc;
+using HBot.Util;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class LeaderboardCommand : BaseCommandModule
     {

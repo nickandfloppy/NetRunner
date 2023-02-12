@@ -8,13 +8,13 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Misc;
-using WinBot.Commands.Attributes;
+using HBot.Misc;
+using HBot.Commands.Attributes;
 
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 
-namespace WinBot.Commands.Owner
+namespace HBot.Commands.Owner
 {
     public class EvalCommand : BaseCommandModule
     {
@@ -43,7 +43,7 @@ namespace WinBot.Commands.Owner
                 };
                 var asms = AppDomain.CurrentDomain.GetAssemblies(); // .SingleOrDefault(assembly => assembly.GetName().Name == "MyAssembly");
                 foreach (Assembly assembly in asms)
-                    if (!assembly.IsDynamic && assembly.FullName.ToLower().Contains("dsharp") || assembly.FullName.ToLower().Contains("newtonsoft") || assembly.FullName.ToLower().Contains("microsoft.csharp") || assembly.FullName.ToLower().Contains("winbot") || assembly.FullName.ToLower().Contains("scottplot"))
+                    if (!assembly.IsDynamic && assembly.FullName.ToLower().Contains("dsharp") || assembly.FullName.ToLower().Contains("newtonsoft") || assembly.FullName.ToLower().Contains("microsoft.csharp") || assembly.FullName.ToLower().Contains("HBot") || assembly.FullName.ToLower().Contains("scottplot"))
                         scriptOptions = scriptOptions.AddReferences(assembly);
                 scriptOptions = scriptOptions.AddReferences(new string[] { "ScottPlot, Version=4.0.48.0, Culture=neutral, PublicKeyToken=86698dc10387c39e" });
                 scriptOptions.AddReferences(Assembly.GetExecutingAssembly());
@@ -62,8 +62,8 @@ using DSharpPlus.Entities;
 using Newtonsoft.Json;
 using ScottPlot;
 using ScottPlot.Drawing;
-using WinBot;
-using WinBot.Commands.Attributes;" + code;
+using HBot;
+using HBot.Commands.Attributes;" + code;
 
                 var result = await CSharpScript.EvaluateAsync(code, scriptOptions, globals);
                 if (result != null) {

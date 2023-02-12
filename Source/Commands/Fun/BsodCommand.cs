@@ -5,11 +5,11 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Commands.Attributes;
+using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace WinBot.Commands.Fun
+namespace HBot.Commands.Fun
 {
     public class BsodCommand : BaseCommandModule
     {

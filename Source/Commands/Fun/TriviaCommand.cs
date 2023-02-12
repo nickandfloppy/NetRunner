@@ -11,13 +11,13 @@ using DSharpPlus.Interactivity;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Interactivity.Extensions;
 
-using WinBot.Misc;
-using WinBot.Util;
-using WinBot.Commands.Attributes;
+using HBot.Misc;
+using HBot.Util;
+using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class TriviaCommand : BaseCommandModule
     {

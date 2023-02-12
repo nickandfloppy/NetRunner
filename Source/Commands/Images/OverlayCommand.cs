@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 
-using WinBot.Util;
-using WinBot.Commands.Attributes;
-using static WinBot.Util.ResourceManager;
+using HBot.Util;
+using HBot.Commands.Attributes;
+using static HBot.Util.ResourceManager;
 
 using ImageMagick;
 
-namespace WinBot.Commands.Images
+namespace HBot.Commands.Images
 {
     public class OverlayCommand : BaseCommandModule
     {

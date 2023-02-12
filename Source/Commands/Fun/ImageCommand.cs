@@ -12,14 +12,14 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using WinBot.Util;
-using WinBot.Commands.Attributes;
-using static WinBot.Util.ResourceManager;
+using HBot.Util;
+using HBot.Commands.Attributes;
+using static HBot.Util.ResourceManager;
 
 using Newtonsoft.Json;
 using DSharpPlus;
 
-namespace WinBot.Commands.Main
+namespace HBot.Commands.Main
 {
     public class ImageCommand : BaseCommandModule
     {

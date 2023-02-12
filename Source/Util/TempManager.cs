@@ -7,9 +7,9 @@ using Serilog;
 
 using Newtonsoft.Json;
 
-using static WinBot.Util.ResourceManager;
+using static HBot.Util.ResourceManager;
 
-namespace WinBot.Util
+namespace HBot.Util
 {
     public class TempManager
     {

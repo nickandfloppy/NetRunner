@@ -7,12 +7,12 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using static WinBot.Util.ResourceManager;
-using WinBot.Commands.Attributes;
+using static HBot.Util.ResourceManager;
+using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace WinBot.Commands.Staff
+namespace HBot.Commands.Staff
 {
     public class BlacklistCommand : BaseCommandModule
     {
