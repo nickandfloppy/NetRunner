@@ -22,12 +22,14 @@ namespace WinBot.Misc
         public string address;
         public string dynmap;
         public string versions;
+        public string crackedInfo;
         
         public MCServer(ulong guildID, string address, string dynmap, string versions) {
             this.guildID = guildID;
             this.address = address;
             this.dynmap = dynmap;
             this.versions = versions;
+            this.crackedInfo = "No. It never will, just buy the game or stop asking.";
         }
 
         public MCServer(ulong guildID, string address, string versions) {
@@ -35,6 +37,7 @@ namespace WinBot.Misc
             this.address = address;
             this.versions = versions;
             this.dynmap = null;
+            this.crackedInfo = "No. It never will, just buy the game or stop asking.";
         }
 
         public MCServer() {
@@ -42,6 +45,7 @@ namespace WinBot.Misc
             this.address = "address";
             this.dynmap = "dynmap";
             this.versions = "versions";
+            this.crackedInfo = "No. It never will, just buy the game or stop asking.";
         }
 
     }
