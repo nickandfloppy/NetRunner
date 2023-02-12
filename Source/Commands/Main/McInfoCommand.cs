@@ -24,6 +24,7 @@ namespace WinBot.Commands.Main
             string dynmap = "";
             string versions = "";
             string isCracked = "";
+            // TODO: Move these to JSON at some point - HIDEN
             if (Context.Guild.Id == 764493398983049246) {
                 // The Corner
                 server = "mc.nickandfloppy.com";

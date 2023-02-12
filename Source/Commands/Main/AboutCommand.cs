@@ -25,7 +25,7 @@ namespace WinBot.Commands.Main
             eb.AddField("Version", Bot.VERSION, true);
             eb.AddField("Library", $"DSharpPlus v{Bot.client.VersionString}", true);
             eb.AddField("Host OS", Environment.OSVersion.VersionString, true);
-            eb.WithUrl("https://git.nickandfloppy.com/nickandfloppy/NetRunner");
+            eb.WithUrl("https://github.com/nickandfloppy/NetRunner");
             eb.WithThumbnail(Bot.client.CurrentUser.AvatarUrl);
             eb.WithColor(DiscordColor.Gold);
 

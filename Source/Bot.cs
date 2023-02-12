@@ -30,7 +30,7 @@ namespace WinBot
 {
     class Bot
     {
-        public const string VERSION = "4.0.4";
+        public const string VERSION = "4.1.0";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -160,6 +160,9 @@ namespace WinBot
                 Directory.CreateDirectory("Data");
             if(!Directory.Exists("Resources"))
                 Directory.CreateDirectory("Resources");
+            // Extrememly awful way to do this, but I guess it'll work for now - HIDEN
+            if(!Directory.Exists("Resources/Lyrics"))
+                Directory.CreateDirectory("Resources/Lyrics");
             if(!Directory.Exists("Temp"))
                 Directory.CreateDirectory("Temp");
 
@@ -190,11 +193,11 @@ namespace WinBot
             // Verify and download resources
             Log.Information("Verifying resources...");
             WebClient webClient = new WebClient();
-            string resourcesJson = webClient.DownloadString("https://raw.githubusercontent.com/CamK06/WinBot/main/Resources/resources.json");
+            string resourcesJson = webClient.DownloadString("https://raw.githubusercontent.com/nickandfloppy/NetRunner/master/Resources/resources.json");
             string[] resources = JsonConvert.DeserializeObject<string[]>(resourcesJson);
             foreach(string resource in resources) {
                 if(!ResourceExists(resource, ResourceType.Resource)) {
-                    webClient.DownloadFile($"https://raw.githubusercontent.com/CamK06/WinBot/main/Resources/{resource}", GetResourcePath(resource, ResourceType.Resource));
+                    webClient.DownloadFile($"https://raw.githubusercontent.com/nickandfloppy/NetRunner/master/Resources/{resource}", GetResourcePath(resource, ResourceType.Resource));
                     Log.Information("Downloaded " + resource + "");
                 }
             }
