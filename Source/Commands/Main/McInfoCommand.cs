@@ -3,10 +3,12 @@ using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
 
+
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
+using WinBot.Misc;
 using WinBot.Commands.Attributes;
 
 using Newtonsoft.Json;
@@ -20,29 +22,15 @@ namespace WinBot.Commands.Main
         [Category(Category.Main)]
         public async Task McInfo(CommandContext Context)
         {
-            string server = "";
-            string dynmap = "";
-            string versions = "";
-            string isCracked = "";
-            // TODO: Move these to JSON at some point - HIDEN
-            if (Context.Guild.Id == 764493398983049246) {
-                // The Corner
-                server = "mc.nickandfloppy.com";
-                dynmap = "http://mc.nickandfloppy.com/";
-                versions = "1.7.2 -> 1.16.5";
-                isCracked = "No. It never will, just buy the game or stop asking.";
-            } else if (Context.Guild.Id == 955969771994742874) {
-                // HIDEN's Shithole
-                server = "hiden.pw";
-                dynmap = "https://mc.hiden.pw/";
-                versions = "1.7.x -> 1.19.x";
-                isCracked = "Yes.";
-            } else if (Context.Guild.Id == 936271948927881276) {
-                // Sled Dog
-                server = "mc.nickandfloppy.com:25560";
-                versions = "1.16.5";
-                isCracked = "No. It never will, just buy the game or stop asking.";
-            }else
+            MCServer server = new MCServer();
+
+            foreach (MCServer currentServer in Bot.config.minecraftServers) {
+                if (Context.Guild.Id == currentServer.guildID) {
+                    server = currentServer;
+                    break;
+                }
+            }
+            if (server.guildID == 0)
                 throw new Exception("This server does not have a server configured");
 
             await Context.Channel.TriggerTypingAsync();
@@ -50,7 +38,7 @@ namespace WinBot.Commands.Main
             // Download the server info
             string json = "";
             using(HttpClient http = new HttpClient())
-                json = await http.GetStringAsync($"https://api.mcsrvstat.us/2/{server}");
+                json = await http.GetStringAsync($"https://api.mcsrvstat.us/2/{server.address}");
 
             dynamic serverInfo = JsonConvert.DeserializeObject(json);
             
@@ -62,16 +50,16 @@ namespace WinBot.Commands.Main
             if((bool)serverInfo.online) {
                 eb.WithThumbnail(Context.Guild.IconUrl);
                 eb.WithTitle(WebUtility.HtmlDecode((string)serverInfo.motd.clean[0]));
-                eb.AddField("Address", server, true);
-                eb.AddField("Versions", versions, true);
-                if (dynmap != "")
-		            eb.AddField("Dynmap", dynmap, true);
+                eb.AddField("Address", server.address, true);
+                eb.AddField("Versions", server.versions, true);
+                if (server.dynmap != null)
+		            eb.AddField("Dynmap", server.dynmap, true);
                 eb.AddField("Online?", ((bool)serverInfo.online) ? "Yes" : "No", true);
                 eb.AddField("Users Count", $"{(int)serverInfo.players.online}/{(int)serverInfo.players.max}", true);
                 if((int)serverInfo.players.online > 0) {
 					eb.AddField("Users", $"{string.Join('\n', serverInfo.players.list)}", true);
 				}
-                eb.AddField("Supports Cracked Accounts?", isCracked, true);
+                eb.AddField("Supports Cracked Accounts?", "No. It never will, just buy the game or stop asking.", true);
             }
             else {
                 eb.WithTitle("Server is Offline!");
@@ -82,3 +70,4 @@ namespace WinBot.Commands.Main
         }
     }
 }
+
