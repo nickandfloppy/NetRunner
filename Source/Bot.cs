@@ -160,6 +160,9 @@ namespace WinBot
                 Directory.CreateDirectory("Data");
             if(!Directory.Exists("Resources"))
                 Directory.CreateDirectory("Resources");
+            // Extrememly awful way to do this, but I guess it'll work for now - HIDEN
+            if(!Directory.Exists("Resources/Lyrics"))
+                Directory.CreateDirectory("Resources/Lyrics");
             if(!Directory.Exists("Temp"))
                 Directory.CreateDirectory("Temp");
 
