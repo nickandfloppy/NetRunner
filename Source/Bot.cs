@@ -30,7 +30,7 @@ namespace WinBot
 {
     class Bot
     {
-        public const string VERSION = "4.0.4";
+        public const string VERSION = "4.1.0-dev";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -190,7 +190,7 @@ namespace WinBot
             // Verify and download resources
             Log.Information("Verifying resources...");
             WebClient webClient = new WebClient();
-            string resourcesJson = webClient.DownloadString("https://raw.githubusercontent.com/CamK06/WinBot/main/Resources/resources.json");
+            string resourcesJson = webClient.DownloadString("https://raw.githubusercontent.com/nickandfloppy/NetRunner/main/Resources/resources.json");
             string[] resources = JsonConvert.DeserializeObject<string[]>(resourcesJson);
             foreach(string resource in resources) {
                 if(!ResourceExists(resource, ResourceType.Resource)) {
