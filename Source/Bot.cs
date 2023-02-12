@@ -193,11 +193,11 @@ namespace WinBot
             // Verify and download resources
             Log.Information("Verifying resources...");
             WebClient webClient = new WebClient();
-            string resourcesJson = webClient.DownloadString("https://raw.githubusercontent.com/nickandfloppy/NetRunner/master/Resources/resources.json");
+            string resourcesJson = webClient.DownloadString("https://raw.githubusercontent.com/HIDEN64/HBot/master/Resources/resources.json");
             string[] resources = JsonConvert.DeserializeObject<string[]>(resourcesJson);
             foreach(string resource in resources) {
                 if(!ResourceExists(resource, ResourceType.Resource)) {
-                    webClient.DownloadFile($"https://raw.githubusercontent.com/nickandfloppy/NetRunner/master/Resources/{resource}", GetResourcePath(resource, ResourceType.Resource));
+                    webClient.DownloadFile($"https://raw.githubusercontent.com/HIDEN64/HBot/master/Resources/{resource}", GetResourcePath(resource, ResourceType.Resource));
                     Log.Information("Downloaded " + resource + "");
                 }
             }

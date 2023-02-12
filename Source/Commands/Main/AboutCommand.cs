@@ -20,12 +20,12 @@ namespace WinBot.Commands.Main
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithTitle($"{Bot.client.CurrentUser.Username}");
             eb.AddField("Maintainer", $"{Bot.client.CurrentApplication.Owners.First().Username}", true);
-            eb.AddField("Contributors", $"nick99nack\nfloppydisk\nxproot\nHIDEN", true);
+            eb.AddField("Contributors", $"CamK06\nnick99nack\nfloppydisk\nxproot", true);
             eb.AddField("Language", "C#", true);
             eb.AddField("Version", Bot.VERSION, true);
             eb.AddField("Library", $"DSharpPlus v{Bot.client.VersionString}", true);
             eb.AddField("Host OS", Environment.OSVersion.VersionString, true);
-            eb.WithUrl("https://github.com/nickandfloppy/NetRunner");
+            eb.WithUrl("https://github.com/HIDEN64/HBot");
             eb.WithThumbnail(Bot.client.CurrentUser.AvatarUrl);
             eb.WithColor(DiscordColor.Gold);
 
