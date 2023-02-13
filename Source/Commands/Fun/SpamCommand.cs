@@ -1,4 +1,3 @@
-#if !TOFU
 using System;
 using System.IO;
 using System.Net;
@@ -20,7 +19,7 @@ namespace HBot.Commands.Main
     public class SpamCommand : BaseCommandModule
     {
         [Command("spam")]
-        [Description("Gets a random spam e-mail")]
+        [Description("Gets a random spam e-mail (from nick99nack's collection)")]
         [Category(Category.Fun)]
         public async Task Spam(CommandContext Context, [RemainingText] int spamID = 0)
         {
@@ -63,4 +62,3 @@ namespace HBot.Commands.Main
         }
     }
 }
-#endif

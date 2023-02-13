@@ -18,6 +18,6 @@ namespace HBot.Commands.Attributes
 
     public enum Category
     {
-        Main, Fun, Misc, Staff, Owner, Images, NerdStuff
+        Main, Fun, Misc, Staff, Owner, Images
     }
 }

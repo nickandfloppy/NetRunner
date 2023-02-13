@@ -33,9 +33,7 @@ namespace HBot.Commands.Main
             reports = reports.OrderByDescending(grp => grp.dayOfReport.DayOfYear).Reverse().ToList();
 
             double[] messages, commands, ys;
-#if TOFU
             double[] userJoin, userLeave;
-#endif
             string[] xticks;
 
             // Data parsing... this is a huge mess but oh well, I'm lazy and it just works
@@ -51,10 +49,8 @@ namespace HBot.Commands.Main
             commands = new double[realCount];
             ys = new double[realCount];
             xticks = new string[realCount];
-#if TOFU
-                userJoin = new double[realCount];
-                userLeave = new double[realCount];
-#endif
+            userJoin = new double[realCount];
+            userLeave = new double[realCount];
 
             realCount = 0;
             for (int i = 0; i < reports.Count; i++)
@@ -64,10 +60,8 @@ namespace HBot.Commands.Main
                 xticks[realCount] = reports[i].dayOfReport.ToShortDateString();
                 messages[realCount] += reports[i].messagesSent;
                 commands[realCount] += reports[i].commandsRan;
-#if TOFU
-                    userJoin[realCount] += reports[i].usersJoined;
-                    userLeave[realCount] += reports[i].usersLeft;
-#endif
+                userJoin[realCount] += reports[i].usersJoined;
+                userLeave[realCount] += reports[i].usersLeft;
                 realCount++;
                 }
             }
@@ -79,19 +73,13 @@ namespace HBot.Commands.Main
             plt.YLabel("Count", null, null, 25.5f, null, false);
             plt.PlotFillAboveBelow(ys, messages, "Messages", lineWidth: 4, lineColor: System.Drawing.Color.FromArgb(100, 119, 183), fillAlpha: .5, fillColorBelow: System.Drawing.Color.FromArgb(100, 119, 183), fillColorAbove: System.Drawing.Color.FromArgb(100, 119, 183));
             plt.PlotFillAboveBelow(ys, commands, "Command Executions", lineWidth: 4, lineColor: System.Drawing.Color.FromArgb(252, 186, 3), fillAlpha: .5, fillColorBelow: System.Drawing.Color.FromArgb(252, 186, 3), fillColorAbove: System.Drawing.Color.FromArgb(252, 186, 3));
-#if TOFU
             plt.PlotFillAboveBelow(ys, userJoin, "Users Joined", lineWidth: 4, lineColor: System.Drawing.Color.FromArgb(252, 3, 3), fillAlpha: .5, fillColorBelow: System.Drawing.Color.FromArgb(252, 3, 3), fillColorAbove: System.Drawing.Color.FromArgb(252, 3, 3));
             plt.PlotFillAboveBelow(ys, userLeave, "Users Left", lineWidth: 4, lineColor: System.Drawing.Color.FromArgb(15, 252, 3), fillAlpha: .5, fillColorBelow: System.Drawing.Color.FromArgb(15, 252, 3), fillColorAbove: System.Drawing.Color.FromArgb(15, 252, 3));
-#endif
             //plt.TightenLayout(0, true);
             plt.Layout(xScaleHeight: 128);
             plt.XTicks(ys, xticks);
             //plt.Ticks(dateTimeX: true, xTickRotation: 75);
-#if !TOFU
             plt.Title($"{Context.Guild.Name} Stats (Past 14 days)", null, null, 45.5f, null, true);
-#else
-            plt.Title($"{Context.Guild.Name} Stats (UTC, Past 14 days)", null, null, 45.5f, null, true);
-#endif
             //plt.Grid(xSpacing: 1, xSpacingDateTimeUnit: ScottPlot.Config.DateTimeUnit.Day);
             plt.Legend(true, null, 30, null, null, System.Drawing.Color.FromArgb(100, 52, 54, 60), null, legendLocation.upperRight, shadowDirection.lowerRight, null, null);
 

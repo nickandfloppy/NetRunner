@@ -1,4 +1,3 @@
-#if TOFU
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -52,4 +51,3 @@ namespace HBot.Commands.Staff
         }
     }
 }
-#endif

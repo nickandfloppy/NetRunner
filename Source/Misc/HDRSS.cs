@@ -1,4 +1,3 @@
-#if !TOFU
 using System.IO;
 using System.Timers;
 using System.Threading.Tasks;
@@ -14,14 +13,11 @@ using Serilog;
 
 using HBot.Util;
 
-namespace HBot.Misc
-{
-    public class WWRSS
-    {
+namespace HBot.Misc {
+    public class HDRSS {
         public static List<string> sentItems = new List<string>();
 
-        public static async Task Init()
-        {
+        public static async Task Init() {
             try {
             // Load cached items
             if (ResourceManager.ResourceExists("rss.cache"))
@@ -38,21 +34,19 @@ namespace HBot.Misc
             // Do an initial fetch of items
             await FetchItems();
 
-            Log.Write(Serilog.Events.LogEventLevel.Information, "WinWorld RSS service started");
+            Log.Write(Serilog.Events.LogEventLevel.Information, "HIDNet RSS service started");
             }catch(System.Exception ex) {
                 Log.Write(Serilog.Events.LogEventLevel.Information, ex.Message);
             }
         }
 
-        public static async Task FetchItems()
-        {
+        public static async Task FetchItems() {
             try {
             // Setup
-            var feed = await FeedReader.ReadAsync("https://winworldpc.com/downloads/latest.rss");
+            var feed = await FeedReader.ReadAsync("https://hiden.pw/blog/rss");
             DiscordChannel additions = await Bot.client.GetChannelAsync(Bot.config.ids.rssChannel);
 
-            foreach (FeedItem item in feed.Items)
-            {
+            foreach (FeedItem item in feed.Items) {
                 // Don't send an item twice
                 if(sentItems.Contains(item.Id))
                     return;
@@ -78,4 +72,3 @@ namespace HBot.Misc
         }
     }
 }
-#endif

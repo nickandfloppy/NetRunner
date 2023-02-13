@@ -6,7 +6,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <!-- DefineConstants>TOFU;DEBUG</DefineConstants-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,12 +27,5 @@
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="WikipediaNet" Version="2.0.0" />
   </ItemGroup>
-
-  <PropertyGroup Condition="'$(configuration)'=='TofuDeb'">
-      <DefineConstants>TOFU;DEBUG</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(configuration)'=='TofuRel'">
-    <DefineConstants>TOFU;RELEASE</DefineConstants>
-  </PropertyGroup>
 
 </Project>

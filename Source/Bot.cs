@@ -30,7 +30,7 @@ namespace HBot
 {
     class Bot
     {
-        public const string VERSION = "1.0.1";
+        public const string VERSION = "1.0.2-dev";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -100,12 +100,12 @@ namespace HBot
                 Global.logChannel = await client.GetChannelAsync(config.ids.logChannel);
             if(Global.logChannel == null)
                 Log.Error("Shitcord is failing to return a valid log channel or no channel ID is set in the config");
-#if TOFU
+
             if(config.ids.welcomeChannel != 0)
                 Global.welcomeChannel = await client.GetChannelAsync(config.ids.welcomeChannel);
             if(Global.welcomeChannel == null)
                 Log.Error("Shitcord is failing to return a valid welcome channel or no channel ID is set in the config");
-#endif
+
             // Set misc stuff
 
             // Start misc systems
@@ -114,10 +114,9 @@ namespace HBot
             TempManager.Init();
             DailyReportSystem.Init();
             MagickNET.Initialize(); 
-#if !TOFU
+
             if(Bot.config.ids.rssChannel != 0)
-                await WWRSS.Init();
-#endif
+                await HDRSS.Init();
 
             await client.UpdateStatusAsync(new DiscordActivity() { Name = config.status });
             Log.Information("Ready");
@@ -133,16 +132,16 @@ namespace HBot
                     CommandHandler.HandleCommand(e.Message, e.Author);
                 return Task.CompletedTask;
             };
-#if TOFU
+
             client.GuildMemberAdded += async (DiscordClient client, GuildMemberAddEventArgs e) => {
                 if(!Global.mutedUsers.Contains(e.Member.Id))
-                    await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to Cerro Gordo! Be sure to read the <#774567486069800960> before chatting!");
+                    await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to the Shithole! Make sure you read the rules before chatting. You can find them here: https://hiden.pw/rules.");
                 else {
-                    await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to Cerro Gordo! Unfortunately it seems as if you have failed to read <#774567486069800960>, have fun in the hole!");
+                    await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to Cerro Gordo! Unfortunately it seems as if you have failed to read the rules, have fun in the box! This is what you get for trying to be a ding-dong :P.");
                     await e.Member.GrantRoleAsync(Global.mutedRole, "succ");
                 }
             };
-#endif
+
             // Commands
             commands.CommandErrored += CommandHandler.HandleError;
 
@@ -185,10 +184,8 @@ namespace HBot
             }
             if(!ResourceExists("blacklist", ResourceType.JsonData))
                 File.WriteAllText(GetResourcePath("blacklist", ResourceType.JsonData), "[]");
-#if TOFU
             if(!ResourceExists("mute", ResourceType.JsonData))
                 File.WriteAllText(GetResourcePath("mute", ResourceType.JsonData), "[]");
-#endif
 
             // Verify and download resources
             Log.Information("Verifying resources...");
@@ -218,9 +215,8 @@ namespace HBot
                 Environment.Exit(-1);
             }
             Global.blacklistedUsers = JsonConvert.DeserializeObject<List<ulong>>(File.ReadAllText(GetResourcePath("blacklist", ResourceType.JsonData)));
-#if TOFU
             Global.mutedUsers = JsonConvert.DeserializeObject<List<ulong>>(File.ReadAllText(GetResourcePath("mute", ResourceType.JsonData)));
-#endif
+
         }
     }
 
@@ -240,11 +236,9 @@ namespace HBot
         public ulong targetGuild { get; set; } = 0; // Where muted role etc are
         public ulong logChannel { get; set; } = 0;
         public ulong mutedRole { get; set; } = 0;
-#if TOFU
         public ulong welcomeChannel { get; set; } = 0;
-#else
         public ulong rssChannel { get; set; } = 0;
-#endif
+
     }
 
     class APIConfig
@@ -263,10 +257,9 @@ namespace HBot
         
         // Moderation
         public static List<ulong> blacklistedUsers = new List<ulong>();
-#if TOFU
         public static List<ulong> mutedUsers = new List<ulong>();
         public static DiscordRole mutedRole;
         public static DiscordChannel welcomeChannel = null;
-#endif
+
     }
 }

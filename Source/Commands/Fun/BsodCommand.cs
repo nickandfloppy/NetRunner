@@ -18,6 +18,7 @@ namespace HBot.Commands.Fun
         [Category(Category.Fun)]
         public async Task BSOD(CommandContext Context)
         {
+            // I should actually add shit to this at some point - HIDEN
             await Context.ReplyAsync("succ is dead, no succ");
         }
     }

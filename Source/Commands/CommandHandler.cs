@@ -11,16 +11,7 @@ namespace HBot.Commands
     public class CommandHandler
     {
         public static Task HandleMessage(DiscordClient client, MessageCreateEventArgs e)
-        {
-#if TOFU
-            if(!e.Message.Author.IsBot) {
-                if(e.Message.Content.ToLower().Contains("brett") || e.Message.Content.ToLower().Contains("bret")) {
-                    e.Message.Channel.SendMessageAsync("Brent*");
-                    e.Message.CreateReactionAsync(DiscordEmoji.FromGuildEmote(client, 838910961485742130));
-                }
-            }
-#endif
-            
+        {   
             HandleCommand(e.Message, e.Author);
             return Task.CompletedTask;
         }
