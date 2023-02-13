@@ -13,7 +13,7 @@ namespace HBot.Commands.Shithole_Exclusive {
         [Command("netup-sub")]
         [Description("Subscribes or unsubscribes you to HIDNet-related announcement pings")]
         [Category(Category.Shithole_Exclusive)]
-        public async Task Subscribe(CommandContext ctx) {
+        public async Task NetUpSubscribe(CommandContext ctx) {
             
             if (ctx.Guild.Id != ShitholeId)
                 throw new System.Exception("This command can only be run in HIDEN's Shithole.");

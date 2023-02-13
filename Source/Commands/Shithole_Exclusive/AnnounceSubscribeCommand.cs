@@ -13,7 +13,7 @@ namespace HBot.Commands.Shithole_Exclusive {
         [Command("announce-sub")]
         [Description("Subscribes or unsubscribes you to announcement pings")]
         [Category(Category.Shithole_Exclusive)]
-        public async Task Subscribe(CommandContext ctx) {
+        public async Task AnnounceSubscribe(CommandContext ctx) {
             
             if (ctx.Guild.Id != ShitholeId)
                 throw new System.Exception("This command can only be run in HIDEN's Shithole.");
