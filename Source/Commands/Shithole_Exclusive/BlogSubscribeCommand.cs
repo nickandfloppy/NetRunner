@@ -18,7 +18,7 @@ namespace HBot.Commands.Shithole_Exclusive {
             if (ctx.Guild.Id != ShitholeId)
                 throw new System.Exception("This command can only be run in HIDEN's Shithole.");
 
-            var role = ctx.Guild.GetRole(1074620373385097216);
+            var role = ctx.Guild.GetRole(1052534190568116264);
 
             if (ctx.Member.Roles.Contains(role)) {
                 await ctx.Member.RevokeRoleAsync(role);
