@@ -29,7 +29,7 @@ namespace HBot.Commands.Fun
             // Create and send the embed
             var eb = new DiscordEmbedBuilder();
             eb.WithColor(new DiscordColor("#007FFF"));
-            eb.WithTitle("Here's Your Random Cat!");
+            eb.WithTitle("Here's your random cat!");
             eb.WithImageUrl((string)output[0].url);
             eb.WithTimestamp(DateTime.Now);
             await Context.ReplyAsync("", eb.Build());

@@ -22,7 +22,7 @@ namespace HBot.Commands.Owner
         {
 			await Context.ReplyAsync("Shutting down...");
 			Log.Information("Shutdown triggered by command");
-			//DailyReportSystem.CreateBackup();
+			DailyReportSystem.CreateBackup();
             UserData.SaveData();
 			Environment.Exit(0);
         }

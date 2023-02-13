@@ -26,7 +26,8 @@ namespace HBot.Commands.Fun
 
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithColor(DiscordColor.Gold);
-            eb.WithTitle($"🤔... I pick {choice}".Truncate(256));
+            eb.WithTitle("🤔 ...");
+            eb.WithDescription($"**I pick {choice}!**".Truncate(256));
             await Context.ReplyAsync("", eb.Build());
         }
     }

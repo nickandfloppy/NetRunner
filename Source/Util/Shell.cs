@@ -12,6 +12,7 @@ namespace HBot.Util
             {
                 StartInfo = new ProcessStartInfo
                 {
+                    // Likely won't work on macOS/Windows. Beware.
                     FileName = "/bin/bash",
                     Arguments = $"-c \"{escapedArgs}\"",
                     RedirectStandardOutput = true,

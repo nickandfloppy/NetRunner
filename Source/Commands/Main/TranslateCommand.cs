@@ -75,7 +75,6 @@ namespace HBot.Commands.Main
 				{ "api_key", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" }
             };
 
-            //string apiUrl = "http://nick99nack.com:5000/translate";
             var data = new FormUrlEncodedContent(values);
             var response = await client.PostAsync($"{apiUrl}translate", data);
             dynamic responseData = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
@@ -91,8 +90,6 @@ namespace HBot.Commands.Main
             eb.AddField("Translation Pathway", $"{source} -> {target}", false);
             eb.AddField("Original", sourceText, true);
             eb.AddField("Translated", translatedText.Truncate(1024), true);
-			/*if (auto) eb.WithFooter($"Source Confidence {confidence}\nProvided by LibreTranslate");
-			else eb.WithFooter("Provided by LibreTranslate");*/
             eb.WithFooter($"Source Confidence {confidence}%");
             eb.WithColor(DiscordColor.Gold);
 

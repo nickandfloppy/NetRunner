@@ -30,7 +30,7 @@ namespace HBot
 {
     class Bot
     {
-        public const string VERSION = "1.0.2";
+        public const string VERSION = "1.1.0-dev";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -159,7 +159,7 @@ namespace HBot
                 Directory.CreateDirectory("Data");
             if(!Directory.Exists("Resources"))
                 Directory.CreateDirectory("Resources");
-            // Extrememly awful way to do this, but I guess it'll work for now - HIDEN
+            // Extrememly awful way to do this, but I guess it'll work for now
             if(!Directory.Exists("Resources/Lyrics"))
                 Directory.CreateDirectory("Resources/Lyrics");
             if(!Directory.Exists("Temp"))

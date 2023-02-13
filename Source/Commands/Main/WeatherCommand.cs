@@ -25,8 +25,8 @@ namespace HBot.Commands.Main
 
             // Pull data from the API
             RestClient client = new RestClient($"http://api.weatherapi.com/v1/forecast.json?key={Bot.config.apiKeys.weatherAPI}&q={location.Replace(" ", "%20")}");
-            RestRequest request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
+            RestRequest request = new RestRequest();
+            RestResponse response = (RestResponse)client.Execute(request);
             if (!response.IsSuccessful)
             {
                 await Context.ReplyAsync("Unable to get the weather for that location, are you sure it exists?");
@@ -39,12 +39,12 @@ namespace HBot.Commands.Main
             eb.WithTitle($"Weather for {data.location.name}, {data.location.region}");
             eb.WithColor(DiscordColor.Gold);
             eb.WithFooter($"Last Updated: {data.current.last_updated}");
-            eb.WithDescription($"**{data.current.condition.text}**");
+            eb.WithDescription($"***{data.current.condition.text}***");
             eb.WithThumbnail($"https://{((string)data.current.condition.icon).Replace("//", "")}");
 
             // F i e l d s
             eb.AddField("Time", $"{data.location.localtime} ({data.location.tz_id})", true);
-            eb.AddField("Coordinates", $"**Longitude:** {data.location.lon}, **Latitude:** {data.location.lat}", true);
+            eb.AddField("Coordinates", $"***Longitude:*** {data.location.lon}, ***Latitude:*** {data.location.lat}", true);
             eb.AddField("Country", $"{data.location.country}", true);
             eb.AddField("Temperature", $"{data.current.temp_c}°C ({data.current.temp_f}°F)", true);
             eb.AddField("Feels Like", $"{data.current.feelslike_c}°C ({data.current.feelslike_f}°F)", true);
