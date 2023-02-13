@@ -1,2 +1,0 @@
-- Replace WebClient in all files with HttpClient due to the deprecation of the former
-- Upgrade the bot to .NET 7.0 assuming there's no breaking changes

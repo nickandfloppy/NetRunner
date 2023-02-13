@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using DSharpPlus.CommandsNext;
@@ -26,8 +26,8 @@ namespace HBot.Commands.Main
             // Fetch the spam email json
             string json;
             if(!TempManager.TempFileExists("spam.json")) {
-                WebClient client = new WebClient();
-                json = client.DownloadString("http://www.nick99nack.com/spam/spam.json");
+                using(HttpClient http = new HttpClient())
+                json = await http.GetStringAsync("http://www.nick99nack.com/spam/spam.json");
                 File.WriteAllText(TempManager.GetTempFile("spam.json"), json);
                 Log.Information("Downloaded spam email json");
             }
@@ -53,7 +53,7 @@ namespace HBot.Commands.Main
             // Create and send an embed
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithTitle("Random Spam E-mail");
-            eb.WithThumbnail("http://www.nick99nack.com/img/mail.gif");
+            eb.WithThumbnail("https://hiden.pw/static/icon/socials/email.png");
             eb.AddField($"Subject: {spamSubject}", $"{spamContent}");
             eb.WithFooter($"ID: {spamID}");
             eb.WithColor(DiscordColor.Gold);

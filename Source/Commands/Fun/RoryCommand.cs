@@ -1,4 +1,4 @@
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using DSharpPlus.CommandsNext;
@@ -20,8 +20,8 @@ namespace HBot.Commands.Fun
         {
             string json = "";
             // Grab the json string from the API
-            using (WebClient client = new WebClient())
-                json = client.DownloadString("https://rory.cat/purr");
+            using(HttpClient http = new HttpClient())
+            json = await http.GetStringAsync("https://rory.cat/purr");
             dynamic output = JsonConvert.DeserializeObject(json); // Deserialize the string into a dynamic object
 
             // Send the image in an embed
