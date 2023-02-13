@@ -1,23 +1,19 @@
 using System;
 
-namespace HBot.Commands.Attributes
-{
+namespace HBot.Commands.Attributes {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Parameter, AllowMultiple = false)]
-    public sealed class CategoryAttribute : Attribute
-    {
+    public sealed class CategoryAttribute : Attribute {
         /// <summary>
         /// Gets the category of this command
         /// </summary>
         public Category category { get; }
 
-        public CategoryAttribute(Category category)
-        {
+        public CategoryAttribute(Category category) {
             this.category = category;
         }
     }
 
-    public enum Category
-    {
-        Main, Fun, Misc, Staff, Owner, Images
+    public enum Category {
+        Main, Fun, Misc, Staff, Owner, Images, Shithole_Exclusive
     }
 }

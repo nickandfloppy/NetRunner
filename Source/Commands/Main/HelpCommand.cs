@@ -29,6 +29,7 @@ namespace HBot.Commands.Main
                 eb.AddField("**Main**", GetCommands(Category.Main), false);
                 eb.AddField("**Fun**", GetCommands(Category.Fun), false);
                 eb.AddField("**Image Manipulation**", GetCommands(Category.Images), false);
+                eb.AddField("**HIDEN's Shithole exclusive**", GetCommands(Category.Shithole_Exclusive), false);
                 eb.AddField("**Staff**", GetCommands(Category.Staff), false);
                 eb.AddField("**Owner**", GetCommands(Category.Owner), false);
             }
