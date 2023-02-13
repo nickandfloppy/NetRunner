@@ -10,7 +10,7 @@ namespace HBot.Commands.Shithole_Exclusive {
     public class BlogSubscribeCommand : BaseCommandModule {
         private const long ShitholeId = 955969771994742874;
 
-        [Command("voting-sub")]
+        [Command("blog-sub")]
         [Description("Subscribes or unsubscribes you to pings for polls")]
         [Category(Category.Shithole_Exclusive)]
         public async Task Subscribe(CommandContext ctx) {
