@@ -59,7 +59,7 @@ namespace HBot.Commands.Fun
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithAuthor(sourceName);
             eb.WithColor(DiscordColor.Gold);
-            eb.WithFooter(data.Count + " messages in data. Better results will be achieved with more messages.");
+            eb.WithFooter(data.Count + " messages are in data. Better results will be achieved with more messages.");
             eb.WithDescription(string.Join(' ', model.Walk(length)).Replace("@", "").Truncate(4096));
             await Context.ReplyAsync(eb);
         }

@@ -33,7 +33,7 @@ namespace HBot.Commands.Fun
             { "already", "ady" },
             { "true", "no cap" },
             { "real", "no cap" },
-            { "bro", "bru" },
+            { "bro", "bru :skull:" },
             { "for", "4" },
             { "they", "dey" },
             { "yeah", "ye" },
