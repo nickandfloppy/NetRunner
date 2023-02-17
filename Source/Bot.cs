@@ -30,7 +30,7 @@ namespace HBot
 {
     class Bot
     {
-        public const string VERSION = "1.1.2";
+        public const string VERSION = "1.1.3";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -135,9 +135,9 @@ namespace HBot
 
             client.GuildMemberAdded += async (DiscordClient client, GuildMemberAddEventArgs e) => {
                 if(!Global.mutedUsers.Contains(e.Member.Id))
-                    await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to the Shithole! Make sure you read the rules before chatting. You can find them here: https://hiden.pw/rules.");
+                    await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to the shithole! Make sure you read the rules before chatting. You can find them here: https://hiden.pw/discord/rules.");
                 else {
-                    await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to Cerro Gordo! Unfortunately it seems as if you have failed to read the rules, have fun in the box! This is what you get for trying to be a ding-dong :P.");
+                    await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to the shithole! Unfortunately it seems as if you have failed to read the rules, have fun in the box! This is what you get for trying to be a ding-dong :P.");
                     await e.Member.GrantRoleAsync(Global.mutedRole, "succ");
                 }
             };
