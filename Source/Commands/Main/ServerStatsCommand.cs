@@ -1,17 +1,12 @@
 using System;
-using System.IO;
 using System.Linq;
-using System.Drawing;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
-
-using Newtonsoft.Json;
 
 using ScottPlot;
 

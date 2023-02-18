@@ -5,8 +5,6 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 
-using Serilog;
-
 namespace HBot.Misc
 {
     class No

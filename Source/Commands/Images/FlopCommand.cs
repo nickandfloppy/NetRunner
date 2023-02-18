@@ -2,7 +2,6 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 

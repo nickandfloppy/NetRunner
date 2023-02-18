@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using DSharpPlus.CommandsNext;
@@ -7,11 +5,6 @@ using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
-
-using HBot.Misc;
-using HBot;
-
-using Serilog;
 
 namespace HBot.Commands.Owner
 {

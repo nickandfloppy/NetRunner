@@ -1,9 +1,4 @@
-
-using System;
-using System.Timers;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
 
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;

@@ -1,19 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
-using DSharpPlus;
-using DSharpPlus.Entities;
-using DSharpPlus.EventArgs;
-
-using Newtonsoft.Json;
-
-using Serilog;
-
-using static HBot.Util.ResourceManager;
-
 namespace HBot.Misc
 {
     public class MCServer

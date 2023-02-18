@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Threading.Tasks;
 
 using DSharpPlus.CommandsNext;
@@ -7,8 +6,6 @@ using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
-
-using Newtonsoft.Json;
 
 namespace HBot.Commands.Fun
 {

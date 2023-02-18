@@ -1,8 +1,6 @@
 // NOTE: The code in this file is hilariously shit, I'm just lazy and want this to work lol. Don't care about the quality.
 
-using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
