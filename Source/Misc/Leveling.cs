@@ -59,7 +59,7 @@ namespace HBot.Misc
                     user.level++;
                     user.xp = 0;
                     if(user.levelMessages)
-                        await e.Guild.GetMemberAsync(user.id).Result.SendMessageAsync($"You've just advanced to level {user.level}!");
+                        await e.Message.RespondAsync($"You've just advanced to level {user.level}!");
                 }
 
                 // Check for level roles

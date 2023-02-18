@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -58,14 +59,20 @@ namespace HBot.Commands
         {
             string msg = e.Exception.Message;
             if(msg == "One or more pre-execution checks failed.")
-                msg += " This is likely a permissions issue.";
+                await e.Context.ReplyAsync(replyGifs[new Random().Next(0, replyGifs.Length)]);
             if(msg.ToLower().Contains(": 413.")) {
-                await e.Context.RespondAsync("https://http.cat/413");
                 return;
             }
             
             await Global.logChannel.SendMessageAsync($"**Command Execution Failed!**\n**Command:** `{e.Command.Name}`\n**Message:** `{e.Context.Message.Content}`\n**Exception:** `{e.Exception}`");
-            await e.Context.RespondAsync($"There was an error executing your command!\nMessage: `{msg}`");
+            if(msg != "One or more pre-execution checks failed.")
+                await e.Context.RespondAsync($"There was an error executing your command!\nMessage: `{msg}`");
         }
+
+        static string[] replyGifs = {
+            "https://media.tenor.com/RDQKTJR1ufUAAAAC/absolutely-fucking-not-no.gif",
+            "https://cdn.discordapp.com/attachments/883287620111695882/1076359201519054949/hell-2-da-naw.mp4",
+            "https://media.tenor.com/Rv-IfOOXPSIAAAAC/you-shall-not-pass-lotr.gif"
+        };
     }
 }

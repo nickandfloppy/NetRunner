@@ -30,7 +30,7 @@ namespace HBot
 {
     class Bot
     {
-        public const string VERSION = "1.1.3";
+        public const string VERSION = "1.2.0-dev";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
