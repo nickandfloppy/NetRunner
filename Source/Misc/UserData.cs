@@ -68,7 +68,7 @@ namespace HBot.Misc
         public string username { get; set; }
 
         // Leveling
-        public bool levelMessages { get; set; } = true;
+        public bool levelMessages { get; set; } = false;
         public float xp { get; set; } = 0;
         public float totalxp { get; set; } = 0;
         public int level { get; set; } = 1;
