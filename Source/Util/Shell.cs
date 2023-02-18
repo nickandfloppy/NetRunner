@@ -12,7 +12,6 @@ namespace HBot.Util
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    // Likely won't work on macOS/Windows. Beware.
                     FileName = "/bin/bash",
                     Arguments = $"-c \"{escapedArgs}\"",
                     RedirectStandardOutput = true,
@@ -24,6 +23,34 @@ namespace HBot.Util
             string result = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
             if (result.Length < 1024)
+				return result;
+			else{
+				string baseUrl = "http://paste.nick99nack.com/";
+				var hasteBinClient = new HasteBinClient(baseUrl);
+				HasteBinResult HBresult = hasteBinClient.Post(result).Result;
+				return $"{baseUrl}{HBresult.Key}";
+			}
+        }
+        
+        public static string CmdPrmpt(this string cmd)
+        {
+            var escapedArgs = cmd.Replace("\"", "\\\"");
+
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "C:\\Windows\\System32\\cmd.exe",
+                    Arguments = $"/c \"{escapedArgs}\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                }
+            };
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+			if (result.Length < 1024)
 				return result;
 			else{
 				string baseUrl = "http://paste.nick99nack.com/";
