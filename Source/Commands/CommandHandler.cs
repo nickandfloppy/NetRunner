@@ -72,7 +72,12 @@ namespace HBot.Commands
         static string[] replyGifs = {
             "https://media.tenor.com/RDQKTJR1ufUAAAAC/absolutely-fucking-not-no.gif",
             "https://cdn.discordapp.com/attachments/883287620111695882/1076359201519054949/hell-2-da-naw.mp4",
-            "https://media.tenor.com/Rv-IfOOXPSIAAAAC/you-shall-not-pass-lotr.gif"
+            "https://media.tenor.com/Rv-IfOOXPSIAAAAC/you-shall-not-pass-lotr.gif",
+            "https://media.tenor.com/fTz7Bko5y20AAAAC/gfy-go-fuck-yourself.gif",
+            "https://media.tenor.com/N9yJ9gUpX48AAAAC/oh-fuck-off-go-away.gif",
+            "https://media.tenor.com/9gsuONi0uUUAAAAC/fuck-you.gif",
+            "https://media.tenor.com/Tp2zjszOAxIAAAAC/fuck-you-bung-moktar-radin.gif",
+            "https://media.tenor.com/x8g-_OihqFkAAAAC/pass-time.gif"
         };
     }
 }

@@ -58,7 +58,9 @@ namespace HBot.Commands.Fun
             { "window", "wndw" },
             { "the", "da" },
             { "an", "n" },
-            { "are", "r" }
+            { "are", "r" },
+            { "cool", "based" },
+            { "amazing", "straight buckets bro" }
         };
 	}
 }

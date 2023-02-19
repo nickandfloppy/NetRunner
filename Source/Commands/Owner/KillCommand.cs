@@ -41,7 +41,8 @@ namespace HBot.Commands.Owner {
             "https://tenor.com/8Hw2.gif",
             "https://tenor.com/biuHb.gif",
             "https://tenor.com/biC9R.gif",
-            "https://tenor.com/bVtZn.gif"
+            "https://tenor.com/bVtZn.gif",
+            "https://media.tenor.com/x8g-_OihqFkAAAAC/pass-time.gif"
         };
     }
 }
