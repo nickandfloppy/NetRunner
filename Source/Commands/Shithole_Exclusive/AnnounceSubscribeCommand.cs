@@ -16,7 +16,7 @@ namespace HBot.Commands.Shithole_Exclusive {
         public async Task AnnounceSubscribe(CommandContext ctx) {
             
             if (ctx.Guild.Id != ShitholeId)
-                throw new System.Exception("This command can only be run in HIDEN's Shithole.");
+                throw new System.Exception("This command cannot be ran in this server; it is exclusive to HIDEN's Shithole.");
 
             var role = ctx.Guild.GetRole(957028369885691924);
 

@@ -31,7 +31,7 @@ namespace HBot.Commands.Main
                 }
             }
             if (server.guildID == 0)
-                throw new Exception("This server does not have a server configured");
+                throw new Exception("This server does not have a Minecraft server configured in the bot's configuration file.");
 
             await Context.Channel.TriggerTypingAsync();
 

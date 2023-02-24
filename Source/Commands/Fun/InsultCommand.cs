@@ -23,11 +23,12 @@ namespace HBot.Commands.fun {
             json = await http.GetStringAsync($"http://evilinsult.com/generate_insult.php?lang=en&type=json");
 
             dynamic insultText = JsonConvert.DeserializeObject(json);  // Deserialize the thang
-                // Send the thing
+                // Build the thang
                 eb.WithTitle("Get insulted... loser.");
                 eb.WithColor(DiscordColor.Gold);
                 eb.WithDescription($"{insultText.insult}");
-		
+                
+            // Send the thing
 			await Context.ReplyAsync("", eb.Build());
 		}
 	}

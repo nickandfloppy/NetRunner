@@ -30,7 +30,7 @@ namespace HBot
 {
     class Bot
     {
-        public const string VERSION = "1.2.2";
+        public const string VERSION = "1.2.3";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -99,12 +99,12 @@ namespace HBot
             if(config.ids.logChannel != 0)
                 Global.logChannel = await client.GetChannelAsync(config.ids.logChannel);
             if(Global.logChannel == null)
-                Log.Error("Shitcord is failing to return a valid log channel or no channel ID is set in the config");
+                Log.Error("Shitcord is failing to return a valid log channel, or no channel ID is set in the config");
 
             if(config.ids.welcomeChannel != 0)
                 Global.welcomeChannel = await client.GetChannelAsync(config.ids.welcomeChannel);
             if(Global.welcomeChannel == null)
-                Log.Error("Shitcord is failing to return a valid welcome channel or no channel ID is set in the config");
+                Log.Error("Shitcord is failing to return a valid welcome channel, or no channel ID is set in the config");
 
             // Set misc stuff
 
@@ -116,7 +116,7 @@ namespace HBot
             MagickNET.Initialize(); 
 
             if(Bot.config.ids.rssChannel != 0)
-                await HDRSS.Init();
+                await RSS.Init();
 
             await client.UpdateStatusAsync(new DiscordActivity() { Name = config.status });
             Log.Information("Ready");

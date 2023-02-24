@@ -14,7 +14,7 @@ using Serilog;
 using HBot.Util;
 
 namespace HBot.Misc {
-    public class HDRSS {
+    public class RSS {
         public static List<string> sentItems = new List<string>();
 
         public static async Task Init() {
@@ -34,7 +34,7 @@ namespace HBot.Misc {
             // Do an initial fetch of items
             await FetchItems();
 
-            Log.Write(Serilog.Events.LogEventLevel.Information, "HIDNet RSS service started");
+            Log.Write(Serilog.Events.LogEventLevel.Information, "RSS service started");
             }catch(System.Exception ex) {
                 Log.Write(Serilog.Events.LogEventLevel.Information, ex.Message);
             }
@@ -43,6 +43,8 @@ namespace HBot.Misc {
         public static async Task FetchItems() {
             try {
             // Setup
+            // Also, this doesn't work properly due to it not expecting a description for content, which my blog uses for the post content
+            // TODO: Fix this bullshit
             var feed = await FeedReader.ReadAsync("https://hiden.pw/blog/rss");
             DiscordChannel additions = await Bot.client.GetChannelAsync(Bot.config.ids.rssChannel);
 
