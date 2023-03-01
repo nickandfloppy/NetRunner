@@ -6,8 +6,8 @@ using DSharpPlus.CommandsNext.Attributes;
 
 using HBot.Commands.Attributes;
 
-using WikipediaNet;
-using WikipediaNet.Objects;
+using Genbox.Wikipedia;
+using Genbox.Wikipedia.Objects;
 
 namespace HBot.Commands.Main
 {
@@ -22,16 +22,19 @@ namespace HBot.Commands.Main
             if(string.IsNullOrWhiteSpace(query))
                 throw new System.Exception("You must provide a search query!");
 
-            Wikipedia wiki = new Wikipedia();
-            wiki.Limit = 1;
-            QueryResult results = wiki.Search(query);
-
-            if (results.SearchInfo.TotalHits < 1) {
-                await Context.ReplyAsync($"Error: There are no results for that query.");
-                return;
-            }
-
-            await Context.ReplyAsync(results.Search.First().Url.ToString().Replace(" ", "_"));
+            using WikipediaClient wikiclient = new WikipediaClient();
+    
+			WikiSearchRequest req = new WikiSearchRequest(query);
+			req.Limit = 1;
+    
+			WikiSearchResponse resp = await wikiclient.SearchAsync(req);
+			
+			foreach (SearchResult s in resp.QueryResult.SearchResults){
+					Context.ReplyAsync($"{s.Url}".Replace(" ", "_"));
+					return;
+			}
+			
+			Context.ReplyAsync("No results.");;
         }
     }
 }
