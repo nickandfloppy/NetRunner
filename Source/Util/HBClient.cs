@@ -1,31 +1,24 @@
-// TODO: Replace this with my own HasteBin instance once it's ready
-
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;
 
 using Newtonsoft.Json;
 
-public class HasteBinClient
-{
+public class HasteBinClient {
 	private static HttpClient _httpClient;
 	private string _baseUrl;
 	
-	static HasteBinClient()
-	{
+	static HasteBinClient() {
 		_httpClient = new HttpClient();
 	}
 
-	public HasteBinClient(string baseUrl)
-	{
+	public HasteBinClient(string baseUrl) {
 		_baseUrl = baseUrl;
 	}
 	
-	public async Task<HasteBinResult> Post(string content)
-	{
+	public async Task<HasteBinResult> Post(string content) {
 		string fullUrl = _baseUrl;
-		if (!fullUrl.EndsWith("/"))
-		{
+		if (!fullUrl.EndsWith("/")) {
 			fullUrl += "/";
 		}
 		string postUrl = $"{fullUrl}documents";
@@ -34,13 +27,11 @@ public class HasteBinClient
 		request.Content = new StringContent(content);
 		HttpResponseMessage result = await _httpClient.SendAsync(request);
 
-		if (result.IsSuccessStatusCode)
-		{
+		if (result.IsSuccessStatusCode) {
 			string json = await result.Content.ReadAsStringAsync();
 			HasteBinResult hasteBinResult = JsonConvert.DeserializeObject<HasteBinResult>(json);
 
-			if (hasteBinResult?.Key != null)
-			{
+			if (hasteBinResult?.Key != null) {
 			    hasteBinResult.FullUrl = $"{fullUrl}{hasteBinResult.Key}";
 			    hasteBinResult.IsSuccess = true;
 			    hasteBinResult.StatusCode = 200;
@@ -48,8 +39,7 @@ public class HasteBinClient
 			}
 		}
 
-		return new HasteBinResult()
-		{
+		return new HasteBinResult() {
 			FullUrl = fullUrl,
 			IsSuccess = false,
 			StatusCode = (int) result.StatusCode
@@ -58,8 +48,7 @@ public class HasteBinClient
 }
 
 // Define other methods and classes here
-public class HasteBinResult
-{
+public class HasteBinResult {
 	public string Key { get; set; }
 	public string FullUrl { get; set; }
 	public bool IsSuccess { get; set; }

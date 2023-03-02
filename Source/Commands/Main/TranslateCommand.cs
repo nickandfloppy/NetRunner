@@ -12,16 +12,13 @@ using Newtonsoft.Json;
 using HBot.Util;
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Main
-{
-    public class TranslateCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class TranslateCommand : BaseCommandModule {
         [Command("tr")]
         [Description("Translates text from one language to another")]
 		[Usage("[-from=code] [-to=code] [text]")]
         [Category(Category.Main)]
-        public async Task Translate(CommandContext Context, [RemainingText]string text = null)
-        {
+        public async Task Translate(CommandContext Context, [RemainingText]string text = null) {
 			string source = "";
             string target = "";
 			string arg1 = "";
@@ -64,8 +61,7 @@ namespace HBot.Commands.Main
 
             
 			
-            var values = new Dictionary<string, string>
-            {
+            var values = new Dictionary<string, string> {
                 { "q", sourceText },
                 { "source", source },
                 { "target", target },
@@ -78,6 +74,7 @@ namespace HBot.Commands.Main
             dynamic responseData = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
 			string translatedText = Convert.ToString(responseData.translatedText);
 			if (translatedText.Length >= 1024) {
+                // TODO: Replace this with my own HasteBin instance once that's ready
 				string baseUrl = "http://paste.nick99nack.com/";
 				var hasteBinClient = new HasteBinClient(baseUrl);
 				HasteBinResult HBresult = hasteBinClient.Post(translatedText).Result;

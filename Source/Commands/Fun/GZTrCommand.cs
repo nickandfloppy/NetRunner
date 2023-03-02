@@ -6,16 +6,13 @@ using DSharpPlus.CommandsNext.Attributes;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Fun
-{
-    public class GZTrCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class GZTrCommand : BaseCommandModule {
 		[Command("gztr")]
         [Description("One-way Gen Z translator")]
         [Usage("[Normal Human Text]")]
         [Category(Category.Fun)]
-        public async Task gztrnocapbrofax(CommandContext Context, [RemainingText]string normalPersonText)
-        {
+        public async Task gztrnocapbrofax(CommandContext Context, [RemainingText]string normalPersonText) {
             string output = normalPersonText.Replace("ing", "in").ToLower();
             foreach(var word in Dicctionary)
                 output = output.Replace(word.Key, word.Value);
@@ -23,8 +20,7 @@ namespace HBot.Commands.Fun
             await Context.ReplyAsync(output);
 		}
 
-        public Dictionary<string, string> Dicctionary = new Dictionary<string, string>()
-        {
+        public Dictionary<string, string> Dicctionary = new Dictionary<string, string>() {
             { "enough", "enf" },
             { "ok", "k" },
             { "okay", "mk" },

@@ -9,15 +9,12 @@ using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace HBot.Commands.Fun
-{
-    public class RoryCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class RoryCommand : BaseCommandModule {
         [Command("rory")]
         [Description("Gets a random picture of rory")]
         [Category(Category.Fun)]
-        public async Task Rory(CommandContext Context)
-        {
+        public async Task Rory(CommandContext Context) {
             string json = "";
             // Grab the json string from the API
             using(HttpClient http = new HttpClient())
