@@ -20,7 +20,7 @@ namespace HBot.Commands.Fun
                 return;
             }
 
-            await Context.ReplyAsync($"https://letmegooglethat.com/?q={query}");
+            await Context.ReplyAsync($"https://letmegooglethat.com/?q={System.Web.HttpUtility.UrlEncode(query)}");
         }
     }
 }
