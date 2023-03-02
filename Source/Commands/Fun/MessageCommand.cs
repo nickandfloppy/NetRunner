@@ -15,16 +15,13 @@ using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace HBot.Commands.Fun
-{
-    public class MessageCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class MessageCommand : BaseCommandModule {
 		[Command("msg")]
         [Description("Get a random user-submitted message")]
-        [Usage("[User]")]
+        [Usage("add (or leave blank)")]
         [Category(Category.Fun)]
-        public async Task Message(CommandContext Context, [RemainingText]string textArgs = null)
-        {
+        public async Task Message(CommandContext Context, [RemainingText]string textArgs = null) {
             string jsonFile = GetResourcePath("randomMessages", Util.ResourceType.JsonData);
 
             // Load messages from json if not already done
@@ -137,8 +134,7 @@ idRecalc:
         public List<UserMessage> messages = null;
 	}
 
-    public class UserMessage
-    {
+    public class UserMessage {
         public string author { get; set; }
         public string avatarUrl { get; set; }
         public string channel { get; set; }

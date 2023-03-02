@@ -26,7 +26,7 @@ namespace HBot.Commands.Owner
             eb.WithTitle("Command Prompt");
             eb.WithColor(DiscordColor.Gold);
             eb.AddField("Input", $"```sh\n{command}```");
-            eb.AddField("Output", $"```sh\n{command.CmdPrmpt()}```");
+            eb.AddField("Output", $"```sh\n{command.WinCmd()}```");
             await Context.ReplyAsync("", eb.Build());
         }
     }

@@ -26,11 +26,9 @@ using static HBot.Util.ResourceManager;
 
 using ImageMagick;
 
-namespace HBot
-{
-    class Bot
-    {
-        public const string VERSION = "1.2.3";
+namespace HBot {
+    class Bot {
+        public const string VERSION = "1.3.0-rc";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -63,22 +61,19 @@ namespace HBot
             LoadConfigs();
             
             // Set up the Discord client
-            client = new DiscordClient(new DiscordConfiguration()
-            {
+            client = new DiscordClient(new DiscordConfiguration() {
                 Token = config.token,
                 TokenType = TokenType.Bot,
                 LoggerFactory = logFactory,
                 Intents = DiscordIntents.All
             });
-            commands = client.UseCommandsNext(new CommandsNextConfiguration()
-            {
+            commands = client.UseCommandsNext(new CommandsNextConfiguration() {
                 StringPrefixes = new string[] { config.prefix },
                 EnableDefaultHelp = false,
                 EnableDms = true,
                 UseDefaultCommandHandler = false
             });
-            client.UseInteractivity(new InteractivityConfiguration()
-            {
+            client.UseInteractivity(new InteractivityConfiguration() {
                 PollBehaviour = DSharpPlus.Interactivity.Enums.PollBehaviour.KeepEmojis,
                 Timeout = TimeSpan.FromSeconds(60)
             });
@@ -89,8 +84,7 @@ namespace HBot
             await Task.Delay(-1);
         }
 
-        async Task Ready(DiscordClient client, ReadyEventArgs e)
-        {
+        async Task Ready(DiscordClient client, ReadyEventArgs e) {
             // Set guilds
             Global.hostGuild = await client.GetGuildAsync(config.ids.hostGuild);
             Global.targetGuild = await client.GetGuildAsync(config.ids.targetGuild);
@@ -122,8 +116,7 @@ namespace HBot
             Log.Information("Ready");
         }
 
-        void HookEvents()
-        {
+        void HookEvents() {
             // Bot
             client.Ready += Ready;
             client.MessageCreated += CommandHandler.HandleMessage;
@@ -131,7 +124,7 @@ namespace HBot
                 if(DateTime.Now.Subtract(e.Message.Timestamp.DateTime).TotalMinutes < 1 && DateTime.Now.Subtract(e.Message.Timestamp.DateTime).TotalSeconds > 2)
                     CommandHandler.HandleCommand(e.Message, e.Author);
                 return Task.CompletedTask;
-            };
+        };
 
             client.GuildMemberAdded += async (DiscordClient client, GuildMemberAddEventArgs e) => {
                 if(!Global.mutedUsers.Contains(e.Member.Id))
@@ -148,8 +141,7 @@ namespace HBot
             EventLogging.Init();
         }
 
-        void VerifyIntegrity()
-        {
+        void VerifyIntegrity() {
             Log.Write(Serilog.Events.LogEventLevel.Information, "Verifying integrity of bot files...");
 
             // Verify directories
@@ -181,7 +173,7 @@ namespace HBot
                 File.WriteAllText(GetResourcePath("config", ResourceType.Config), JsonConvert.SerializeObject(config, Formatting.Indented));
                 Log.Fatal("No configuration file found. A template config has been written to config.json");
                 Environment.Exit(-1);
-            }
+        }
             if(!ResourceExists("blacklist", ResourceType.JsonData))
                 File.WriteAllText(GetResourcePath("blacklist", ResourceType.JsonData), "[]");
             if(!ResourceExists("mute", ResourceType.JsonData))
@@ -206,8 +198,7 @@ namespace HBot
             ZipFile.ExtractToDirectory("Resources/Lyrics.zip", "Resources/");
         }
 
-        void LoadConfigs()
-        {
+        void LoadConfigs() {
             // Main bot config
             config = JsonConvert.DeserializeObject<BotConfig>(File.ReadAllText(GetResourcePath("config", ResourceType.Config)));
             if(config == null) {
@@ -220,8 +211,7 @@ namespace HBot
         }
     }
 
-    class BotConfig
-    {
+    class BotConfig {
         public string token { get; set; }
         public string prefix { get; set; }
         public string status { get; set; }
@@ -230,8 +220,7 @@ namespace HBot
         public MCServer[] minecraftServers { get; set; }
     }
     
-    class IDConfig
-    {
+    class IDConfig {
         public ulong hostGuild { get; set; } = 0;   // Where logs etc are
         public ulong targetGuild { get; set; } = 0; // Where muted role etc are
         public ulong logChannel { get; set; } = 0;
@@ -241,15 +230,13 @@ namespace HBot
 
     }
 
-    class APIConfig
-    {
+    class APIConfig {
         public string wikihowAPIKey { get; set; } = "";
         public string catAPIKey { get; set; } = "";
         public string weatherAPI { get; set; } = "";
     }
 
-    class Global
-    {
+    class Global {
         public static List<List<string>> reminders = new List<List<string>>();
         public static DiscordGuild hostGuild;
         public static DiscordGuild targetGuild;

@@ -10,16 +10,13 @@ using HBot.Util;
 using static HBot.Util.ResourceManager;
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Fun
-{
-    public class BedCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class BedCommand : BaseCommandModule {
 		[Command("bed")]
         [Description("Tell someone to go to bed.")]
         [Usage("[User] [Image: parz, agp, agp2, mehdi]")]
         [Category(Category.Fun)]
-        public async Task bed(CommandContext Context, string screenname = "", string image = "parz")
-        {
+        public async Task bed(CommandContext Context, string screenname = "", string image = "parz") {
             // Randomize the image if no input was given
             if(image == "parz" || string.IsNullOrWhiteSpace(image))
                 image = images[new System.Random().Next(0, images.Length)];
@@ -60,7 +57,7 @@ namespace HBot.Commands.Fun
 			Graphics bmp = Graphics.FromImage(img);
     
 			 // Set up the fonts and drawing stuff
-            Font IMPACTfont = new Font(
+            Font IMPACTfont = new Font (
                 fonts.Families[0].Name,
                 fontSize,
                 FontStyle.Regular,

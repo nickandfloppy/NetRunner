@@ -26,7 +26,7 @@ namespace HBot.Commands.Owner
             eb.WithTitle("Exec");
             eb.WithColor(DiscordColor.Gold);
             eb.AddField("Input", $"```sh\n{command}```");
-            eb.AddField("Output", $"```sh\n{command.Bash()}```");
+            eb.AddField("Output", $"```sh\n{command.BashCmd()}```");
             await Context.ReplyAsync("", eb.Build());
         }
     }

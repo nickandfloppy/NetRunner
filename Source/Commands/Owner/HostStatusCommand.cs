@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 using DSharpPlus.CommandsNext;
@@ -6,20 +7,21 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Owner
-{
-    public class HostStatusCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Owner {
+    public class HostStatusCommand : BaseCommandModule {
         [Command("hoststatus")]
         [Description("Gets info about the host machine")]
         [Aliases("host", "hostinfo")]
         [Category(Category.Owner)]
         [RequireOwner]
-        public async Task HostStatus(CommandContext Context)
-        {
+        public async Task HostStatus(CommandContext Context) {
             DiscordEmbedBuilder Embed = new DiscordEmbedBuilder();
             Embed.WithColor(DiscordColor.Gold);
-            Embed.WithDescription($"```{ParseNF(Util.Shell.Bash("neofetch --disable title resolution theme icons gpu term --stdout").Replace(" \nOS:", "OS:"))}```");
+            if(!Environment.OSVersion.VersionString.Contains("Unix"))
+                Embed.WithDescription($"```{ParseNF(Util.Shell.WinCmd("neofetch --disable title resolution theme icons gpu term --stdout").Replace(" \nOS:", "OS:"))}```");
+            else {
+                Embed.WithDescription($"```{ParseNF(Util.Shell.BashCmd("neofetch --disable title resolution theme icons gpu term --stdout").Replace(" \nOS:", "OS:"))}```");
+            }
             await Context.ReplyAsync("", Embed.Build());
         }
 
