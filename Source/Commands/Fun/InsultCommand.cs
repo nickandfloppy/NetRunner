@@ -13,7 +13,6 @@ namespace WinBot.Commands.fun {
     public class InsultCommand : BaseCommandModule {
         [Command("insult")]
         [Description("Insults you. Fun.")]
-        [Usage("insult")]
         [Category(Category.Fun)]
         public async Task Insult(CommandContext Context) {
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
