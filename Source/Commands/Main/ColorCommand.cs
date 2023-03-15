@@ -16,10 +16,10 @@ namespace WinBot.Commands.Main
     public class ColorCommand : BaseCommandModule
     {
         [Command("color")]
-        [Description("Remind you about something")]
+        [Description("Gets info about the given hex color")]
         [Usage("[hex value]")]
         [Category(Category.Main)]
-        public async Task Remind(CommandContext Context, [RemainingText] string hexString = null)
+        public async Task Color(CommandContext Context, [RemainingText] string hexString = null)
         {
             if (hexString == null) await Context.ReplyAsync("No hex value specified!");
             else {
