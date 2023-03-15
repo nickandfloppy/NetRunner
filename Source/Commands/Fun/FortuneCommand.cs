@@ -13,7 +13,6 @@ namespace WinBot.Commands.Fun {
     public class FortuneCommand : BaseCommandModule {
         [Command("fortune")]
         [Description("It's the BSD fortune program")]
-        [Usage("fortune")]
         [Category(Category.Fun)]
         public async Task Exec(CommandContext Context) {
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
