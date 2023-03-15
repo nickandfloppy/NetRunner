@@ -28,7 +28,7 @@ using ImageMagick;
 
 namespace HBot {
     class Bot {
-        public const string VERSION = "1.4.0-dev";
+        public const string VERSION = "1.4.0";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -40,15 +40,7 @@ namespace HBot {
         // Bot
         public static BotConfig config;
 
-        public async Task RunBot()
-        {
-            // Change workingdir in debug mode
-#if DEBUG
-            if (!Directory.Exists("WorkingDirectory"))
-                Directory.CreateDirectory("WorkingDirectory");
-            Directory.SetCurrentDirectory("WorkingDirectory");
-#endif
-
+        public async Task RunBot() {
             // Logging
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.DiscordSink()
@@ -99,6 +91,11 @@ namespace HBot {
                 Global.welcomeChannel = await client.GetChannelAsync(config.ids.welcomeChannel);
             if(Global.welcomeChannel == null)
                 Log.Error("Shitcord is failing to return a valid welcome channel, or no channel ID is set in the config");
+
+            if(config.ids.reportsChannel != 0)
+                Global.reportsChannel = await client.GetChannelAsync(config.ids.reportsChannel);
+            if(Global.reportsChannel == null)
+                Log.Error("Shitcord is failing to return a valid reports channel, or no channel ID is set in the config");
 
             // Set misc stuff
 
@@ -226,6 +223,7 @@ namespace HBot {
         public ulong logChannel { get; set; } = 0;
         public ulong mutedRole { get; set; } = 0;
         public ulong welcomeChannel { get; set; } = 0;
+        public ulong reportsChannel { get; set; } = 0;
         public ulong rssChannel { get; set; } = 0;
 
     }
@@ -247,6 +245,7 @@ namespace HBot {
         public static List<ulong> mutedUsers = new List<ulong>();
         public static DiscordRole mutedRole;
         public static DiscordChannel welcomeChannel = null;
+        public static DiscordChannel reportsChannel = null;
 
     }
 }

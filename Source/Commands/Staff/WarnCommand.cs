@@ -7,17 +7,14 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Main
-{
-    public class WarnCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class WarnCommand : BaseCommandModule {
         [Command("warn")]
         [Description("Warn a user")]
         [Usage("[user] [reason]")]
         [Category(Category.Staff)]
         [RequireUserPermissions(DSharpPlus.Permissions.KickMembers)]
-        public async Task Warn(CommandContext Context, DiscordMember user, [RemainingText] string reason = null)
-        {
+        public async Task Warn(CommandContext Context, DiscordMember user, [RemainingText] string reason = null) {
             if (reason == null)
                 reason = "No reason given"; // Default reason
                 

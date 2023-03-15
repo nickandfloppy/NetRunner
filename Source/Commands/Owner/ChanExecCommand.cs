@@ -7,26 +7,23 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Owner
-{
-    public class ChanExecCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Owner {
+    public class ChanExecCommand : BaseCommandModule {
         [Command("chanexec")]
         [Description("Execute a command in another channel")]
         [Usage("[channel] [command]")]
         [Category(Category.Owner)]
         [RequireOwner]
-        public async Task ChanExec(CommandContext Context, DiscordChannel channel, [RemainingText]string command)
-        {
+        public async Task ChanExec(CommandContext Context, DiscordChannel channel, [RemainingText]string command) {
             // Channel check
-            if(channel == null || channel.Type == DSharpPlus.ChannelType.Voice)
+            if(channel == null || channel.Type == DSharpPlus.ChannelType.Voice) {
                 throw new Exception("Invalid channel");
-
+            }
             // Find the command
             Command realCommand = Bot.commands.FindCommand(command, out var args);
-            if(realCommand == null)
+            if(realCommand == null) {
                 throw new Exception("Invalid command");
-
+            }
             // Execute the command
             CommandContext context = Bot.commands.CreateFakeContext(Context.User, channel, command, ".", realCommand, args);
 			await Bot.commands.ExecuteCommandAsync(context);

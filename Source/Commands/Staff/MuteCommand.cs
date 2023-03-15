@@ -14,17 +14,14 @@ using Newtonsoft.Json;
 
 using Serilog;
 
-namespace HBot.Commands.Staff
-{
-    public class MuteCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Staff {
+    public class MuteCommand : BaseCommandModule {
         [Command("mute")]
         [Description("Mute a dirtbag")]
         [Usage("[user]")]
         [Category(Category.Staff)]
         [RequireUserPermissions(DSharpPlus.Permissions.KickMembers)]
-        public async Task Mute(CommandContext Context, DiscordMember user)
-        {
+        public async Task Mute(CommandContext Context, DiscordMember user) {
             // Try to set the muted role
             if(Bot.config.ids.mutedRole == 0) {
                 await Context.ReplyAsync("No muted role is set in the bot config!");

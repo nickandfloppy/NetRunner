@@ -8,6 +8,7 @@ using HBot.Commands.Attributes;
 
 namespace HBot.Commands.Shithole_Exclusive {
     public class AnnounceSubscribeCommand : BaseCommandModule {
+        // TODO: Move this to the config file, will probably do it in 1.5.0
         private const long ShitholeId = 955969771994742874;
 
         [Command("announce-sub")]
@@ -15,8 +16,9 @@ namespace HBot.Commands.Shithole_Exclusive {
         [Category(Category.Shithole_Exclusive)]
         public async Task AnnounceSubscribe(CommandContext ctx) {
             
-            if (ctx.Guild.Id != ShitholeId)
+            if (ctx.Guild.Id != ShitholeId) {
                 throw new System.Exception("This command cannot be ran in this server; it is exclusive to HIDEN's Shithole.");
+            }
 
             var role = ctx.Guild.GetRole(957028369885691924);
 

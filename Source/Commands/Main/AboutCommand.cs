@@ -8,15 +8,12 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Main
-{
-    public class AboutCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class AboutCommand : BaseCommandModule {
         [Command("about")]
         [Description("Gets basic info about the bot")]
         [Category(Category.Main)]
-        public async Task About(CommandContext Context)
-        {
+        public async Task About(CommandContext Context) {
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithTitle($"{Bot.client.CurrentUser.Username}");
             eb.AddField("Maintainer", $"{Bot.client.CurrentApplication.Owners.First().Username}", true);

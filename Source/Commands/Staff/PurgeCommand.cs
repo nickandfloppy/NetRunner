@@ -7,17 +7,14 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Staff
-{
-    public class PurgeCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Staff {
+    public class PurgeCommand : BaseCommandModule {
         [Command("purge")]
         [Description("Purge *x* amount of messages")]
         [Usage("[messages to remove]")]
         [Category(Category.Staff)]
         [RequireUserPermissions(DSharpPlus.Permissions.ManageMessages)]
-        public async Task Purge(CommandContext Context, int count = 0)
-        {
+        public async Task Purge(CommandContext Context, int count = 0) {
             if(count <= 0)
                 throw new Exception("Cannot purge 0 messages!");
 

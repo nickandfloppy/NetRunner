@@ -13,15 +13,12 @@ using ScottPlot;
 using HBot.Misc;
 using HBot.Util;
 
-namespace HBot.Commands.Main
-{
-    public class ServerStatsCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class ServerStatsCommand : BaseCommandModule {
         [Command("serverstats")]
         [Description("Show basic statistics about the server")]
         [Category(Category.Main)]
-        public async Task Serverstats(CommandContext Context)
-        {
+        public async Task Serverstats(CommandContext Context) {
             // Report loading
             List<DailyReport> reports = DailyReportSystem.reports.ToList();
             reports.Add(DailyReportSystem.report);
@@ -48,8 +45,7 @@ namespace HBot.Commands.Main
             userLeave = new double[realCount];
 
             realCount = 0;
-            for (int i = 0; i < reports.Count; i++)
-            {
+            for (int i = 0; i < reports.Count; i++) {
                 if(DateTime.Now.Subtract(reports[i].dayOfReport).TotalDays <= 15) {
                 ys[realCount] = i;
                 xticks[realCount] = reports[i].dayOfReport.ToShortDateString();

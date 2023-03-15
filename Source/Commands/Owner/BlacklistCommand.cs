@@ -12,17 +12,14 @@ using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace HBot.Commands.Staff
-{
-    public class BlacklistCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Staff {
+    public class BlacklistCommand : BaseCommandModule {
         [Command("blacklist")]
-        [Description("Toggle blacklist on a user to prevent them from using the bot")]
+        [Description("Aboose prevention: toggle blacklist on a user to prevent them from using the bot")]
         [Usage("[user]")]
         [Category(Category.Owner)]
         [RequireOwner]
-        public async Task Blacklist(CommandContext Context, DiscordMember user = null)
-        {
+        public async Task Blacklist(CommandContext Context, DiscordMember user = null) {
             if(!PermissionMethods.HasPermission(Context.Member.PermissionsIn(Context.Channel), Permissions.KickMembers) && Context.Member.Id != Bot.client.CurrentApplication.Owners.FirstOrDefault().Id)
                 return;
                 

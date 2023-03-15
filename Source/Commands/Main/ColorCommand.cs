@@ -6,23 +6,20 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Main
-{
-    public class ColorCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class ColorCommand : BaseCommandModule {
         [Command("color")]
-        [Description("Remind you about something")]
+        [Description("Gives you a color from a HEX code")]
         [Usage("[hex value]")]
         [Category(Category.Main)]
-        public async Task Remind(CommandContext Context, [RemainingText] string hexString = null)
-        {
+        public async Task Color(CommandContext Context, [RemainingText] string hexString = null) {
             if (hexString == null) await Context.ReplyAsync("No hex value specified!");
             else {
                 DiscordColor color;
                 try {
                     color = new DiscordColor(hexString);
                 } catch {
-                    await Context.ReplyAsync("Must be in format #000000 (# is optional) and be valid hex");
+                    await Context.ReplyAsync("Must be in format #000000 (# is optional) and be valid HEX");
                     return;
                 }
 		        DiscordEmbedBuilder eb = new DiscordEmbedBuilder();

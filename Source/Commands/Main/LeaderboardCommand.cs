@@ -9,15 +9,12 @@ using HBot.Commands.Attributes;
 using HBot.Misc;
 using HBot.Util;
 
-namespace HBot.Commands.Main
-{
-    public class LeaderboardCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class LeaderboardCommand : BaseCommandModule {
         [Command("lb")]
         [Description("Show the server leaderboard")]
         [Category(Category.Main)]
-        public async Task Leaderboard(CommandContext Context)
-        {
+        public async Task Leaderboard(CommandContext Context) {
             // Get the leaderboard and #1 user
             List<User> leaderboard = Leveling.GetOrderedLeaderboard();
             DiscordUser topUser = Bot.client.GetUserAsync(leaderboard[0].id).Result;

@@ -12,14 +12,12 @@ using HBot.Commands.Attributes;
 
 namespace HBot.Commands.Main
 {
-    public class RemindCommand : BaseCommandModule
-    {
+    public class RemindCommand : BaseCommandModule {
         [Command("remind")]
         [Description("Remind you about something")]
         [Usage("[list] or [Time] [Time Unit (seconds/s, minutes/m, hours/h, days/d) [Message] (Note that long timespans are likely unreliable due to bot restarts)]")]
         [Category(Category.Main)]
-        public async Task Remind(CommandContext Context, string timeStr, [RemainingText] string message = "")
-        {
+        public async Task Remind(CommandContext Context, string timeStr, [RemainingText] string message = "") {
             if (timeStr == "list") {
 		        DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
                 eb.WithTitle("Global Reminders");
@@ -47,8 +45,7 @@ namespace HBot.Commands.Main
             if (time <= 0) {
                 throw new Exception("Timer length must be greater than 0!");
             }
-            switch (unit) // Should really use an if statement here but oh well idc
-            {
+            switch (unit) { // Should really use an if statement here but oh well idc
                 // Second
                 case "seconds":
                 case "s":

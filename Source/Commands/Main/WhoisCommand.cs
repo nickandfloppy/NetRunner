@@ -8,10 +8,8 @@ using DSharpPlus.Entities;
 using HBot.Util;
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Main
-{
-    public class WhoisCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class WhoisCommand : BaseCommandModule {
         [Command("whois")]
         [Description("Gets basic info about a user")]
         [Aliases("user")]
