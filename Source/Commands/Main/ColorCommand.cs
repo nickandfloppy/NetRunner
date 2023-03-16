@@ -9,7 +9,7 @@ using HBot.Commands.Attributes;
 namespace HBot.Commands.Main {
     public class ColorCommand : BaseCommandModule {
         [Command("color")]
-        [Description("Gives you a color from a HEX code")]
+        [Description("Gets info about the given hex color")]
         [Usage("[hex value]")]
         [Category(Category.Main)]
         public async Task Color(CommandContext Context, [RemainingText] string hexString = null) {
