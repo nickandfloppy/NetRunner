@@ -10,15 +10,12 @@ using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace HBot.Commands.Fun
-{
-    public class CatCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class CatCommand : BaseCommandModule {
         [Command("cat")]
         [Description("Gets a random cat photo")]
         [Category(Category.Fun)]
-        public async Task Cat(CommandContext Context)
-        {
+        public async Task Cat(CommandContext Context) {
             string json = "";
             // Download the json string from the API
             using(HttpClient http = new HttpClient())

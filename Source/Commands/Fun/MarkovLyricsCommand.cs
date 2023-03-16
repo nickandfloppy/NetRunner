@@ -15,16 +15,13 @@ using HBot.Commands.Attributes;
 
 using MarkovSharp.TokenisationStrategies;
 
-namespace HBot.Commands.Fun
-{
-    public class MarkovQuoteCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class MarkovQuoteCommand : BaseCommandModule {
         [Command("lyrics")]
         [Description("Get markov chains lyrics")]
         [Usage("[artist] [lines]")]
         [Category(Category.Fun)]
-        public async Task MarkovQuote(CommandContext Context, string input = "all", int lines = 5)
-        {
+        public async Task MarkovQuote(CommandContext Context, string input = "all", int lines = 5) {
             DiscordEmbedBuilder eb;
             if(input.ToLower() == "list") {
                 eb = new DiscordEmbedBuilder();

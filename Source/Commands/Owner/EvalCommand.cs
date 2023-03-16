@@ -20,7 +20,7 @@ namespace HBot.Commands.Owner
     {
         [Command("ev")]
         [Description("It's an eval command.")]
-        [Usage("[C# Code]")]
+        [Usage("[just put C# code here mate]")]
         [Category(Category.Owner)]
         [RequireOwner]
         public async Task Kill(CommandContext Context, [RemainingText]string code)
