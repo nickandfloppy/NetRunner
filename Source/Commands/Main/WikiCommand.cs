@@ -9,18 +9,16 @@ using HBot.Commands.Attributes;
 using Genbox.Wikipedia;
 using Genbox.Wikipedia.Objects;
 
-namespace HBot.Commands.Main
-{
-    public class WikiCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class WikiCommand : BaseCommandModule {
         [Command("wiki")]
         [Description("Search wikipedia")]
         [Usage("[query]")]
         [Category(Category.Main)]
-        public async Task Wiki(CommandContext Context, [RemainingText] string query)
-        {
-            if(string.IsNullOrWhiteSpace(query))
+        public async Task Wiki(CommandContext Context, [RemainingText] string query) {
+            if(string.IsNullOrWhiteSpace(query)) {
                 throw new System.Exception("You must provide a search query!");
+            }
 
             using WikipediaClient wikiclient = new WikipediaClient();
     
@@ -29,12 +27,12 @@ namespace HBot.Commands.Main
     
 			WikiSearchResponse resp = await wikiclient.SearchAsync(req);
 			
-			foreach (SearchResult s in resp.QueryResult.SearchResults){
-					Context.ReplyAsync($"{s.Url}".Replace(" ", "_"));
+			foreach (SearchResult s in resp.QueryResult.SearchResults) {
+					await Context.ReplyAsync($"{s.Url}".Replace(" ", "_"));
 					return;
 			}
 			
-			Context.ReplyAsync("No results.");;
+			await Context.ReplyAsync("No results.");;
         }
     }
 }

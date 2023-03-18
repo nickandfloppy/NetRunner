@@ -22,7 +22,7 @@ namespace HBot.Commands.Fun
     public class MarkovCommand : BaseCommandModule
     {
         [Command("markov")]
-        [Aliases(new string[] { "mk" })]
+        [Aliases("mk")]
         [Description("Markov chains and things")]
         [Usage("[user] [length]")]
         [Category(Category.Fun)]

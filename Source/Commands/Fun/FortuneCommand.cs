@@ -9,7 +9,7 @@ using HBot.Commands.Attributes;
 
 using HBot.Util;
 
-namespace WinBot.Commands.Fun {
+namespace HBot.Commands.Fun {
     public class FortuneCommand : BaseCommandModule {
         [Command("fortune")]
         [Description("It's the BSD fortune program")]

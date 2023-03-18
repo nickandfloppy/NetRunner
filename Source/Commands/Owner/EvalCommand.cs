@@ -1,3 +1,5 @@
+// This shit is broken lol
+
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -14,17 +16,15 @@ using HBot.Commands.Attributes;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 
-namespace HBot.Commands.Owner
-{
-    public class EvalCommand : BaseCommandModule
-    {
-        [Command("ev")]
+namespace HBot.Commands.Owner {
+    public class EvalCommand : BaseCommandModule {
+        [Command("eval")]
+        [Aliases("ev")]
         [Description("It's an eval command.")]
-        [Usage("[just put C# code here mate]")]
+        [Usage("[C# Code]")]
         [Category(Category.Owner)]
         [RequireOwner]
-        public async Task Kill(CommandContext Context, [RemainingText]string code)
-        {
+        public async Task Eval(CommandContext Context, [RemainingText]string code) {
             DiscordMember author = Context.Message.Author as DiscordMember;
             code = code.Replace("```cs", "");
             code = code.Replace("```", "");
@@ -34,8 +34,7 @@ namespace HBot.Commands.Owner
                 await Context.Message.Channel.TriggerTypingAsync();
                 var scriptOptions = ScriptOptions.Default;
 
-                globals = new EVGlobals()
-                {
+                globals = new EVGlobals() {
                     Context = Context,
                     Bot = Bot.client,
                     Commands = Bot.commands,
@@ -62,7 +61,6 @@ using DSharpPlus.Entities;
 using Newtonsoft.Json;
 using ScottPlot;
 using ScottPlot.Drawing;
-using HBot;
 using HBot.Commands.Attributes;" + code;
 
                 var result = await CSharpScript.EvaluateAsync(code, scriptOptions, globals);
@@ -91,8 +89,7 @@ using HBot.Commands.Attributes;" + code;
         }
     }
 
-    public class EVGlobals
-    {
+    public class EVGlobals {
         public CommandContext Context { get; set; }
         public DiscordClient Bot { get; set; }
         public CommandsNextExtension Commands { get; set; }
