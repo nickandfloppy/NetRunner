@@ -1,0 +1,37 @@
+using System;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+
+using DSharpPlus.CommandsNext;
+using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.Entities;
+
+using HBot.Commands.Attributes;
+
+namespace HBot.Commands.Owner {
+    public class SystemInfoCommandModule : BaseCommandModule {
+        [Command("systeminfo")]
+        [Description("Reports system info about the bot's host")]
+        [RequireOwner]
+        [Category(Category.Owner)]
+        public async Task SystemInfo(CommandContext ctx) {
+            string osArchitecture = RuntimeInformation.OSArchitecture.ToString().ToLower();
+            string frameworkVersion = Environment.Version.ToString();
+            string processorCount = Environment.ProcessorCount.ToString();
+            string memoryUsage = $"{GC.GetTotalMemory(false) / (1024 * 1024)} MB";
+            string uptime = $"{TimeSpan.FromMilliseconds(Environment.TickCount64):hh\\:mm\\:ss}";
+
+            DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
+            eb.WithTitle("System Information");
+            eb.WithColor(DiscordColor.Gold);
+            eb.AddField($"**Operating System:**", RuntimeInformation.OSDescription, true);
+            eb.AddField($"**Architecture:**", osArchitecture, true);
+            eb.AddField($"**.NET Version:**", frameworkVersion, true);
+            eb.AddField($"**Processor Count:**", processorCount, true);
+            eb.AddField($"**Memory Usage:**", memoryUsage, true);
+            eb.AddField($"**Uptime:**", uptime, true);
+
+            await ctx.ReplyAsync("", eb.Build());
+        }
+    }
+}

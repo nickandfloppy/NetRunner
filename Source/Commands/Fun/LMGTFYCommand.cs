@@ -13,8 +13,7 @@ namespace HBot.Commands.Fun
         [Description("Lemme Google that for you...")]
         [Usage("[query]")]
         [Category(Category.Fun)]
-        public async Task LMGTFY(CommandContext Context, [RemainingText]string query = null)
-        {
+        public async Task LMGTFY(CommandContext Context, [RemainingText]string query = null) {
             if(query == null) {
                 await Context.ReplyAsync("https://www.google.com/");
                 return;

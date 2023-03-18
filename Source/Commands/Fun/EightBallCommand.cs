@@ -7,16 +7,13 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Fun
-{
-    public class EightBallCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class EightBallCommand : BaseCommandModule {
         [Command("8ball")]
         [Description("Let the magic 8-ball give you advice.")]
         [Usage("[question]")]
         [Category(Category.Fun)]
-        public async Task EightBall(CommandContext Context, [RemainingText] string question)
-        {
+        public async Task EightBall(CommandContext Context, [RemainingText] string question) {
             // Select a random answer
             Random r = new Random();  
             int index = r.Next(answers.Length);  

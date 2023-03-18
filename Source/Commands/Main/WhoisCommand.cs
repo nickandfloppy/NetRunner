@@ -15,8 +15,7 @@ namespace HBot.Commands.Main {
         [Aliases("user")]
         [Usage("[user]")]
         [Category(Category.Main)]
-        public async Task Whois(CommandContext Context, [RemainingText] DiscordMember user)
-        {
+        public async Task Whois(CommandContext Context, [RemainingText] DiscordMember user) {
             if (user == null) 
                 user = Context.Message.Author as DiscordMember;
 

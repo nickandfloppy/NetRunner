@@ -13,16 +13,13 @@ using HBot.Misc;
 using HBot.Util;
 using System.Text.RegularExpressions;
 
-namespace HBot.Commands.Main
-{
-    public class RankCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class RankCommand : BaseCommandModule {
         [Command("rank")]
         [Description("Get your current level")]
         [Usage("[user]")]
         [Category(Category.Main)]
-        public async Task Rank(CommandContext Context, [RemainingText]DiscordUser dUser = null)
-        {
+        public async Task Rank(CommandContext Context, [RemainingText]DiscordUser dUser = null) {
             if(dUser == null)
                 dUser = Context.User;
 

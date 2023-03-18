@@ -7,16 +7,13 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Main
-{
-    public class HelpCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class HelpCommand : BaseCommandModule {
         [Command("help")]
         [Description("Lists commands or gets info on a specific command")]
         [Usage("[command]")]
         [Category(Category.Main)]
-        public async Task Help(CommandContext Context, [RemainingText] string command = null)
-        {
+        public async Task Help(CommandContext Context, [RemainingText] string command = null) {
             // Embed setup
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithColor(DiscordColor.Gold);
@@ -51,8 +48,7 @@ namespace HBot.Commands.Main
             await Context.ReplyAsync("", eb.Build());
         }
 
-        static string GetCommands(Category searchCategory)
-        {
+        static string GetCommands(Category searchCategory) {
             string finalString = "";
             foreach (Command command in Bot.commands.RegisteredCommands.Values) {
 
@@ -76,8 +72,7 @@ namespace HBot.Commands.Main
             return finalString;
         }
 
-        public static string GetCommandUsage(string commandName)
-        {
+        public static string GetCommandUsage(string commandName) {
             // Fetch the command and its usage attribute
             Command command = Bot.commands.FindCommand(commandName.ToLower(), out string args);
             if (command == null)

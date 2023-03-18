@@ -6,15 +6,12 @@ using DSharpPlus.CommandsNext.Attributes;
 using HBot.Commands.Attributes;
 using HBot.Misc;
 
-namespace HBot.Commands.Main
-{
-    public class LevelMessageCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class LevelMessageCommand : BaseCommandModule {
         [Command("togglelevelmsg")]
         [Description("Toggle level messages")]
         [Category(Category.Main)]
-        public async Task LevelMessage(CommandContext Context)
-        {
+        public async Task LevelMessage(CommandContext Context) {
             User user = UserData.GetOrCreateUser(Context.User);
             user.levelMessages = !user.levelMessages;
             string state = user.levelMessages ? "on" : "off";
