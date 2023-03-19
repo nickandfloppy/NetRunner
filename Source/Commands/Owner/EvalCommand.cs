@@ -1,98 +1,80 @@
-// This shit is broken lol
-
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using HBot.Misc;
 using HBot.Commands.Attributes;
 
-using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
-
 namespace HBot.Commands.Owner {
-    public class EvalCommand : BaseCommandModule {
+    public class EvalCommand: BaseCommandModule {
         [Command("eval")]
         [Aliases("ev")]
         [Description("It's an eval command.")]
         [Usage("[C# Code]")]
         [Category(Category.Owner)]
         [RequireOwner]
-        public async Task Eval(CommandContext Context, [RemainingText]string code) {
-            DiscordMember author = Context.Message.Author as DiscordMember;
-            code = code.Replace("```cs", "");
-            code = code.Replace("```", "");
-            string OGCode = code;
+        public async Task Eval(CommandContext ctx, [RemainingText] string code) {
+            // Set up the script options
+            var options = ScriptOptions.Default
+                .WithImports("System", "System.Linq", "System.Collections.Generic", "DSharpPlus", "DSharpPlus.CommandsNext", "DSharpPlus.Entities", "DSharpPlus.EventArgs")
+                .WithReferences(GetReferencedAssemblies());
+
+            // Evaluate the code
             try {
-                EVGlobals globals = null;
-                await Context.Message.Channel.TriggerTypingAsync();
-                var scriptOptions = ScriptOptions.Default;
-
-                globals = new EVGlobals() {
-                    Context = Context,
-                    Bot = Bot.client,
-                    Commands = Bot.commands,
-		    Users = UserData.users
-                };
-                var asms = AppDomain.CurrentDomain.GetAssemblies(); // .SingleOrDefault(assembly => assembly.GetName().Name == "MyAssembly");
-                foreach (Assembly assembly in asms)
-                    if (!assembly.IsDynamic && assembly.FullName.ToLower().Contains("dsharp") || assembly.FullName.ToLower().Contains("newtonsoft") || assembly.FullName.ToLower().Contains("microsoft.csharp") || assembly.FullName.ToLower().Contains("HBot") || assembly.FullName.ToLower().Contains("scottplot"))
-                        scriptOptions = scriptOptions.AddReferences(assembly);
-                scriptOptions = scriptOptions.AddReferences(new string[] { "ScottPlot, Version=4.0.48.0, Culture=neutral, PublicKeyToken=86698dc10387c39e" });
-                scriptOptions.AddReferences(Assembly.GetExecutingAssembly());
-
-                code = @"using System; 
-using System.Linq;
-using System.IO; 
-using System.Threading.Tasks; 
-using System.Collections.Generic; 
-using System.Text;
-using DSharpPlus;
-using DSharpPlus.EventArgs;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using DSharpPlus.Entities;
-using Newtonsoft.Json;
-using ScottPlot;
-using ScottPlot.Drawing;
-using HBot.Commands.Attributes;" + code;
-
-                var result = await CSharpScript.EvaluateAsync(code, scriptOptions, globals);
+                var result = await CSharpScript.EvaluateAsync(code, options, globals: new EvalGlobals(ctx));
                 if (result != null) {
-
-                    DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
-                    eb.WithTitle("Eval");
-                    eb.WithColor(DiscordColor.Gold);
-                    eb.WithTimestamp(DateTime.Now);
-                    eb.AddField("Input", $"```cs\n{OGCode}```");
-                    eb.AddField("Output", $"```cs\n" + result + "```");
-                    await Context.ReplyAsync("", eb.Build());
+                    // Send the result as a message
+                    var embed = new DiscordEmbedBuilder()
+                        .WithTitle("Eval Result")
+                        .WithColor(DiscordColor.Gold)
+                        .WithDescription($"```\n{result}\n```")
+                        .Build();
+                    await ctx.RespondAsync(embed: embed);
                 }
-
+            } catch (Exception ex) {
+                // Send the error message as a message
+                var embed = new DiscordEmbedBuilder()
+                    .WithTitle("Eval Error")
+                    .WithColor(DiscordColor.Red)
+                    .WithDescription($"```\n{ex.Message}\n```")
+                    .Build();
+                await ctx.RespondAsync(embed: embed);
             }
-            catch (Exception ex) {
+        }
 
-                DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
-                eb.WithTitle("Eval");
-                eb.WithColor(DiscordColor.Gold);
-                eb.WithTimestamp(DateTime.Now);
-                eb.AddField("Input", $"```cs\n{OGCode}```");
-                eb.AddField("Error", $"```cs\n{ex.Message}```");
-                await Context.ReplyAsync($"", eb.Build());
-            }
+        private static IEnumerable < MetadataReference > GetReferencedAssemblies() {
+            var assemblies = new List < Assembly > {
+                Assembly.GetEntryAssembly(),
+                typeof (object).Assembly,
+                typeof (Enumerable).Assembly,
+                typeof (DiscordClient).Assembly,
+                typeof (CommandContext).Assembly,
+                typeof (CommandEventArgs).Assembly
+            };
+            return assemblies.Select(x => MetadataReference.CreateFromFile(x.Location));
         }
     }
 
-    public class EVGlobals {
-        public CommandContext Context { get; set; }
-        public DiscordClient Bot { get; set; }
-        public CommandsNextExtension Commands { get; set; }
-	public List<User> Users { get; set; }
+    public class EvalGlobals {
+        public CommandContext Context {
+            get;
+        }
+        public DiscordGuild Guild => Context.Guild;
+        public DiscordChannel Channel => Context.Channel;
+        public DiscordUser User => Context.User;
+        public DiscordMessage Message => Context.Message;
+
+        public EvalGlobals(CommandContext ctx) {
+            Context = ctx;
+        }
     }
 }

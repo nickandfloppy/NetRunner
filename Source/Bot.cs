@@ -28,7 +28,7 @@ using ImageMagick;
 
 namespace HBot {
     class Bot {
-        public const string VERSION = "1.4.3";
+        public const string VERSION = "1.5.0";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -78,7 +78,6 @@ namespace HBot {
 
         async Task Ready(DiscordClient client, ReadyEventArgs e) {
             // Set guilds
-            Global.hostGuild = await client.GetGuildAsync(config.ids.hostGuild);
             Global.targetGuild = await client.GetGuildAsync(config.ids.targetGuild);
 
             // Set channels
@@ -218,7 +217,6 @@ namespace HBot {
     }
     
     class IDConfig {
-        public ulong hostGuild { get; set; } = 0;   // Where logs etc are
         public ulong targetGuild { get; set; } = 0; // Where muted role etc are
         public ulong logChannel { get; set; } = 0;
         public ulong mutedRole { get; set; } = 0;
@@ -236,7 +234,6 @@ namespace HBot {
 
     class Global {
         public static List<List<string>> reminders = new List<List<string>>();
-        public static DiscordGuild hostGuild;
         public static DiscordGuild targetGuild;
         public static DiscordChannel logChannel = null;
         

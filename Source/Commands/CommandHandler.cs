@@ -7,18 +7,14 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.CommandsNext;
 
-namespace HBot.Commands
-{
-    public class CommandHandler
-    {
-        public static Task HandleMessage(DiscordClient client, MessageCreateEventArgs e)
-        {   
+namespace HBot.Commands {
+    public class CommandHandler {
+        public static Task HandleMessage(DiscordClient client, MessageCreateEventArgs e) {   
             HandleCommand(e.Message, e.Author);
             return Task.CompletedTask;
         }
 
-        public static async void HandleCommand(DiscordMessage msg, DiscordUser author)
-        {
+        public static async void HandleCommand(DiscordMessage msg, DiscordUser author) {
             if(Global.blacklistedUsers.Contains(author.Id) || author.IsBot)
                 return;
 
@@ -55,8 +51,7 @@ namespace HBot.Commands
             _ = Task.Run(async () => await Bot.commands.ExecuteCommandAsync(ctx).ConfigureAwait(false));
         }
 
-        public static async Task HandleError(CommandsNextExtension cnext, CommandErrorEventArgs e)
-        {
+        public static async Task HandleError(CommandsNextExtension cnext, CommandErrorEventArgs e) {
             string msg = e.Exception.Message;
             if(msg == "One or more pre-execution checks failed.")
                 await e.Context.ReplyAsync(replyGifs[new Random().Next(0, replyGifs.Length)]);

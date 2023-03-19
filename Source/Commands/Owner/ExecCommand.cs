@@ -9,24 +9,24 @@ using HBot.Commands.Attributes;
 
 using HBot.Util;
 
-namespace HBot.Commands.Owner
-{
-    public class BashExecCommand : BaseCommandModule
-    {
-        [Command("bashexec")]
-        [Description("Execute a terminal command (*nix)")]
+namespace HBot.Commands.Owner {
+    public class ExecCommand : BaseCommandModule {
+        [Command("exec")]
+        [Description("Execute a terminal command")]
         [Usage("[command]")]
         [Category(Category.Owner)]
         [RequireOwner]
-        public async Task Exec(CommandContext Context, [RemainingText]string command)
-        {
-            if(!Environment.OSVersion.VersionString.Contains("Unix"))
-                throw new System.Exception("The bot must be running on Linux or macOS to use that command.");
+        public async Task Exec(CommandContext Context, [RemainingText]string command) {
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithTitle("Exec");
             eb.WithColor(DiscordColor.Gold);
             eb.AddField("Input", $"```sh\n{command}```");
-            eb.AddField("Output", $"```sh\n{command.BashCmd()}```");
+            if(!Environment.OSVersion.VersionString.Contains("Unix")) {
+                eb.AddField("Output", $"```sh\n{command.WinCmd()}```");
+            }
+            else {
+                eb.AddField("Output", $"```sh\n{command.BashCmd()}```");
+            }
             await Context.ReplyAsync("", eb.Build());
         }
     }

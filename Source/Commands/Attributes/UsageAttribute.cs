@@ -1,17 +1,14 @@
 using System;
 
-namespace HBot.Commands.Attributes
-{
+namespace HBot.Commands.Attributes {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Parameter, AllowMultiple = false)]
-    public sealed class UsageAttribute : Attribute
-    {
+    public sealed class UsageAttribute : Attribute {
         /// <summary>
         /// Gets the usage of this command
         /// </summary>
         public string Usage { get; }
 
-        public UsageAttribute(string usage)
-        {
+        public UsageAttribute(string usage) {
             this.Usage = usage;
         }
     }
