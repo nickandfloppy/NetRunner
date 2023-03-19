@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.IO.Compression;						
 using System.Threading.Tasks;
@@ -28,7 +28,7 @@ using ImageMagick;
 
 namespace HBot {
     class Bot {
-        public const string VERSION = "1.5.0";
+        public const string VERSION = "1.5.1";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -49,7 +49,7 @@ namespace HBot {
             Log.Information($"HBot {VERSION}");
             Log.Information($"Starting bot...");
 
-            VerifyIntegrity();
+            await VerifyIntegrityAsync();
             LoadConfigs();
             
             // Set up the Discord client
@@ -137,7 +137,7 @@ namespace HBot {
             EventLogging.Init();
         }
 
-        void VerifyIntegrity() {
+        async Task VerifyIntegrityAsync() {
             Log.Write(Serilog.Events.LogEventLevel.Information, "Verifying integrity of bot files...");
 
             // Verify directories
@@ -177,20 +177,26 @@ namespace HBot {
 
             // Verify and download resources
             Log.Information("Verifying resources...");
-            WebClient webClient = new WebClient();
-            string resourcesJson = webClient.DownloadString("https://raw.githubusercontent.com/HIDEN64/HBot/master/Resources/resources.json");
+            using HttpClient httpClient = new HttpClient();
+            string resourcesJson = await httpClient.GetStringAsync("https://raw.githubusercontent.com/HIDEN64/HBot/master/Resources/resources.json");
             string[] resources = JsonConvert.DeserializeObject<string[]>(resourcesJson);
-            foreach(string resource in resources) {
-                if(!ResourceExists(resource, ResourceType.Resource)) {
-                    webClient.DownloadFile($"https://raw.githubusercontent.com/HIDEN64/HBot/master/Resources/{resource}", GetResourcePath(resource, ResourceType.Resource));
-                    Log.Information("Downloaded " + resource + "");
+            foreach (string resource in resources) {
+                if (!ResourceExists(resource, ResourceType.Resource)) {
+                    var response = await httpClient.GetAsync($"https://raw.githubusercontent.com/HIDEN64/HBot/master/Resources/{resource}");
+                    var stream = await response.Content.ReadAsStreamAsync();
+                    using (var fileStream = new FileStream(GetResourcePath(resource, ResourceType.Resource), FileMode.Create)) {
+                        await stream.CopyToAsync(fileStream);
+                        Log.Information("Downloaded " + resource + "");
+                    }
                 }
             }
-// This is awful awful awful awful awful AWFUL to do this on every startup
+        
+            // This is awful awful awful awful awful AWFUL to do this on every startup
             // but I'm lazy and it's the only way I can think of right now to make the bot
             // update lyrics on startup lol
-            foreach(string file in Directory.GetFiles("Resources/Lyrics"))
+            foreach (string file in Directory.GetFiles("Resources/Lyrics")) {
                 File.Delete(file);
+            }
             ZipFile.ExtractToDirectory("Resources/Lyrics.zip", "Resources/");
         }
 

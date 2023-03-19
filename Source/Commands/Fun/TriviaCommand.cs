@@ -1,13 +1,12 @@
 using System;
 using System.Web;
-using System.Net;
+using System.Net.Http;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext;
-using DSharpPlus.Interactivity;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Interactivity.Extensions;
 
@@ -76,11 +75,13 @@ namespace HBot.Commands.Main
 
             // Generate an API request
             string URL = "https://opentdb.com/api.php?amount=1";
-            if(!string.IsNullOrWhiteSpace(input) && Categories.ContainsKey(input.ToLower()))
+            if(!string.IsNullOrWhiteSpace(input) && Categories.ContainsKey(input.ToLower())) {
                 URL += $"&category={Categories[input.ToLower()]}";
+            }
 
             // Make the API call
-            string json = new WebClient().DownloadString(URL);
+            using var client = new HttpClient();
+            string json = await client.GetStringAsync(URL);
             dynamic output = JsonConvert.DeserializeObject(json);
 
             // Create a list of the answers

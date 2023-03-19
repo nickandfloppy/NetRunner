@@ -44,7 +44,7 @@ namespace HBot.Misc {
             try {
             // Setup
             // Also, this doesn't work properly due to it not expecting a description for content, which my blog uses for the post content
-            // TODO: Fix this bullshit
+            // TODO: Fix this bullshit so I can get rid of MonitoRSS
             var feed = await FeedReader.ReadAsync("https://hiden.pw/blog/rss");
             DiscordChannel additions = await Bot.client.GetChannelAsync(Bot.config.ids.rssChannel);
 

@@ -13,15 +13,12 @@ using HBot.Commands.Attributes;
 
 using Newtonsoft.Json;
 
-namespace HBot.Commands.Main
-{
-    public class McInfoCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class McInfoCommand : BaseCommandModule {
         [Command("mcinfo")]
         [Description("Gets information on the Minecraft server")]
         [Category(Category.Main)]
-        public async Task McInfo(CommandContext Context)
-        {
+        public async Task McInfo(CommandContext Context) {
             MCServer server = new MCServer();
 
             foreach (MCServer currentServer in Bot.config.minecraftServers) {
@@ -37,8 +34,9 @@ namespace HBot.Commands.Main
 
             // Download the server info
             string json = "";
+            
             using(HttpClient http = new HttpClient())
-                json = await http.GetStringAsync($"https://api.mcsrvstat.us/2/{server.address}");
+            json = await http.GetStringAsync($"https://api.mcsrvstat.us/2/{server.address}");
 
             dynamic serverInfo = JsonConvert.DeserializeObject(json);
             

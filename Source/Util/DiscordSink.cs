@@ -7,16 +7,13 @@ using Serilog.Core;
 using Serilog.Events;
 using Serilog.Configuration;
 
-namespace HBot.Util
-{
-    public class DiscordSink : ILogEventSink
-    {
+namespace HBot.Util {
+    public class DiscordSink : ILogEventSink {
         private string logBuffer = "";
 
         private readonly IFormatProvider _formatProvider;
 
-        public DiscordSink(IFormatProvider formatProvider)
-        {
+        public DiscordSink(IFormatProvider formatProvider) {
             _formatProvider = formatProvider;
 
             Timer t = new Timer(5000);
@@ -30,8 +27,7 @@ namespace HBot.Util
             t.Start();
         }
 
-        public void Emit(LogEvent logEvent)
-        {
+        public void Emit(LogEvent logEvent) {
             var message = logEvent.RenderMessage(_formatProvider);
             string finalMessage =$"[{DateTime.Now.ToShortDateString().Replace("/", "-")} {DateTime.Now.ToShortTimeString()} {logEvent.Level.ToString()}] " + message;
 
@@ -53,10 +49,8 @@ namespace HBot.Util
         }
     }
 
-    public static class DiscordSinkExtensions
-    {
-        public static LoggerConfiguration DiscordSink(this LoggerSinkConfiguration loggerSinkConfiguration, IFormatProvider formatProvider = null)
-        {
+    public static class DiscordSinkExtensions {
+        public static LoggerConfiguration DiscordSink(this LoggerSinkConfiguration loggerSinkConfiguration, IFormatProvider formatProvider = null) {
             return loggerSinkConfiguration.Sink(new DiscordSink(formatProvider));
         }
     }

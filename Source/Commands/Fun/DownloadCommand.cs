@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,8 @@ using DSharpPlus.CommandsNext.Attributes;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Fun
-{
-    public class DownloadCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class DownloadCommand : BaseCommandModule {
         string[] nouns = null;
         string[] verbs = null;
 
@@ -20,17 +19,25 @@ namespace HBot.Commands.Fun
         [Description("You wouldn't download a HBot!")]
         [Usage("[verb] [noun] [args] (arguments: -noa -red -would -will -inline)")]
         [Category(Category.Fun)]
-        public async Task Dl(CommandContext Context, string verb = null, [RemainingText] string noun = null)
-        {
+        public async Task Dl(CommandContext Context, string verb = null, [RemainingText] string noun = null) {
             bool random = false;
             if(string.IsNullOrWhiteSpace(verb) || string.IsNullOrWhiteSpace(noun)) {
                 random = true;
 
                 // Download missing nouns and verbs
-                if(!File.Exists("nouns.txt"))
-                    new System.Net.WebClient().DownloadFile("https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/nouns.txt", "nouns.txt");
-                if(!File.Exists("verbs.txt"))
-                    new System.Net.WebClient().DownloadFile("https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/verbs.txt", "verbs.txt");
+                if(!File.Exists("nouns.txt")) {
+                    using var client = new HttpClient();
+                    var response = await client.GetAsync("https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/nouns.txt");
+                    var content = await response.Content.ReadAsStringAsync();
+                    await File.WriteAllTextAsync("nouns.txt", content);
+                }
+
+                if(!File.Exists("verbs.txt")) {
+                    using var client = new HttpClient();
+                    var response = await client.GetAsync("https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/verbs.txt");
+                    var content = await response.Content.ReadAsStringAsync();
+                    await File.WriteAllTextAsync("verbs.txt", content);
+                }
 
                 // Fill nouns and verbs if they're empty
                 if(nouns == null)
@@ -42,8 +49,7 @@ namespace HBot.Commands.Fun
                 noun = nouns[new Random().Next(nouns.Length)];
             }
 
-            if (verb.ToLower() == "rick" && noun.ToLower().Contains("roll") || verb.ToLower().Contains("rick") && verb.ToLower().Contains("roll"))
-            {
+            if (verb.ToLower() == "rick" && noun.ToLower().Contains("roll") || verb.ToLower().Contains("rick") && verb.ToLower().Contains("roll")) {
                 await Context.Channel.SendFileAsync("Resources/rick.gif");
                 return;
             }
@@ -77,7 +83,7 @@ namespace HBot.Commands.Fun
             bmp.Clear(System.Drawing.Color.Black);
 
             // Set up the fonts and drawing stuff
-            Font YOUWOULDNTDOWNLOADACARfont = new Font(
+            Font YOUWOULDNTDOWNLOADACARfont = new Font (
                 fonts.Families[0].Name,
                 175,
                 FontStyle.Regular,
@@ -92,8 +98,7 @@ namespace HBot.Commands.Fun
             float youWouldnt = new Random().Next(-100, 100);
             float verbX = 135 + new Random().Next(25, 220);
             float nounX = 242.32f + new Random().Next(25, 120);
-            if (inline)
-            {
+            if (inline) {
                 youWouldnt = -100;
                 verbX = 65.05f;
                 nounX = 65.05f;
@@ -105,10 +110,6 @@ namespace HBot.Commands.Fun
             else if (!will) bmp.DrawString("would", YOUWOULDNTDOWNLOADACARfont, brush, 465.0f + youWouldnt, 125.0f);
             else bmp.DrawString("will", YOUWOULDNTDOWNLOADACARfont, brush, 465.0f + youWouldnt, 125.0f);
             bmp.DrawString(verb + (noA ? "" : " a"), YOUWOULDNTDOWNLOADACARfont, brush, verbX, 325.5f);
-            //if (!noA) { 
-            //    SizeF aOff = MiscUtil.MeasureString("a", YOUWOULDNTDOWNLOADACARfont);
-            //    bmp.DrawString("a", YOUWOULDNTDOWNLOADACARfont, brush, verbX + (verb.Length * 95), 300.5f);
-            //}
             bmp.DrawString(noun, YOUWOULDNTDOWNLOADACARfont, brush, nounX, 500.3f);
 
             // Save the image to a temporary file, this has to be two separate Save functions because apparently that's what Microsoft thinks is good
