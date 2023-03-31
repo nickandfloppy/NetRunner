@@ -13,7 +13,7 @@ A fork of nick99nack's/floppydisk's NetRunner, which in turn is a fork of CamK06
 - Debian 10 or newer
 - Ubuntu 18.04/20.04 or newer
 - Fedora 36 or newer
-- Any other Linux dstribution that supports .NET 6.0
+- Any other Linux distribution that supports .NET 6.0
 
 You will not recieve technical assistance if you are using an unsupported OS, or if you're using a workaround to run this on an unsupported OS.
 
