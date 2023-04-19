@@ -63,7 +63,7 @@ namespace HBot.Commands.Main {
                 eb.WithColor(DiscordColor.Gold);
                 eb.WithImageUrl(randImage.url);
                 eb.WithTimestamp(randImage.date);
-                eb.WithFooter($"ID: {randImage.id}\nSubmitted by: {randImage.author}\nSubmit your own with the \"img add\" command");
+                eb.WithFooter($"ID: {randImage.id}\nSubmitted by: {randImage.author}\nSubmit your own with the \"{Bot.config.prefix}img add\" command");
                 await Context.ReplyAsync("", eb.Build());
             }
             // If we're adding a new image
