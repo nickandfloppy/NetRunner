@@ -128,7 +128,7 @@ idRecalc:
                 eb.WithAuthor(msg.author, null, msg.avatarUrl);
                 eb.WithDescription(msg.content);
                 eb.WithTimestamp(msg.sentAt);
-                eb.WithFooter($"ID: {msg.ID}\nSubmitted by: {msg.submitter}\nSubmit your own with the \"msg add\" command");
+                eb.WithFooter($"ID: {msg.ID}\nSubmitted by: {msg.submitter}\nSubmit your own with the \"{Bot.config.prefix}msg add\" command");
                 eb.WithColor(DiscordColor.Gold);
                 await Context.Channel.SendMessageAsync(eb);
             }
