@@ -28,7 +28,7 @@ using ImageMagick;
 
 namespace HBot {
     class Bot {
-        public const string VERSION = "1.5.2";
+        public const string VERSION = "1.6.0-dev";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
