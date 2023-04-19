@@ -21,7 +21,8 @@ namespace HBot.Commands.Fun {
         public List<string> messages = new List<string>() {
             ":coin: It landed on heads!",
             ":coin: It landed on tails!",
-            ":coin: It landed on the side. o_O"
+            ":coin: It landed on the side. o_O",
+            ":coin: It disappeared into the void. How the hell?"
         };
     }
 }
