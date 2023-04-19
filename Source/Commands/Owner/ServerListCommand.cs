@@ -9,7 +9,7 @@ using HBot.Commands.Attributes;
 namespace HBot.Commands.Owner {
     public class ServerListCommand : BaseCommandModule {
         [Command("serverlist")]
-        [Description("Lists guilds the bot is in")]
+        [Description("Lists all of the guilds the bot is in")]
         [Category(Category.Owner)]
         [RequireOwner]
         public async Task ServerList(CommandContext Context) {
