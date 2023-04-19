@@ -1,6 +1,9 @@
+// Stupid random picture command that'll probably end up having to be removed because of abuse lmfao
+// Just a joke command anyways
+// Thanks Jan.
 using System;
 using System.IO;
-using System.Net.Http;
+using System.Net;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -9,20 +12,23 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using HBot.Util;
-using HBot.Commands.Attributes;
-using static HBot.Util.ResourceManager;
+using WinBot.Util;
+using WinBot.Commands.Attributes;
+using static WinBot.Util.ResourceManager;
 
 using Newtonsoft.Json;
 using DSharpPlus;
 
-namespace HBot.Commands.Main {
-    public class ImageCommand : BaseCommandModule {
+namespace WinBot.Commands.Main
+{
+    public class ImageCommand : BaseCommandModule
+    {
         [Command("img")]
         [Description("Gets a random user-submitted image")]
         [Usage("[add (or leave blank)] [image (or leave blank)]")]
         [Category(Category.Fun)]
-        public async Task Image(CommandContext Context, string command = null, [RemainingText]string image = null) {
+        public async Task Image(CommandContext Context, string command = null, [RemainingText]string image = null)
+        {
             string jsonFile = GetResourcePath("randomImages", Util.ResourceType.JsonData);
 
             // Verify the image json file and/or load it
@@ -55,6 +61,7 @@ namespace HBot.Commands.Main {
             if(command == null || command.ToLower() != "add" && command.ToLower() != "del" && command.ToLower() != "count") {
                 if(imageUrls.Count == 0)
                     throw new System.Exception($"There are no images! Use the \"{Bot.config.prefix}img add\" command to add some.");
+                    
                 UserImage randImage = imageUrls[new System.Random().Next(0, imageUrls.Count)];
 
                 // Create the embed
@@ -73,14 +80,10 @@ namespace HBot.Commands.Main {
                 string newImg = args.url;
 
                 // Verify that the image is indeed a valid image
-                using (var httpClient = new HttpClient()) {
-                    using (var request = new HttpRequestMessage(HttpMethod.Head, newImg)) {
-                        var response = await httpClient.SendAsync(request);
-                        if (!response.Content.Headers.ContentType.MediaType.Contains("image") || response.Content.Headers.ContentType.MediaType.Contains("svg"))
-                            throw new System.Exception("Your file is not a valid image!");
-                    }
-                }
-
+                WebClient client = new WebClient();
+                client.OpenRead(newImg);
+                if (!client.ResponseHeaders["Content-Type"].Contains("image") || client.ResponseHeaders["Content-Type"].Contains("svg"))
+                    throw new System.Exception("Your file is not a valid image!");
                 if(imageUrls.FirstOrDefault(x => x.url == newImg) != null)
                     throw new Exception("That image already exists!");
 
@@ -122,7 +125,8 @@ idRecalc:
         static List<UserImage> imageUrls = null;
     }
 
-    class UserImage {
+    class UserImage
+    {
         public string author, url, id;
         public System.DateTime date;
     }
