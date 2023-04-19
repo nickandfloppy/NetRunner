@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
@@ -18,7 +19,7 @@ namespace HBot.Commands.Owner {
             string osArchitecture = RuntimeInformation.OSArchitecture.ToString().ToLower();
             string frameworkVersion = Environment.Version.ToString();
             string processorCount = Environment.ProcessorCount.ToString();
-            string memoryUsage = $"{GC.GetTotalMemory(false) / (1024 * 1024)} MB";
+            long memoryUsage = Process.GetCurrentProcess().WorkingSet64 / (1024 * 1024);
             string uptime = $"{TimeSpan.FromMilliseconds(Environment.TickCount64):hh\\:mm\\:ss}";
 
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
@@ -28,7 +29,7 @@ namespace HBot.Commands.Owner {
             eb.AddField($"**Architecture:**", osArchitecture, true);
             eb.AddField($"**.NET Version:**", frameworkVersion, true);
             eb.AddField($"**Processor Count:**", processorCount, true);
-            eb.AddField($"**Memory Usage:**", memoryUsage, true);
+            eb.AddField("Memory Usage", $"{memoryUsage} MB", true);
             eb.AddField($"**Uptime:**", uptime, true);
 
             await ctx.ReplyAsync("", eb.Build());

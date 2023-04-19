@@ -4,16 +4,16 @@ A fork of nick99nack's/floppydisk's NetRunner, which in turn is a fork of CamK06
 ## Usage instructions
 
 ### Requirements:
-- .NET 6.0
+- .NET 7.0
 - Roboto, Impact, and xband fonts
 
 #### Officially supported OSes:
-- Windows 7/8.1 or newer
+- Windows 10 Anniversary Update or newer
 - macOS 10.15 or newer
 - Debian 10 or newer
 - Ubuntu 18.04/20.04 or newer
 - Fedora 36 or newer
-- Any other Linux distribution that supports .NET 6.0
+- Any other Linux distribution that supports .NET 7.0
 
 You will not recieve technical assistance if you are using an unsupported OS, or if you're using a workaround to run this on an unsupported OS.
 

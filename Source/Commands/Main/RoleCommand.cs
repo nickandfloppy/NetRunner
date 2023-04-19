@@ -12,7 +12,7 @@ namespace HBot.Commands.Main {
         [Description("Gives the user a specified role.")]
         [Usage("role")]
         [Category(Category.Main)]
-        public async Task Role(CommandContext ctx, string roleName) { 
+        public async Task Role(CommandContext ctx, [RemainingText]string roleName) { 
             if (ctx.Guild != Global.targetGuild) {
                 throw new System.Exception($"This command can only be run in {Global.targetGuild.Name}.");
             }
@@ -27,7 +27,7 @@ namespace HBot.Commands.Main {
 
             // Check if the role is one of the allowed roles
             if (roleName != "Announcements" && roleName != "Blog Posts" && roleName != "HIDNet Updates" && roleName != "Polls") {
-                await ctx.RespondAsync("You can only add the Announcements, Blog Posts, HIDNet Updates, or Polls role.");
+                await ctx.RespondAsync("You can only add the Announcements, Blog Posts, HIDNet Updates, or Polls role to yourself.");
                 return;
             }
 

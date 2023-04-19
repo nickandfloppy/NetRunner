@@ -14,15 +14,12 @@ using HBot.Commands.Attributes;
 
 using Serilog;
 
-namespace HBot.Commands.Main
-{
-    public class SpamCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class SpamCommand : BaseCommandModule {
         [Command("spam")]
         [Description("Gets a random spam e-mail (from nick99nack's collection)")]
         [Category(Category.Fun)]
-        public async Task Spam(CommandContext Context, [RemainingText] int spamID = 0)
-        {
+        public async Task Spam(CommandContext Context, [RemainingText] int spamID = 0) {
             // Fetch the spam email json
             string json;
             if(!TempManager.TempFileExists("spam.json")) {
