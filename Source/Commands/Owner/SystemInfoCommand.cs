@@ -29,7 +29,7 @@ namespace HBot.Commands.Owner {
             eb.AddField($"**Architecture:**", osArchitecture, true);
             eb.AddField($"**.NET Version:**", frameworkVersion, true);
             eb.AddField($"**Processor Count:**", processorCount, true);
-            eb.AddField("Memory Usage", $"{memoryUsage} MB", true);
+            eb.AddField("**Memory Usage**", $"{memoryUsage} MB", true);
             eb.AddField($"**Uptime:**", uptime, true);
 
             await ctx.ReplyAsync("", eb.Build());
