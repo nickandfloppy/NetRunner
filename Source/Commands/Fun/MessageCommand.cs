@@ -86,7 +86,7 @@ namespace WinBot.Commands.Fun
                 newMessage.channelID = referencedMessage.ChannelId;
                 newMessage.content = referencedMessage.Content;
                 newMessage.messageID = referencedMessage.Id;
-                newMessage.sentAt = referencedMessage.CreationTimestamp.DateTime;
+                newMessage.sentAt = referencedMessage.CreationTimestamp.DateTime.ToLocalTime();
                 newMessage.submitter = Context.User.Username;
 idRecalc:
                 int idInt = new Random().Next(0, 0xFFFF);
