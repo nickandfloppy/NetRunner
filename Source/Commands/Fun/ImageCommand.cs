@@ -54,7 +54,7 @@ namespace HBot.Commands.Main {
             // If we're viewing a random image
             if(command == null || command.ToLower() != "add" && command.ToLower() != "del" && command.ToLower() != "count") {
                 if(imageUrls.Count == 0)
-                    throw new System.Exception($"There are no images! Use the {Bot.config.prefix}img add command to add some.");
+                    throw new System.Exception($"There are no images! Use the \"{Bot.config.prefix}img add\" command to add some.");
                 UserImage randImage = imageUrls[new System.Random().Next(0, imageUrls.Count)];
 
                 // Create the embed
