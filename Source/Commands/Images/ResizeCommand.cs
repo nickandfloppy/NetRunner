@@ -1,5 +1,5 @@
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using DSharpPlus.CommandsNext;
@@ -10,16 +10,13 @@ using HBot.Commands.Attributes;
 
 using ImageMagick;
 
-namespace HBot.Commands.Images
-{
-    public class ResizeCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Images {
+    public class ResizeCommand : BaseCommandModule {
         [Command("resize")]
         [Description("Resize an image")]
         [Usage("[image] [-scale -size]")]
         [Category(Category.Images)]
-        public async Task Resize(CommandContext Context, [RemainingText]string input)
-        {
+        public async Task Resize(CommandContext Context, [RemainingText]string input) {
             // Handle arguments
             ImageArgs args = ImageCommandParser.ParseArgs(Context, input);
             int seed = new System.Random().Next(1000, 99999);
@@ -28,7 +25,16 @@ namespace HBot.Commands.Images
 
             // Download the image
             string tempImgFile = TempManager.GetTempFile(seed+"-resizeDL."+args.extension, true);
-            new WebClient().DownloadFile(args.url, tempImgFile);
+            using (var httpClient = new HttpClient()) {
+                using (var response = await httpClient.GetAsync(args.url, HttpCompletionOption.ResponseHeadersRead)) {
+                    response.EnsureSuccessStatusCode();
+                    using (var stream = await response.Content.ReadAsStreamAsync()) {
+                        using (var fileStream = new FileStream(tempImgFile, FileMode.Create, FileAccess.Write, FileShare.None)) {
+                            await stream.CopyToAsync(fileStream);
+                        }
+                    }
+                }
+            }
 
             var msg = await Context.ReplyAsync("Processing...\nThis may take a while depending on the image size");
 
