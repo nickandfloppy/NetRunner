@@ -4,50 +4,36 @@ using System.Net.Http;
 
 using Newtonsoft.Json;
 
-public class HasteBinClient {
-	private static HttpClient _httpClient;
-	private string _baseUrl;
+public class HasteBinClient : IDisposable {
+	private readonly HttpClient _httpClient;
+	private readonly UriBuilder _uriBuilder;
 	
-	static HasteBinClient() {
-		_httpClient = new HttpClient();
-	}
-
 	public HasteBinClient(string baseUrl) {
-		_baseUrl = baseUrl;
+		_httpClient = new HttpClient();
+		_uriBuilder = new UriBuilder(baseUrl);
 	}
 	
 	public async Task<HasteBinResult> Post(string content) {
-		string fullUrl = _baseUrl;
-		if (!fullUrl.EndsWith("/")) {
-			fullUrl += "/";
-		}
-		string postUrl = $"{fullUrl}documents";
+		_uriBuilder.Path = "/documents";
+		string postUrl = _uriBuilder.Uri.ToString();
 
-		var request = new HttpRequestMessage(HttpMethod.Post, new Uri(postUrl));
-		request.Content = new StringContent(content);
-		HttpResponseMessage result = await _httpClient.SendAsync(request);
-
-		if (result.IsSuccessStatusCode) {
-			string json = await result.Content.ReadAsStringAsync();
-			HasteBinResult hasteBinResult = JsonConvert.DeserializeObject<HasteBinResult>(json);
-
-			if (hasteBinResult?.Key != null) {
-			    hasteBinResult.FullUrl = $"{fullUrl}{hasteBinResult.Key}";
-			    hasteBinResult.IsSuccess = true;
-			    hasteBinResult.StatusCode = 200;
-			    return hasteBinResult;
-			}
-		}
-
-		return new HasteBinResult() {
-			FullUrl = fullUrl,
-			IsSuccess = false,
-			StatusCode = (int) result.StatusCode
-		};
+		var requestContent = new StringContent(content);
+		var response = await _httpClient.PostAsync(postUrl, requestContent);
+		response.EnsureSuccessStatusCode();
+		
+		string json = await response.Content.ReadAsStringAsync();
+		var hasteBinResult = JsonConvert.DeserializeObject<HasteBinResult>(json);
+		hasteBinResult.FullUrl = $"{_uriBuilder.Uri}/{hasteBinResult.Key}";
+		hasteBinResult.IsSuccess = true;
+		hasteBinResult.StatusCode = (int)response.StatusCode;
+		return hasteBinResult;
+	}
+	
+	public void Dispose() {
+		_httpClient.Dispose();
 	}
 }
 
-// Define other methods and classes here
 public class HasteBinResult {
 	public string Key { get; set; }
 	public string FullUrl { get; set; }

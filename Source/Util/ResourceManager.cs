@@ -1,35 +1,36 @@
 using System.IO;
 
-namespace HBot.Util
-{
-    public static class ResourceManager
-    {
-        public static string GetResourcePath(string name, ResourceType type = ResourceType.MiscData)
-        {
-            // Get a file name
+namespace HBot.Util {
+    public static class ResourceManager {
+        public static string GetResourcePath(string name, ResourceType type = ResourceType.MiscData) {
             string fileName = name;
-            if(type == ResourceType.Config || type == ResourceType.JsonData)
-                fileName += ".json";
-            // MiscData and Resource are treated as is
+            switch (type) {
+                case ResourceType.JsonData:
+                case ResourceType.Config:
+                    fileName += ".json";
+                    break;
+            }
 
-            // Get the full path
             string path = fileName;
-            if(type == ResourceType.JsonData || type == ResourceType.MiscData)
-                path = "Data/" + path;
-            else if(type == ResourceType.Resource)
-                path = "Resources/" + path;
+            switch (type) {
+                case ResourceType.JsonData:
+                case ResourceType.MiscData:
+                    path = Path.Combine("Data", path);
+                    break;
+                case ResourceType.Resource:
+                    path = Path.Combine("Resources", path);
+                    break;
+            }
 
             return path;
         }
 
-        public static bool ResourceExists(string name, ResourceType type = ResourceType.MiscData)
-        {
+        public static bool ResourceExists(string name, ResourceType type = ResourceType.MiscData) {
             return File.Exists(GetResourcePath(name, type));
         }
     }
 
-    public enum ResourceType
-    {
+    public enum ResourceType {
         JsonData, MiscData, Config, Resource
     }
 }
