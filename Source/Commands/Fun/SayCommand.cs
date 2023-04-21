@@ -12,7 +12,7 @@ namespace HBot.Commands.Fun {
 
         public async Task Say(CommandContext context, [RemainingText] string message) {
             if (message.Contains("@everyone") || message.Contains("@here") || context.Message.MentionEveryone) {
-                await context.Message.RespondAsync("No dumb. Not dumb area here.");
+                await context.Message.RespondAsync("Do not dumb. Not dumb area here.");
                 return;
             }
             

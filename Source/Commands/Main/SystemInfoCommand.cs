@@ -9,12 +9,11 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Staff {
+namespace HBot.Commands.Main {
     public class SystemInfoCommandModule : BaseCommandModule {
         [Command("systeminfo")]
         [Description("Reports system info about the bot's host")]
-        [Category(Category.Staff)]
-        [RequireUserPermissions(DSharpPlus.Permissions.ManageGuild)]
+        [Category(Category.Main)]
         public async Task SystemInfo(CommandContext ctx) {
             string osArchitecture = RuntimeInformation.OSArchitecture.ToString().ToLower();
             string frameworkVersion = Environment.Version.ToString();

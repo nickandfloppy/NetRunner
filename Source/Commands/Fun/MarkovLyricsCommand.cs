@@ -14,12 +14,12 @@ using HBot.Util;
 using HBot.Commands.Attributes;
 
 namespace HBot.Commands.Fun {
-    public class MarkovQuoteCommand : BaseCommandModule {
+    public class MarkovLyricsCommand : BaseCommandModule {
         [Command("lyrics")]
         [Description("Get markov chains lyrics")]
         [Usage("[artist] [lines]")]
         [Category(Category.Fun)]
-        public async Task MarkovQuote(CommandContext Context, string input = "all", int lines = 5) {
+        public async Task MarkovLyrics(CommandContext Context, string input = "all", int lines = 5) {
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             string[] artists = null;
 

@@ -8,10 +8,8 @@ using DSharpPlus.Entities;
 using HBot.Util;
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Fun
-{
-    public class HackermanCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class HackermanCommand : BaseCommandModule {
         [Command("hackerman")]
         [Description("Hack into the mainframes... just kidding; Hack into Toxidation's network.")]
         [Usage("[length]")]

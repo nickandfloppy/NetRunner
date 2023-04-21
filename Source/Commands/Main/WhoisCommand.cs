@@ -5,7 +5,6 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-using HBot.Util;
 using HBot.Commands.Attributes;
 
 namespace HBot.Commands.Main {

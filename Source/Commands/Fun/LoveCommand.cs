@@ -12,40 +12,39 @@ namespace HBot.Commands.Fun {
         [Command("love")]
         [Aliases("affinity")]
         [Description("Calculates the love affinity you have for another person.")]
+        [Usage("[mention | id | username]")]
         [Category(Category.Fun)]
-        public async Task LoveCommandAsync(CommandContext ctx, [Description("[mention | id | username]")] DiscordMember user) {
-            if (user == null || ctx.User.Id == user.Id) {
-                var members = await ctx.Guild.GetAllMembersAsync();
-                //user = members.Where(m => m.Id != ctx.User.Id).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+        public async Task LoveCommandAsync(CommandContext context, DiscordMember user) {
+            if (user == null || user.IsCurrent) {
+                var members = await context.Guild.GetAllMembersAsync();
+                user = members.Where(m => m.Id != context.User.Id).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
             }
 
-            if (user.Id == ctx.User.Id) {
-                await ctx.RespondAsync("Someone's a narcissist. Ping someone else instead.");
+            if (user.IsCurrent) {
+                await context.RespondAsync("Someone's a narcissist. Ping someone else instead.");
                 return;
             }
 
-            if (user == null) {
-                await ctx.RespondAsync("Please mention another user.");
-                return;
-            }
-
-            var love = new Random().NextDouble() * 100;
-            var loveIndex = (int)Math.Floor(love / 10);
+            var lovePercent = Math.Floor(new Random().NextDouble() * 100);
+            var loveIndex = (int)Math.Floor(lovePercent / 10);
             var loveLevel = "💖".Repeat(loveIndex) + "💔".Repeat(10 - loveIndex);
 
-            var embed = new DiscordEmbedBuilder();
-            embed.WithColor(new DiscordColor("#ffb6c1"));
-            embed.WithTitle($"☁ Here's how much {ctx.Member.DisplayName} loves {user.DisplayName}:");
-            embed.WithDescription($"💟 {Math.Floor(love)}%\n\n{loveLevel}");
-            embed.WithFooter($"This info may or may not correct. {ctx.Guild.Name}, {Bot.client.CurrentUser.Username}, and/or {Bot.client.CurrentApplication.Owners.First().Username} are not responsible for any collateral damage. :P");
+            var embed = new DiscordEmbedBuilder {
+                Color = new DiscordColor("#ffb6c1"),
+                Title = $"☁ Here's how much {context.Member.DisplayName} loves {user.DisplayName}:",
+                Description = $"💟 {lovePercent}%\n\n{loveLevel}",
+                Footer = new DiscordEmbedBuilder.EmbedFooter {
+                    Text = $"This info may or may not correct. {context.Guild.Name}, {Bot.client.CurrentUser.Username}, and/or {Bot.client.CurrentApplication.Owners.First().Username} are not responsible for any collateral damage. :P"
+                }
+            };
 
-            await ctx.Channel.SendMessageAsync(embed);
+            await context.Channel.SendMessageAsync(embed);
         }
     }
 
     public static class StringExtensions {
         public static string Repeat(this string s, int n) {
             return new string(Enumerable.Range(0, n).SelectMany(_ => s).ToArray());
-        }
+        }      
     }
 }
