@@ -1,7 +1,5 @@
-namespace HBot.Misc
-{
-    public class MCServer
-    {
+namespace HBot.Misc {
+    public class MCServer {
         public ulong guildID;
         public string address;
         public string dynmap;
@@ -31,6 +29,5 @@ namespace HBot.Misc
             this.versions = "versions";
             this.crackedInfo = "No. It never will, just buy the game or stop asking.";
         }
-
     }
 }

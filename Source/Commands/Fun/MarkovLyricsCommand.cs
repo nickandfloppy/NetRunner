@@ -1,5 +1,3 @@
-// NOTE: The code in this file is hilariously shit, I'm just lazy and want this to work lol. Don't care about the quality.
-
 using System;
 using System.IO;
 using System.Linq;
@@ -10,59 +8,59 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
+using MarkovSharp.TokenisationStrategies;
+
 using HBot.Util;
 using HBot.Commands.Attributes;
 
-using MarkovSharp.TokenisationStrategies;
-
 namespace HBot.Commands.Fun {
-    public class MarkovQuoteCommand : BaseCommandModule {
+    public class MarkovLyricsCommand : BaseCommandModule {
         [Command("lyrics")]
         [Description("Get markov chains lyrics")]
         [Usage("[artist] [lines]")]
         [Category(Category.Fun)]
-        public async Task MarkovQuote(CommandContext Context, string input = "all", int lines = 5) {
-            DiscordEmbedBuilder eb;
-            if(input.ToLower() == "list") {
-                eb = new DiscordEmbedBuilder();
-                eb.WithColor(DiscordColor.Gold);
-                eb.WithDescription($"```\n{string.Join(' ', Directory.GetFiles("Resources\\Lyrics")).Replace("Resources\\Lyrics\\", "").Replace(".txt", "")} all```");
-                await Context.ReplyAsync(eb);
-                return;
+        public async Task MarkovLyrics(CommandContext Context, string input = "all", int lines = 5) {
+            DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
+            string[] artists = null;
+
+            if (input.ToLower() == "list") {
+                artists = Directory.GetFiles("Resources/Lyrics")
+                    .Select(f => Path.GetFileNameWithoutExtension(f))
+                    .ToArray();
+                eb.WithColor(DiscordColor.Gold)
+                    .WithDescription($"```\n{string.Join(' ', artists)} all```");
+            } else {
+                string filePath = $"Resources/Lyrics/{input.ToLower()}.txt";
+                if (!File.Exists(filePath) && input.ToLower() != "all")
+                    throw new Exception("Invalid artist! Run 'lyrics list' to get a list of available artists");
+
+                // Get input text
+                List<string> txt = new List<string>();
+                if (input.ToLower() == "all") {
+                    foreach (string file in Directory.GetFiles("Resources/Lyrics"))
+                        txt.AddRange(File.ReadAllLines(file));
+                    eb.WithDescription("Training...\nThis will take a little while.");
+                    await Context.Channel.TriggerTypingAsync();
+                } else {
+                    txt = File.ReadAllLines(filePath).ToList();
+                }
+
+                if (lines > 25)
+                    throw new Exception("You cannot have more than 25 lines!");
+
+                // Generate the markov text
+                StringMarkov model = new StringMarkov(1);
+                model.Learn(txt);
+                model.EnsureUniqueWalk = true;
+
+                // Create and send lyric embed
+                eb.WithTitle($"Generated `{input}` Lyrics")
+                    .WithColor(DiscordColor.Gold)
+                    .WithDescription($"```\n{string.Join('\n', model.Walk(lines)).Truncate(4096)}```")
+                    .WithFooter($"Trained on {txt.Count} lines of lyrical hell");
             }
-            else if(!File.Exists($"Resources/Lyrics/{input.ToLower()}.txt") && input.ToLower() != "all")
-                throw new Exception("Invalid artist! Run 'lyrics list' to get a list of available artists");
-            else if(lines > 25)
-                throw new Exception("You cannot have more than 25 lines!");
 
-            // Get input text, this code sucks but I do not give a crap
-            List<string> txt = new List<string>();
-            DiscordMessage msg = null;
-            if(input.ToLower() == "all") {
-                txt.Clear();
-                foreach(string file in Directory.GetFiles("Resources/Lyrics"))
-                    foreach(string line in File.ReadAllLines(file))
-                        txt.Add(line);
-                msg = await Context.ReplyAsync("Training...\nThis will take a little while.");
-                await Context.Channel.TriggerTypingAsync();
-            }
-            else 
-                txt = File.ReadAllLines($"Resources/Lyrics/{input.ToLower()}.txt").ToList();
-
-            // Generate the markov text
-            StringMarkov model = new StringMarkov(1);
-            model.Learn(txt);
-            model.EnsureUniqueWalk = true;
-
-            // Create and send lyric embed
-            eb = new DiscordEmbedBuilder();
-            eb.WithTitle($"Generated `{input}` Lyrics");
-            eb.WithColor(DiscordColor.Gold);
-            eb.WithDescription($"```\n{string.Join('\n', model.Walk(lines)).Truncate(4096)}```");
-            eb.WithFooter($"Trained on {txt.Count} lines of lyrical hell");
             await Context.ReplyAsync(eb);
-            if(msg != null)
-                await msg.DeleteAsync();
         }
     }
 }

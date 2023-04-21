@@ -13,7 +13,7 @@ namespace HBot.Commands.Staff {
         [Category(Category.Staff)]
         public async Task Ban(CommandContext ctx, DiscordMember target, [RemainingText] string reason = null) {
             if (target.Id == ctx.User.Id) {
-                await ctx.RespondAsync($"{ctx.User.Username}, ...You can't ban yourself.");
+                await ctx.ReplyAsync($"{ctx.User.Username}: ...You can't ban yourself.");
                 return;
             }
 
