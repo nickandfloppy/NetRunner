@@ -9,12 +9,12 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Owner {
+namespace HBot.Commands.Staff {
     public class SystemInfoCommandModule : BaseCommandModule {
         [Command("systeminfo")]
         [Description("Reports system info about the bot's host")]
-        [RequireOwner]
-        [Category(Category.Owner)]
+        [Category(Category.Staff)]
+        [RequireUserPermissions(DSharpPlus.Permissions.ManageGuild)]
         public async Task SystemInfo(CommandContext ctx) {
             string osArchitecture = RuntimeInformation.OSArchitecture.ToString().ToLower();
             string frameworkVersion = Environment.Version.ToString();
@@ -24,7 +24,7 @@ namespace HBot.Commands.Owner {
 
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithTitle("System Information");
-            eb.WithColor(DiscordColor.Gold);
+            eb.WithColor(DiscordColor.Blue);
             eb.AddField($"**Operating System:**", RuntimeInformation.OSDescription, true);
             eb.AddField($"**Architecture:**", osArchitecture, true);
             eb.AddField($"**.NET Version:**", frameworkVersion, true);

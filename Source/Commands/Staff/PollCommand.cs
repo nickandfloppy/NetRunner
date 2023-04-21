@@ -7,17 +7,14 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Main
-{
-    public class PollCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Main {
+    public class PollCommand : BaseCommandModule {
         [Command("poll")]
         [Description("Create a poll")]
         [Usage("[title] ['|' separated options]")]
         [Category(Category.Staff)]
-        [RequireUserPermissions(DSharpPlus.Permissions.KickMembers)]
-        public async Task Poll(CommandContext Context, string title, [RemainingText]string optionString) 
-        {
+        [RequireUserPermissions(DSharpPlus.Permissions.ManageMessages)]
+        public async Task Poll(CommandContext Context, string title, [RemainingText]string optionString) {
             // Null checks
             if(string.IsNullOrWhiteSpace(title))
                 throw new Exception("You must provide a title!");

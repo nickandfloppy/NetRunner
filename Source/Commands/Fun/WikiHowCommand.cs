@@ -11,15 +11,13 @@ using RestSharp;
 
 using Newtonsoft.Json;
 
-namespace HBot.Commands.Fun
-{
+namespace HBot.Commands.Fun {
     public class WikiHowCommand : BaseCommandModule
     {
         [Command("wikihow")]
         [Description("Gets a random out of context wikihow image")]
         [Category(Category.Fun)]
-        public async Task WikiHow(CommandContext Context)
-        {
+        public async Task WikiHow(CommandContext Context) {
             var client = new RestClient("https://hargrimm-wikihow-v1.p.rapidapi.com/images?count=1");
             var request = new RestRequest();
             request.AddHeader("x-rapidapi-key", Bot.config.apiKeys.wikihowAPIKey);

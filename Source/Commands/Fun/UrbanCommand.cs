@@ -11,16 +11,13 @@ using HBot.Commands.Attributes;
 
 using Miki.UrbanDictionary;
 
-namespace HBot.Commands.Fun
-{
-    public class UrbanCommand : BaseCommandModule
-    {
+namespace HBot.Commands.Fun {
+    public class UrbanCommand : BaseCommandModule {
         [Command("urban")]
         [Description("Search the urban dictionary")]
         [Usage("[query]")]
         [Category(Category.Fun)]
-        public async Task Urban(CommandContext Context, [RemainingText]string query)
-        {
+        public async Task Urban(CommandContext Context, [RemainingText]string query) {
 			if(string.IsNullOrWhiteSpace(query)) {
 				throw new Exception("You must provide a search query!");
 			}
@@ -31,13 +28,14 @@ namespace HBot.Commands.Fun
 
 			// Error checking
 			bool hasExample = true;
-			if (definition.List.Count < 1 || string.IsNullOrWhiteSpace(definition.List.First().Definition.Truncate(1024)))
-			{
+			if (definition.List.Count < 1 || string.IsNullOrWhiteSpace(definition.List.First().Definition.Truncate(1024))) {
 				await Context.ReplyAsync("Error: There are no results for that query.");
 				return;
 			}
-			else if(string.IsNullOrWhiteSpace(definition.List.First().Example.Truncate(1024)))
+
+			else if (string.IsNullOrWhiteSpace(definition.List.First().Example.Truncate(1024))) {
 				hasExample = false;
+			}
 
 			// Create an embed
 			DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
@@ -45,8 +43,9 @@ namespace HBot.Commands.Fun
 			eb.WithTitle($"Urban Dictionary: {query}");
 			eb.WithColor(DiscordColor.Gold);
 			eb.AddField("Definition", result.Definition.Truncate(1024));
-			if(hasExample)
+			if(hasExample) {
 				eb.AddField("Examples", result.Example.Truncate(1024));
+			}
 			eb.WithUrl(result.Permalink);
 			eb.WithThumbnail("https://reclaimthenet.org/wp-content/uploads/2020/07/urban-dictionary.png");
 			eb.WithFooter($"The information above does not represent the views of {Context.Guild.Name} or {Bot.client.CurrentApplication.Owners.First().Username}, obviously :P");

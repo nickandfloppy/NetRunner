@@ -20,7 +20,7 @@ namespace HBot.Commands.Staff {
         [Description("Mute a dirtbag")]
         [Usage("[user]")]
         [Category(Category.Staff)]
-        [RequireUserPermissions(DSharpPlus.Permissions.KickMembers)]
+        [RequireUserPermissions(DSharpPlus.Permissions.ManageRoles)]
         public async Task Mute(CommandContext Context, DiscordMember user) {
             // Try to set the muted role
             if(Bot.config.ids.mutedRole == 0) {

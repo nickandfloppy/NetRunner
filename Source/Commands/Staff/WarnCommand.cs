@@ -13,7 +13,7 @@ namespace HBot.Commands.Main {
         [Description("Warn a user")]
         [Usage("[user] [reason]")]
         [Category(Category.Staff)]
-        [RequireUserPermissions(DSharpPlus.Permissions.KickMembers)]
+        [RequireUserPermissions(DSharpPlus.Permissions.ManageMessages)]
         public async Task Warn(CommandContext Context, DiscordMember user, [RemainingText] string reason = null) {
             if (reason == null)
                 reason = "No reason given"; // Default reason

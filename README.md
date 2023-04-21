@@ -11,13 +11,11 @@ A fork of nick99nack's/floppydisk's NetRunner, which in turn is a fork of CamK06
 - Windows 10 Anniversary Update or newer
 - macOS 10.15 or newer
 - Debian 10 or newer
-- Ubuntu 18.04/20.04 or newer
+- Ubuntu 18.04 or newer
 - Fedora 36 or newer
 - Any other Linux distribution that supports .NET 7.0
 
 You will not recieve technical assistance if you are using an unsupported OS, or if you're using a workaround to run this on an unsupported OS.
-
-You may also not recieve proper technical assistance if you're running this on Windows 7 or Ubuntu 18.04.
 
 ### Building and running:
 1. Clone the repository: ``https://github.com/HIDEN64/HBot.git`` and move into the project directory: ``cd HBot``
