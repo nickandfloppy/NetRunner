@@ -2,9 +2,11 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Linq;
 
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.Entities;
 
 using HBot.Util;
 using HBot.Commands.Attributes;
@@ -17,18 +19,31 @@ namespace HBot.Commands.Images {
         [Description("Reverse a gif, because why not?")]
         [Usage("[gif]")]
         [Category(Category.Images)]
-        public async Task Reverse(CommandContext Context, [RemainingText]string input) {
+        public async Task Reverse(CommandContext context, [RemainingText] string input = null) {
             // Check for input URL
-            if (string.IsNullOrEmpty(input)) {
-                throw new ArgumentException("Please provide a valid image URL.");
+            string url = null;
+            if (!string.IsNullOrWhiteSpace(input)) {
+                url = input;
+            }
+            else {
+                // Check for image in reply
+                var message = await context.Channel.GetMessageAsync(context.Message.ReferencedMessage?.Id ?? context.Message.Id);
+                if (message == null || message.Attachments.Count == 0) {
+                    throw new ArgumentException("Please provide a valid image URL or reply to an image.");
+                }
+                url = message.Attachments.FirstOrDefault()?.Url;
+                if (url == null) {
+                    throw new ArgumentException("Please provide a valid image URL or reply to an image.");
+                }
             }
 
             // Handle arguments
-            ImageArgs args = ImageCommandParser.ParseArgs(Context, input);
+            ImageArgs args = ImageCommandParser.ParseArgs(context, url);
             string tempImgFile = TempManager.GetTempFile(Path.GetRandomFileName() + "-reverseDL." + args.extension, true);
 
-            if(args.extension.ToLower() != "gif")
+            if (args.extension.ToLower() != "gif") {
                 throw new Exception("Image provided is not a gif!");
+            }
 
             // Download the image
             using (var httpClient = new HttpClient()) {
@@ -39,7 +54,7 @@ namespace HBot.Commands.Images {
                 }
             }
 
-            var msg = await Context.ReplyAsync("Processing...\nThis may take a while depending on the image size");
+            var msg = await context.ReplyAsync("Processing...\nThis may take a while depending on the image size");
 
             try {
                 // Add s p e e d
@@ -54,12 +69,12 @@ namespace HBot.Commands.Images {
 
                         // Send the image
                         await msg.ModifyAsync("Uploading...\nThis may take a while depending on the image size");
-                        await Context.Channel.SendFileAsync(imgStream, "reverse." + args.extension);
+                        await context.Channel.SendFileAsync(imgStream, "reverse." + args.extension);
                     }
                 }
             }
             catch (Exception ex) {
-                await Context.Channel.SendMessageAsync($"Error processing image: {ex.Message}");
+                await context.Channel.SendMessageAsync($"Error processing image: {ex.Message}");
             }
             finally {
                 await msg.DeleteAsync();
