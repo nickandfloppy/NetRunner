@@ -15,9 +15,10 @@ namespace HBot.Commands.Staff {
         [Category(Category.Staff)]
         [RequireUserPermissions(DSharpPlus.Permissions.ManageMessages)]
         public async Task Purge(CommandContext Context, int count = 0) {
-            if(count <= 0)
-                throw new Exception("Cannot purge 0 messages!");
-
+            if(count <= 0) {
+                throw new Exception("Invalid number; it cannot be 0.");
+            }
+            
             // Delete the messages
             var messages = await Context.Channel.GetMessagesAsync(count+1);
             await Context.Channel.DeleteMessagesAsync(messages, $"Purged by {Context.User.Username}#{Context.User.Discriminator}");

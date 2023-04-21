@@ -13,7 +13,7 @@ namespace HBot.Commands.Staff {
         [Category(Category.Staff)]
         public async Task KickCommand(CommandContext ctx, [Description("The user to kick")] DiscordMember target, [RemainingText, Description("The reason for the kick")] string reason = null) {
             if (target == ctx.User) {
-                await ctx.RespondAsync($"{ctx.User.Username}, ...You can't kick yourself. Wh.. Why'd you even try? Are you high or something?");
+                await ctx.ReplyAsync($"{ctx.User.Username}: ...You can't kick yourself. Wh.. Why'd you even try? Are you high or something?");
                 return;
             }
 
