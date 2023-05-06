@@ -32,7 +32,9 @@ namespace HBot.Misc {
                 return (updateInfo.updateAvailable, updateInfo.latestVersion, updateInfo.releaseDate);
             }
             catch(Exception ex) {
-                Log.Error(ex, "An error occurred while checking for update");
+                Log.Error(ex, "An error occurred while checking for updates; the API may be unavailable at this time. Please try again later.");
+                Log.Error("If the error persists, please report it on GitHub, or contact HIDEN at https://hiden.pw/about/socials.");
+                Environment.Exit(1);
                 return (false, "", "");
             }
         }

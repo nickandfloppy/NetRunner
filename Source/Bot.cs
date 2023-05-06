@@ -98,8 +98,8 @@ namespace HBot {
 
             // Set misc stuff
 
-            // Start misc systems
-            
+            // Check for updates, start misc systems
+            Log.Information("Checking for updates...");
             var (updateAvailable, latestVersion, releaseDate) = await UpdateChecker.CheckForUpdate(VERSION);
 
             if (updateAvailable) {
