@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using System.Timers;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -48,20 +49,29 @@ namespace HBot.Misc {
 
                 DiscordChannel additions = await Bot.client.GetChannelAsync(Bot.config.ids.rssChannel);
 
+                //var role = additions.Guild.Roles.Values.FirstOrDefault(r => r.Name == "Blog-Updates");
+                //if (role == null) {
+                //    Log.Write(Serilog.Events.LogEventLevel.Warning, "RSS: Blog-Updates role not found. Things will get funky!");
+                //    return;
+                //}
+                //var roleMention = role.Mention;
+
                 foreach (FeedItem item in feed.Items) {
                     // Don't send an item twice
                     if (sentItems.Contains(item.Id))
                         continue;
 
                     // Create and send the embed
+                    //string mentionmsg = roleMention;
+
                     DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
                     eb.WithTitle(item.Title);
                     eb.WithUrl(item.Link);
                     eb.WithColor(DiscordColor.Gold);
                     eb.WithDescription(item.Description);
-                    eb.WithFooter($"Uploaded: {item.PublishingDate}");
-                    await additions.SendMessageAsync("", eb.Build());
-
+                                        
+                    //await additions.SendMessageAsync(mentionmsg, embed: eb);
+                    await additions.SendMessageAsync(eb.Build());
                     // Cache the item so it isn't sent in the next fetch
                     sentItems.Add(item.Id);
 
