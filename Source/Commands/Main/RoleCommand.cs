@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
@@ -17,7 +18,7 @@ namespace HBot.Commands.Main {
                 throw new System.Exception($"This command can only be run in {Global.targetGuild.Name}.");
             }
 
-            DiscordRole role = ctx.Guild.Roles.FirstOrDefault(r => r.Value.Name == roleName).Value;
+            DiscordRole role = ctx.Guild.Roles.FirstOrDefault(r => r.Value.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase)).Value;
 
             // Check if the role exists
             if (role == null) {
@@ -26,7 +27,10 @@ namespace HBot.Commands.Main {
             }
 
             // Check if the role is one of the allowed roles
-            if (roleName != "Announcements" && roleName != "Blog Posts" && roleName != "HIDNet Updates" && roleName != "Polls") {
+            if (!string.Equals(roleName, "Announcements", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(roleName, "Blog Posts", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(roleName, "HIDNet Updates", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(roleName, "Polls", StringComparison.OrdinalIgnoreCase)) {
                 await ctx.RespondAsync("You can only add the Announcements, Blog Posts, HIDNet Updates, or Polls role to yourself.");
                 return;
             }
