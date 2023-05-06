@@ -11,15 +11,12 @@ using Newtonsoft.Json;
 
 using static HBot.Util.ResourceManager;
 
-namespace HBot.Misc
-{
-    public class UserData
-    {
+namespace HBot.Misc {
+    public class UserData {
         public static List<User> users;
         private static string jsonFile;
 
-        public static void Init()
-        {
+        public static void Init() {
             jsonFile = GetResourcePath("userdata", Util.ResourceType.JsonData);
 
             // Load/create data
@@ -41,13 +38,11 @@ namespace HBot.Misc
             Log.Information("User data system initialized");
         }
 
-        public static void SaveData()
-        {
+        public static void SaveData() {
             File.WriteAllText(jsonFile, JsonConvert.SerializeObject(users, Formatting.Indented));
         }
 
-        public static User GetOrCreateUser(DiscordUser user)
-        {
+        public static User GetOrCreateUser(DiscordUser user) {
             // This probably could and should be improved but oh well, it works.
             if(users.FirstOrDefault(x => x.id == user.Id) != null) {
                 return users.FirstOrDefault(x => x.id == user.Id);
@@ -62,8 +57,7 @@ namespace HBot.Misc
         }
     }
 
-    public class User
-    {
+    public class User {
         public ulong id { get; set; }
         public string username { get; set; }
 

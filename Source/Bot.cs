@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
-using System.IO.Compression;						
+using System.IO.Compression;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +28,7 @@ using ImageMagick;
 
 namespace HBot {
     class Bot {
-        public const string VERSION = "1.7.0";
+        public const string VERSION = "1.8.0-sum23dev";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -99,14 +99,65 @@ namespace HBot {
             // Set misc stuff
 
             // Start misc systems
+            
+            var (updateAvailable, latestVersion, releaseDate) = await UpdateChecker.CheckForUpdate(VERSION);
+
+            if (updateAvailable) {
+                Log.Warning($"An update is available (latest version: {latestVersion}, release date: {releaseDate}). Please update as soon as possible.");
+
+                DateTime releaseDateTime = DateTime.Parse(releaseDate);
+
+            // Check if 14 days have passed since release date
+            if (DateTime.Now >= releaseDateTime.AddDays(14)) {
+                Log.Warning("Updating to the latest version is required to continue using HBot. Running git pull...");
+
+                // Attempt to run git pull
+                var process = new Process {
+                    StartInfo = new ProcessStartInfo {
+                        FileName = "git",
+                        Arguments = "pull",
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                    }
+                };
+
+                process.Start();
+                string output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+
+                // If git pull is successful, tell the user to rebuild
+                if (process.ExitCode == 0) {
+                    Log.Information("Update successful. Please rebuild and restart the bot.");
+                }
+
+                else {
+                    Log.Fatal("git pull failed. Please update the bot manually.");
+                }
+
+                Environment.Exit(1);
+            }
+
+            // Check if 7 days have passed since release date
+            else if (DateTime.Now >= releaseDateTime.AddDays(7)) {
+                Log.Warning("User confirmation required to start without updating.");
+                Console.WriteLine("Press any key to continue..."); 
+                Console.ReadKey();
+            }
+        }
+        else {
+            Log.Information("No updates available. You're good to go!");
+        }
+
             UserData.Init();
             Leveling.Init();
             TempManager.Init();
             DailyReportSystem.Init();
             MagickNET.Initialize(); 
 
-            if(Bot.config.ids.rssChannel != 0)
+            if (Bot.config.ids.rssChannel != 0) {
                 await RSS.Init();
+            }
 
             await client.UpdateStatusAsync(new DiscordActivity() { Name = config.status });
             Log.Information("Ready");
@@ -127,7 +178,7 @@ namespace HBot {
                     await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to the shithole! Make sure you read the rules before chatting. You can find them here: https://hiden.pw/discord/rules.");
                 else {
                     await Global.welcomeChannel.SendMessageAsync($"Welcome, {e.Member.Mention} to the shithole! Unfortunately it seems as if you have failed to read the rules, have fun in the box! This is what you get for trying to be a ding-dong :P.");
-                    await e.Member.GrantRoleAsync(Global.mutedRole, "succ");
+                    await e.Member.GrantRoleAsync(Global.mutedRole);
                 }
             };
 
