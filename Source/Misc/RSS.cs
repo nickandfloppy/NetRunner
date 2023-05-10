@@ -45,7 +45,7 @@ namespace HBot.Misc {
         public static async Task FetchItems() {
             try {
                 // Setup
-                var feed = await FeedReader.ReadAsync("http://localhost/blog/rss"); //Replace with the live site when the updates are out
+                var feed = await FeedReader.ReadAsync("http://localhost/blog/rss.xml"); //Replace with the live site when the updates are out
 
                 DiscordChannel additions = await Bot.client.GetChannelAsync(Bot.config.ids.rssChannel);
 
