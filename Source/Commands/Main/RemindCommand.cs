@@ -97,7 +97,7 @@ namespace WinBot.Commands.Main
                 return;
             }
 
-            await Context.RespondAsync($"Okay, I will remind you to '{message}' in {timeStr}.");
+            await Context.RespondAsync($"Reminder set for {timeStr} from now.");
 
             
             var reminderTime = DateTime.Now + timeSpan;
@@ -113,7 +113,7 @@ namespace WinBot.Commands.Main
 			await Task.Delay(timeSpan);
 
             // Send the reminder
-            await Context.RespondAsync($"{Context.User.Mention}, remember to: {message}");
+            await Context.RespondAsync($"{Context.User.Mention}: {message}");
 
             // Remove the reminder from the list
             if (reminders.TryGetValue(Context.User.Id, out var updatedUserReminders))
