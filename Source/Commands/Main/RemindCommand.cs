@@ -1,8 +1,8 @@
 using System;
-using System.Timers;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Threading.Tasks;
 
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
@@ -10,80 +10,104 @@ using DSharpPlus.Entities;
 
 using HBot.Commands.Attributes;
 
-namespace HBot.Commands.Main
-{
+namespace HBot.Commands.Main {
     public class RemindCommand : BaseCommandModule {
+        private static ConcurrentDictionary<ulong, List<Tuple<string, DateTime>>> reminders = new ConcurrentDictionary<ulong, List<Tuple<string, DateTime>>>();
+
         [Command("remind")]
-        [Description("Remind you about something")]
-        [Usage("[list] or [Time] [Time Unit (seconds/s, minutes/m, hours/h, days/d) [Message] (Note that long timespans are likely unreliable due to bot restarts)]")]
+        [Description("Remind you about something or list your reminders")]
+        [Usage("[list] or [Time] [Time Unit (minutes/m, hours/h, days/d, years/y)] [Message] (Note that long timespans are likely unreliable due to bot restarts)]")]
         [Category(Category.Main)]
         public async Task Remind(CommandContext Context, string timeStr, [RemainingText] string message = "") {
-            if (timeStr == "list") {
-		        DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
-                eb.WithTitle("Global Reminders");
-                eb.WithColor(DiscordColor.Gold);
-                if (Global.reminders.Count == 0)
-                    await Context.ReplyAsync("No reminders currently set");
-                else {
-                    foreach (List<string> reminder in Global.reminders) {
-                        if (string.IsNullOrWhiteSpace(reminder[1])) eb.AddField("[No text]", $"{reminder[2]} (Expires <t:{reminder[0]}:R>)");
-                        else eb.AddField(reminder[1], $"{reminder[2]} (Expires <t:{reminder[0]}:R>)");
-                    }
-                    eb.WithFooter($"{Global.reminders.Count} total");
-                    await Context.ReplyAsync("", eb.Build());
+            // List reminders
+            if (timeStr.ToLower() == "list") {
+                if (reminders.TryGetValue(Context.User.Id, out var userReminders) && userReminders.Count > 0) {
+                    var reminderList = string.Join("\n", userReminders.Select((reminder, index) => $"{index + 1}. {reminder.Item2}: {reminder.Item1}"));
+                    await Context.RespondAsync($"Here are your reminders:\n{reminderList}");
                 }
+                else {
+                    await Context.RespondAsync("You have no reminders.");
+                }
+
                 return;
             }
-            Timer t;
-            int time = 0;
-            string unit = "";
+			
+			TimeSpan timeSpan;
+			TimeSpan maxDelay = TimeSpan.FromDays(24); //workaround for Task.Delay limitations
 
-            int.TryParse(Regex.Replace(timeStr, "[A-Za-z ]", ""), out time);
-            unit = Regex.Match(timeStr, "[A-Za-z ]", RegexOptions.None).Value;
+            if (timeStr.EndsWith("s")) {
+                if (!int.TryParse(timeStr.TrimEnd('s'), out int seconds)) {
+                    await Context.RespondAsync("Invalid format for seconds. Please provide a number.");
+                    return;
+                }
 
-            // Filter bad values
-            if (time <= 0) {
-                throw new Exception("Timer length must be greater than 0!");
+                timeSpan = TimeSpan.FromSeconds(seconds);
             }
-            switch (unit) { // Should really use an if statement here but oh well idc
-                // Second
-                case "seconds":
-                case "s":
-                    t = new Timer(time * 1000);
-                    break;
-                // Minute
-                case "minutes":
-                case "m":
-                    t = new Timer(time * 60000);
-                    break;
-                // Hour
-                case "hours":
-                case "h":
-                    t = new Timer(time * 3600000);
-                    break;
-                // Day
-                case "days":
-                case "d":
-                    t = new Timer(time * 432000000);
-                    break;
+            else if (timeStr.EndsWith("m")) {
+                if (!int.TryParse(timeStr.TrimEnd('m'), out int minutes))
+                {
+                    await Context.RespondAsync("Invalid format for minutes. Please provide a number.");
+                    return;
+                }
 
-                default:
-                    throw new Exception("Invalid time unit!");
+                timeSpan = TimeSpan.FromMinutes(minutes);
             }
-            List<string> temp = new List<string>();
-            temp.Add($"{DateTimeOffset.Now.ToUnixTimeSeconds() + (t.Interval / 1000)}");
-            temp.Add(message);
-            temp.Add($"Set by {Context.User.Username}");
-            Global.reminders.Add(temp);
-            // Start the timer
-            t.AutoReset = false;
-            t.Elapsed += async (object sender, ElapsedEventArgs args) => {
-                await Context.ReplyAsync($"{Context.User.Mention}{(message == "" ? "" : ":")} {message.Replace("@", "-")}");
-                Global.reminders.RemoveAt(Global.reminders.IndexOf(temp));
-            };
-            t.Start();
+            else if (timeStr.EndsWith("h")) {
+                if (!int.TryParse(timeStr.TrimEnd('h'), out int hours))
+                {
+                    await Context.RespondAsync("Invalid format for hours. Please provide a number.");
+                    return;
+                }
+
+                timeSpan = TimeSpan.FromHours(hours);
+            }
+            else if (timeStr.EndsWith("d")) {
+                if (!int.TryParse(timeStr.TrimEnd('d'), out int days))
+                {
+                    await Context.RespondAsync("Invalid format for days. Please provide a number.");
+                    return;
+                }
+
+                timeSpan = TimeSpan.FromDays(days);
+            }
+            else if (timeStr.EndsWith("y")) {
+                if (!int.TryParse(timeStr.TrimEnd('y'), out int years))
+                {
+                    await Context.RespondAsync("Invalid format for years. Please provide a number.");
+                    return;
+                }
+
+                timeSpan = TimeSpan.FromDays(years * 365);
+            }
+            else {
+                await Context.RespondAsync("Invalid time format. Please use m for minutes, h for hours, d for days, y for years.");
+                return;
+            }
+
+            await Context.RespondAsync($"Reminder set for {timeStr} from now.");
+
             
-            await Context.ReplyAsync("Your reminder has been set!");
+            var reminderTime = DateTime.Now + timeSpan;
+            var reminder = Tuple.Create(message, reminderTime);
+            reminders.AddOrUpdate(Context.User.Id, new List<Tuple<string, DateTime>> { reminder }, (key, oldList) => { oldList.Add(reminder); return oldList; });
+
+			// workaround for Task.Delay limitations
+            while (timeSpan > maxDelay) {
+				await Task.Delay(maxDelay);
+				timeSpan -= maxDelay;
+			}
+			await Task.Delay(timeSpan);
+
+            // Send the reminder
+            await Context.RespondAsync($"{Context.User.Mention}: {message}");
+
+            // Remove the reminder from the list
+            if (reminders.TryGetValue(Context.User.Id, out var updatedUserReminders)) {
+                updatedUserReminders.Remove(reminder);
+                if (updatedUserReminders.Count == 0) {
+                    reminders.TryRemove(Context.User.Id, out _);
+                }
+            }
         }
     }
 }
