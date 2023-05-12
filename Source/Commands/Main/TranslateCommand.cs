@@ -89,7 +89,7 @@ namespace WinBot.Commands.Main
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithTitle($"Translate");
             eb.AddField("Translation Pathway", $"{source} -> {target}", false);
-            eb.AddField("Original", sourceText, true);
+            /*eb.AddField("Original", sourceText, true);*/
             eb.AddField("Translated", translatedText.Truncate(1024), true);
 			/*if (auto) eb.WithFooter($"Source Confidence {confidence}\nProvided by LibreTranslate");
 			else eb.WithFooter("Provided by LibreTranslate");*/
