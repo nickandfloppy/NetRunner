@@ -29,7 +29,7 @@ using ImageMagick;
 namespace HBot {
     class Bot {
 
-        public const string VERSION = "1.8.0-sum23dev";
+        public const string VERSION = "1.8.0-staging";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 

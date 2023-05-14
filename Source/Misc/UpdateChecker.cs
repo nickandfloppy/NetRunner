@@ -18,6 +18,7 @@ namespace HBot.Misc {
 
                 if(!response.IsSuccessStatusCode) {
                     Log.Error($"Failed to check for update. Response code: {(int)response.StatusCode} ({response.StatusCode})");
+                    Environment.Exit(1);
                     return (false, "", "");
                 }
 
@@ -25,7 +26,9 @@ namespace HBot.Misc {
                 var updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(content);
 
                 if(updateInfo == null) {
-                    Log.Error("Failed to deserialize update info");
+                    Log.Error("Invalid update info. The API may be having issues");
+                    Log.Error("Report this issue on GitHub, or contact HIDEN at https://hiden.pw/about/socials.");
+                    Environment.Exit(1);
                     return (false, "", "");
                 }
 
