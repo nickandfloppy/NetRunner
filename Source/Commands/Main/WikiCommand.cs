@@ -28,7 +28,7 @@ namespace HBot.Commands.Main {
 			WikiSearchResponse resp = await wikiclient.SearchAsync(req);
 			
 			foreach (SearchResult s in resp.QueryResult.SearchResults) {
-				Context.ReplyAsync($"{s.Url}".Replace(" ", "_"));
+				await Context.ReplyAsync($"{s.Url}".Replace(" ", "_"));
 				return;
 			}
 			

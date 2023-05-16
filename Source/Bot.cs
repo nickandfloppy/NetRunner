@@ -29,7 +29,7 @@ using ImageMagick;
 namespace HBot {
     class Bot {
 
-        public const string VERSION = "1.8.0-staging";
+        public const string VERSION = "1.8.0-rc";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -192,18 +192,20 @@ namespace HBot {
         async Task VerifyIntegrityAsync() {
             Log.Write(Serilog.Events.LogEventLevel.Information, "Verifying integrity of bot files...");
 
-            // Verify directories
-            if(!Directory.Exists("Logs"))
-                Directory.CreateDirectory("Logs");
-            if(!Directory.Exists("Data"))
-                Directory.CreateDirectory("Data");
-            if(!Directory.Exists("Resources"))
-                Directory.CreateDirectory("Resources");
-            // Extrememly awful way to do this, but I guess it'll work for now
-            if(!Directory.Exists("Resources/Lyrics"))
-                Directory.CreateDirectory("Resources/Lyrics");
-            if(!Directory.Exists("Temp"))
-                Directory.CreateDirectory("Temp");
+            string[] directories = {
+                "Logs",
+                "Data",
+                "Resources",
+                "Resources/Lyrics",
+                "Temp"
+            };
+
+            foreach (string directory in directories) {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), directory);
+                if (!Directory.Exists(path)) {
+                    Directory.CreateDirectory(path);
+                }
+            }
 
             // Verify configs & similar files
             if(!ResourceExists("config", ResourceType.Config)) {
@@ -286,7 +288,6 @@ namespace HBot {
 
     class APIConfig {
         public string wikihowAPIKey { get; set; } = "";
-        public string catAPIKey { get; set; } = "";
         public string weatherAPI { get; set; } = "";
     }
 
