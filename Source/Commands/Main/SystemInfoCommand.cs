@@ -23,12 +23,12 @@ namespace HBot.Commands.Main {
 
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithTitle("System Information");
-            eb.WithColor(DiscordColor.Blue);
+            eb.WithColor(DiscordColor.Gold);
             eb.AddField($"**Operating System:**", RuntimeInformation.OSDescription, true);
             eb.AddField($"**Architecture:**", osArchitecture, true);
             eb.AddField($"**.NET Version:**", frameworkVersion, true);
             eb.AddField($"**Processor Count:**", processorCount, true);
-            eb.AddField("**Memory Usage**", $"{memoryUsage} MB", true);
+            eb.AddField("**Memory Usage:**", $"{memoryUsage} MB", true);
             eb.AddField($"**Uptime:**", uptime, true);
 
             await ctx.ReplyAsync("", eb.Build());

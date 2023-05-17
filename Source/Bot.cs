@@ -29,7 +29,7 @@ using ImageMagick;
 namespace HBot {
     class Bot {
 
-        public const string VERSION = "1.8.0-rc";
+        public const string VERSION = "1.8.0";
 
         public static void Main(string[] args) => new Bot().RunBot().GetAwaiter().GetResult();
 
@@ -115,7 +115,8 @@ namespace HBot {
                 // Attempt to run git pull
                 var process = new Process {
                     StartInfo = new ProcessStartInfo {
-                        FileName = "git",
+                        // TODO: Add *nix support
+                        FileName = "C://Program Files//Git//bin//git.exe",
                         Arguments = "pull",
                         RedirectStandardOutput = true,
                         UseShellExecute = false,

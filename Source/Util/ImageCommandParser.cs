@@ -75,7 +75,7 @@ namespace HBot.Util
             }
             args.url = args.url.Split('?')[0];
 
-            // Tenor handling
+            // Tenor handling, update this to use HttpClient in 1.8.1/1.9.0
             WebClient client = new WebClient();
             if(args.url.Contains("tenor.com/") && !args.url.Contains("c.tenor")) {
 
