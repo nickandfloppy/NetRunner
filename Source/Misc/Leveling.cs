@@ -58,8 +58,6 @@ namespace HBot.Misc
                 if(user.xp >= ((user.level+1)*5)*40) {
                     user.level++;
                     user.xp = 0;
-                    if(user.levelMessages)
-                        await e.Message.RespondAsync($"You've just advanced to level {user.level}!");
                 }
 
                 // Check for level roles

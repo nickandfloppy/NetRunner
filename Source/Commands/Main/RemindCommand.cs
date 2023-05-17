@@ -44,8 +44,7 @@ namespace HBot.Commands.Main {
                 timeSpan = TimeSpan.FromSeconds(seconds);
             }
             else if (timeStr.EndsWith("m")) {
-                if (!int.TryParse(timeStr.TrimEnd('m'), out int minutes))
-                {
+                if (!int.TryParse(timeStr.TrimEnd('m'), out int minutes)) {
                     await Context.RespondAsync("Invalid format for minutes. Please provide a number.");
                     return;
                 }
@@ -53,8 +52,7 @@ namespace HBot.Commands.Main {
                 timeSpan = TimeSpan.FromMinutes(minutes);
             }
             else if (timeStr.EndsWith("h")) {
-                if (!int.TryParse(timeStr.TrimEnd('h'), out int hours))
-                {
+                if (!int.TryParse(timeStr.TrimEnd('h'), out int hours)) {
                     await Context.RespondAsync("Invalid format for hours. Please provide a number.");
                     return;
                 }
@@ -62,8 +60,7 @@ namespace HBot.Commands.Main {
                 timeSpan = TimeSpan.FromHours(hours);
             }
             else if (timeStr.EndsWith("d")) {
-                if (!int.TryParse(timeStr.TrimEnd('d'), out int days))
-                {
+                if (!int.TryParse(timeStr.TrimEnd('d'), out int days)) {
                     await Context.RespondAsync("Invalid format for days. Please provide a number.");
                     return;
                 }
@@ -71,8 +68,7 @@ namespace HBot.Commands.Main {
                 timeSpan = TimeSpan.FromDays(days);
             }
             else if (timeStr.EndsWith("y")) {
-                if (!int.TryParse(timeStr.TrimEnd('y'), out int years))
-                {
+                if (!int.TryParse(timeStr.TrimEnd('y'), out int years)) {
                     await Context.RespondAsync("Invalid format for years. Please provide a number.");
                     return;
                 }
