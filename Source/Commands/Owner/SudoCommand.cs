@@ -25,7 +25,7 @@ namespace WinBot.Commands.Owner
 
             // Execute the command
             CommandContext context = Bot.commands.CreateFakeContext(user, Context.Channel, command, ".", realCommand, args);
-			await Bot.commands.ExecuteCommandAsync(context);
+            await Bot.commands.ExecuteCommandAsync(context);
         }
     }
 }

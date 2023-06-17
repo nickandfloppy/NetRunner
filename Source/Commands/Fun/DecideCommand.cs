@@ -23,7 +23,6 @@ namespace WinBot.Commands.Fun
                 throw new Exception("You must provide at least two options!");
             string choice = options[new Random().Next(0, options.Length)];
 
-
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithColor(DiscordColor.Gold);
             eb.WithTitle($"🤔 I pick {choice}".Truncate(256));

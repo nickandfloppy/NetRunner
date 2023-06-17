@@ -39,7 +39,7 @@ namespace WinBot.Commands.Owner
                     Context = Context,
                     Bot = Bot.client,
                     Commands = Bot.commands,
-		    Users = UserData.users
+                    Users = UserData.users
                 };
                 var asms = AppDomain.CurrentDomain.GetAssemblies(); // .SingleOrDefault(assembly => assembly.GetName().Name == "MyAssembly");
                 foreach (Assembly assembly in asms)
@@ -96,6 +96,6 @@ using WinBot.Commands.Attributes;" + code;
         public CommandContext Context { get; set; }
         public DiscordClient Bot { get; set; }
         public CommandsNextExtension Commands { get; set; }
-	public List<User> Users { get; set; }
+    public List<User> Users { get; set; }
     }
 }

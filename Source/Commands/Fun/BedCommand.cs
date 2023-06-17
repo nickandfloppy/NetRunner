@@ -14,7 +14,7 @@ namespace WinBot.Commands.Fun
 {
     public class BedCommand : BaseCommandModule
     {
-		[Command("bed")]
+        [Command("bed")]
         [Description("Tell someone to go to bed.")]
         [Usage("[User] [Image: parz, agp, agp2, mehdi]")]
         [Category(Category.Fun)]
@@ -24,7 +24,7 @@ namespace WinBot.Commands.Fun
             if(image == "parz" || string.IsNullOrWhiteSpace(image))
                 image = images[new System.Random().Next(0, images.Length)];
 
-			// Select the image with some YanDev code
+            // Select the image with some YanDev code
             string imageFile = GetResourcePath("parz.png", Util.ResourceType.Resource);
             float genX = 365f;
             float bedY = 506f;
@@ -54,12 +54,12 @@ namespace WinBot.Commands.Fun
             // Load the font
             PrivateFontCollection fonts = new PrivateFontCollection();
             fonts.AddFontFile(GetResourcePath("impact.ttf", Util.ResourceType.Resource));
-			
-			// Create the image
+            
+            // Create the image
             Bitmap img = new Bitmap(Bitmap.FromFile(imageFile));
-			Graphics bmp = Graphics.FromImage(img);
+            Graphics bmp = Graphics.FromImage(img);
     
-			 // Set up the fonts and drawing stuff
+             // Set up the fonts and drawing stuff
             Font IMPACTfont = new Font(
                 fonts.Families[0].Name,
                 fontSize,
@@ -68,23 +68,23 @@ namespace WinBot.Commands.Fun
             );
 
             SolidBrush brush;
-			brush = new SolidBrush(System.Drawing.Color.White);
-			StringFormat snFormat = new StringFormat();
-			snFormat.Alignment = StringAlignment.Center;
-			snFormat.LineAlignment = StringAlignment.Center;
-			
-			// Draw the text onto the image
+            brush = new SolidBrush(System.Drawing.Color.White);
+            StringFormat snFormat = new StringFormat();
+            snFormat.Alignment = StringAlignment.Center;
+            snFormat.LineAlignment = StringAlignment.Center;
+            
+            // Draw the text onto the image
             bmp.DrawString("GO TO BED", IMPACTfont, brush, genX, bedY, snFormat);
-			bmp.DrawString(screenname.ToUpper(), IMPACTfont, brush, genX, userY, snFormat);
-			
-			// Save the image to a temporary file
+            bmp.DrawString(screenname.ToUpper(), IMPACTfont, brush, genX, userY, snFormat);
+            
+            // Save the image to a temporary file
             bmp.Save();
             string imagePath = TempManager.GetTempFile($"bed-{image}-" + DateTime.Now.Ticks + "-{Context.User.Id}.png", true);
             img.Save(imagePath);
             await Context.Channel.SendFileAsync(imagePath);
             TempManager.RemoveTempFile($"bed-{image}-" + DateTime.Now.Ticks + "-{Context.User.Id}.png");
-		}
-		
+        }
+        
         static string[] images = { "NONE", "mehdi", "agp", "agp2" };
-	}
+    }
 }

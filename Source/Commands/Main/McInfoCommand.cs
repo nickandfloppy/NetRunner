@@ -46,19 +46,19 @@ namespace WinBot.Commands.Main
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
             eb.WithColor(DiscordColor.Gold);
             
-			// Set up the embed
+            // Set up the embed
             if((bool)serverInfo.online) {
                 eb.WithThumbnail(Context.Guild.IconUrl);
                 eb.WithTitle(WebUtility.HtmlDecode((string)serverInfo.motd.clean[0]));
                 eb.AddField("Address", server.address, true);
                 eb.AddField("Versions", server.versions, true);
                 if (server.dynmap != null)
-		            eb.AddField("Dynmap", server.dynmap, true);
+                    eb.AddField("Dynmap", server.dynmap, true);
                 eb.AddField("Online?", ((bool)serverInfo.online) ? "Yes" : "No", true);
                 eb.AddField("Users Count", $"{(int)serverInfo.players.online}/{(int)serverInfo.players.max}", true);
                 if((int)serverInfo.players.online > 0) {
-					eb.AddField("Users", $"{string.Join('\n', serverInfo.players.list)}", true);
-				}
+                    eb.AddField("Users", $"{string.Join('\n', serverInfo.players.list)}", true);
+                }
                 eb.AddField("Supports Cracked Accounts?", server.crackedInfo, true);
             }
             else {

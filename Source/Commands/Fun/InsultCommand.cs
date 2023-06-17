@@ -26,8 +26,8 @@ namespace WinBot.Commands.fun {
                 eb.WithTitle("Get insulted... loser.");
                 eb.WithColor(DiscordColor.Gold);
                 eb.WithDescription($"{insultText.insult}");
-		
-			await Context.ReplyAsync("", eb.Build());
-		}
-	}
+        
+            await Context.ReplyAsync("", eb.Build());
+        }
+    }
 }

@@ -10,7 +10,7 @@ namespace WinBot.Commands.Fun
 {
     public class GZTrCommand : BaseCommandModule
     {
-		[Command("gztr")]
+        [Command("gztr")]
         [Description("One-way Gen Z translator")]
         [Usage("[Normal Human Text]")]
         [Category(Category.Fun)]
@@ -21,7 +21,7 @@ namespace WinBot.Commands.Fun
                 output = output.Replace(word.Key, word.Value);
             output = output.Replace("'", "").Replace("@", "").Replace(",", "");
             await Context.ReplyAsync(output);
-		}
+        }
 
         public Dictionary<string, string> Dicctionary = new Dictionary<string, string>()
         {
@@ -60,5 +60,5 @@ namespace WinBot.Commands.Fun
             { "an", "n" },
             { "are", "r" }
         };
-	}
+    }
 }

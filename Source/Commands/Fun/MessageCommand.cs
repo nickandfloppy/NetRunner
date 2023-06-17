@@ -19,7 +19,7 @@ namespace WinBot.Commands.Fun
 {
     public class MessageCommand : BaseCommandModule
     {
-		[Command("msg")]
+        [Command("msg")]
         [Description("Get a random user-submitted message")]
         [Usage("add (or leave blank)")]
         [Category(Category.Fun)]
@@ -135,7 +135,7 @@ idRecalc:
         }
 
         public List<UserMessage> messages = null;
-	}
+    }
 
     public class UserMessage
     {

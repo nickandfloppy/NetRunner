@@ -29,7 +29,7 @@ namespace WinBot.Commands.Owner
 
             // Execute the command
             CommandContext context = Bot.commands.CreateFakeContext(Context.User, channel, command, ".", realCommand, args);
-			await Bot.commands.ExecuteCommandAsync(context);
+            await Bot.commands.ExecuteCommandAsync(context);
 
             // React
             await Context.Message.CreateReactionAsync(DiscordEmoji.FromUnicode("👍"));

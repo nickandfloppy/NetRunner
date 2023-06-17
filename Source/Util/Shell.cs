@@ -23,16 +23,16 @@ namespace WinBot.Util
             string result = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
             if (result.Length < 1024)
-				return result;
-			else{
-				string baseUrl = "http://paste.nick99nack.com/";
-				var hasteBinClient = new HasteBinClient(baseUrl);
-				HasteBinResult HBresult = hasteBinClient.Post(result).Result;
-				return $"{baseUrl}{HBresult.Key}";
-			}
+                return result;
+            else{
+                string baseUrl = "http://paste.nick99nack.com/";
+                var hasteBinClient = new HasteBinClient(baseUrl);
+                HasteBinResult HBresult = hasteBinClient.Post(result).Result;
+                return $"{baseUrl}{HBresult.Key}";
+            }
         }
-		
-		public static string CmdPrmpt(this string cmd)
+        
+        public static string CmdPrmpt(this string cmd)
         {
             var escapedArgs = cmd.Replace("\"", "\\\"");
 
@@ -50,17 +50,17 @@ namespace WinBot.Util
             process.Start();
             string result = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
-			if (result.Length < 1024)
-				return result;
-			else{
-				string baseUrl = "http://paste.nick99nack.com/";
-				var hasteBinClient = new HasteBinClient(baseUrl);
-				HasteBinResult HBresult = hasteBinClient.Post(result).Result;
-				return $"{baseUrl}{HBresult.Key}";
-			}
+            if (result.Length < 1024)
+                return result;
+            else{
+                string baseUrl = "http://paste.nick99nack.com/";
+                var hasteBinClient = new HasteBinClient(baseUrl);
+                HasteBinResult HBresult = hasteBinClient.Post(result).Result;
+                return $"{baseUrl}{HBresult.Key}";
+            }
         }
-		
-		public static string DOSPrmpt(this string cmd)
+        
+        public static string DOSPrmpt(this string cmd)
         {
             var escapedArgs = cmd.Replace("\"", "\\\"");
 
@@ -79,16 +79,16 @@ namespace WinBot.Util
             string result = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
             if (result.Length < 1024)
-				return result;
-			else{
-				string baseUrl = "http://paste.nick99nack.com/";
-				var hasteBinClient = new HasteBinClient(baseUrl);
-				HasteBinResult HBresult = hasteBinClient.Post(result).Result;
-				return $"{baseUrl}{HBresult.Key}";
-			}
+                return result;
+            else{
+                string baseUrl = "http://paste.nick99nack.com/";
+                var hasteBinClient = new HasteBinClient(baseUrl);
+                HasteBinResult HBresult = hasteBinClient.Post(result).Result;
+                return $"{baseUrl}{HBresult.Key}";
+            }
         }
-		
-		public static string PSPrmpt(this string cmd)
+        
+        public static string PSPrmpt(this string cmd)
         {
             var escapedArgs = cmd.Replace("\"", "\\\"");
 
@@ -107,14 +107,14 @@ namespace WinBot.Util
             string result = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
             if (result.Length < 1024)
-				return result;
-			else{
-				string baseUrl = "http://paste.nick99nack.com/";
-				var hasteBinClient = new HasteBinClient(baseUrl);
-				HasteBinResult HBresult = hasteBinClient.Post(result).Result;
-				return $"{baseUrl}{HBresult.Key}";
-			}
-			
+                return result;
+            else{
+                string baseUrl = "http://paste.nick99nack.com/";
+                var hasteBinClient = new HasteBinClient(baseUrl);
+                HasteBinResult HBresult = hasteBinClient.Post(result).Result;
+                return $"{baseUrl}{HBresult.Key}";
+            }
+            
         }
     }
 }

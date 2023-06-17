@@ -19,9 +19,9 @@ namespace WinBot.Commands.Fun
         [Category(Category.Fun)]
         public async Task Exec(CommandContext Context)
         {
-			string command = "C:\\cygwin\\bin\\fortune.exe -a";
+            string command = "C:\\cygwin\\bin\\fortune.exe -a";
             DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
-			eb.WithTitle("Fortune");
+            eb.WithTitle("Fortune");
             eb.WithColor(DiscordColor.Gold);
             eb.WithDescription($"```{command.CmdPrmpt()}```");
             await Context.ReplyAsync("", eb.Build());

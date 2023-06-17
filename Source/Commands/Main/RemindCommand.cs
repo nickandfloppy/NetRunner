@@ -37,9 +37,9 @@ namespace WinBot.Commands.Main
 
                 return;
             }
-			
-			TimeSpan timeSpan;
-			TimeSpan maxDelay = TimeSpan.FromDays(24); //workaround for Task.Delay limitations
+            
+            TimeSpan timeSpan;
+            TimeSpan maxDelay = TimeSpan.FromDays(24); //workaround for Task.Delay limitations
 
             if (timeStr.EndsWith("s"))
             {
@@ -104,13 +104,13 @@ namespace WinBot.Commands.Main
             var reminder = Tuple.Create(message, reminderTime);
             reminders.AddOrUpdate(Context.User.Id, new List<Tuple<string, DateTime>> { reminder }, (key, oldList) => { oldList.Add(reminder); return oldList; });
 
-			// workaround for Task.Delay limitations
+            // workaround for Task.Delay limitations
              while (timeSpan > maxDelay)
-			{
-				await Task.Delay(maxDelay);
-				timeSpan -= maxDelay;
-			}
-			await Task.Delay(timeSpan);
+            {
+                await Task.Delay(maxDelay);
+                timeSpan -= maxDelay;
+            }
+            await Task.Delay(timeSpan);
 
             // Send the reminder
             await Context.RespondAsync($"{Context.User.Mention}: {message}");

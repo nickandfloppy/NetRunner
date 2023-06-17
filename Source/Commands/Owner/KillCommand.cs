@@ -20,11 +20,11 @@ namespace WinBot.Commands.Owner
         [RequireOwner]
         public async Task Kill(CommandContext Context)
         {
-			await Context.ReplyAsync("Shutting down...");
-			Log.Information("Shutdown triggered by command");
-			//DailyReportSystem.CreateBackup();
+            await Context.ReplyAsync("Shutting down...");
+            Log.Information("Shutdown triggered by command");
+            //DailyReportSystem.CreateBackup();
             UserData.SaveData();
-			Environment.Exit(0);
+            Environment.Exit(0);
         }
     }
 }

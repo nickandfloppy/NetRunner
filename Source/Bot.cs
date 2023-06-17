@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using System.IO.Compression;						
+using System.IO.Compression;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -201,7 +201,7 @@ namespace WinBot
                     Log.Information("Downloaded " + resource + "");
                 }
             }
-// This is awful awful awful awful awful AWFUL to do this on every startup
+            // This is awful awful awful awful awful AWFUL to do this on every startup
             // but I'm lazy and it's the only way I can think of right now to make the bot
             // update lyrics on startup lol
             foreach(string file in Directory.GetFiles("Resources/Lyrics"))

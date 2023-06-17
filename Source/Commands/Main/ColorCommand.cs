@@ -1,4 +1,3 @@
-
 using System;
 using System.Timers;
 using System.Threading.Tasks;
@@ -30,7 +29,7 @@ namespace WinBot.Commands.Main
                     await Context.ReplyAsync("Must be in format #000000 (# is optional) and be valid hex");
                     return;
                 }
-		        DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
+                DiscordEmbedBuilder eb = new DiscordEmbedBuilder();
                 eb.WithThumbnail($"https://singlecolorimage.com/get/{hexString}/100x100");
                 if (!hexString.StartsWith("#")) hexString = $"#{hexString}";
                 eb.WithTitle($"Color Info");

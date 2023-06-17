@@ -24,17 +24,17 @@ namespace WinBot.Commands.Main
 
             using WikipediaClient wikiclient = new WikipediaClient();
     
-			WikiSearchRequest req = new WikiSearchRequest(query);
-			req.Limit = 1;
+            WikiSearchRequest req = new WikiSearchRequest(query);
+            req.Limit = 1;
     
-			WikiSearchResponse resp = await wikiclient.SearchAsync(req);
-			
-			foreach (SearchResult s in resp.QueryResult.SearchResults){
-				Context.ReplyAsync($"{s.Url}".Replace(" ", "_"));
-				return;
-			}
-			
-			Context.ReplyAsync("No results.");;
+            WikiSearchResponse resp = await wikiclient.SearchAsync(req);
+            
+            foreach (SearchResult s in resp.QueryResult.SearchResults){
+                Context.ReplyAsync($"{s.Url}".Replace(" ", "_"));
+                return;
+            }
+            
+            Context.ReplyAsync("No results.");;
         }
     }
 }
