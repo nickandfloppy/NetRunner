@@ -11,22 +11,22 @@ using Genbox.Wikipedia.Objects;
 
 namespace WinBot.Commands.Main
 {
-    public class WikiCommand : BaseCommandModule
-    {
-        [Command("wiki")]
-        [Description("Search wikipedia")]
-        [Usage("[query]")]
-        [Category(Category.Main)]
-        public async Task Wiki(CommandContext Context, [RemainingText] string query)
-        {
-            if(string.IsNullOrWhiteSpace(query))
-                throw new System.Exception("You must provide a search query!");
+	public class WikiCommand : BaseCommandModule
+	{
+		[Command("wiki")]
+		[Description("Search wikipedia")]
+		[Usage("[query]")]
+		[Category(Category.Main)]
+		public async Task Wiki(CommandContext Context, [RemainingText] string query)
+		{
+			if(string.IsNullOrWhiteSpace(query))
+				throw new System.Exception("You must provide a search query!");
 
-            using WikipediaClient wikiclient = new WikipediaClient();
-    
+			using WikipediaClient wikiclient = new WikipediaClient();
+	
 			WikiSearchRequest req = new WikiSearchRequest(query);
 			req.Limit = 1;
-    
+	
 			WikiSearchResponse resp = await wikiclient.SearchAsync(req);
 			
 			foreach (SearchResult s in resp.QueryResult.SearchResults){
@@ -35,6 +35,6 @@ namespace WinBot.Commands.Main
 			}
 			
 			Context.ReplyAsync("No results.");;
-        }
-    }
+		}
+	}
 }

@@ -41,10 +41,10 @@ public class HasteBinClient
 
 			if (hasteBinResult?.Key != null)
 			{
-			    hasteBinResult.FullUrl = $"{fullUrl}{hasteBinResult.Key}";
-			    hasteBinResult.IsSuccess = true;
-			    hasteBinResult.StatusCode = 200;
-			    return hasteBinResult;
+				hasteBinResult.FullUrl = $"{fullUrl}{hasteBinResult.Key}";
+				hasteBinResult.IsSuccess = true;
+				hasteBinResult.StatusCode = 200;
+				return hasteBinResult;
 			}
 		}
 

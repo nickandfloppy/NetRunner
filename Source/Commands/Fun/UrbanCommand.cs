@@ -13,19 +13,19 @@ using Miki.UrbanDictionary;
 
 namespace WinBot.Commands.Fun
 {
-    public class UrbanCommand : BaseCommandModule
-    {
-        [Command("urban")]
-        [Description("Search the urban dictionary")]
-        [Usage("[query]")]
-        [Category(Category.Fun)]
-        public async Task Urban(CommandContext Context, [RemainingText]string query)
-        {
+	public class UrbanCommand : BaseCommandModule
+	{
+		[Command("urban")]
+		[Description("Search the urban dictionary")]
+		[Usage("[query]")]
+		[Category(Category.Fun)]
+		public async Task Urban(CommandContext Context, [RemainingText]string query)
+		{
 			if(string.IsNullOrWhiteSpace(query)) {
 				throw new Exception("You must provide a search query!");
 			}
 
-            // Get the definition
+			// Get the definition
 			UrbanDictionaryApi api = new UrbanDictionaryApi();
 			var definition = await api.SearchTermAsync(query);
 
@@ -52,6 +52,6 @@ namespace WinBot.Commands.Fun
 			eb.WithFooter($"The information above does not represent the views of {Context.Guild.Name} or {Bot.client.CurrentApplication.Owners.First().Username}, obviously :P");
 
 			await Context.ReplyAsync("", eb.Build());
-        }
-    }
+		}
+	}
 }

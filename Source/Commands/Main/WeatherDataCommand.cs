@@ -36,7 +36,7 @@ namespace WinBot.Commands.Main
 						using (WebClient client = new WebClient()) {
 							json = client.DownloadString("https://weather.diskfloppy.me/data/weatherData.json");
 							time = client.DownloadString("https://weather.diskfloppy.me/data/got.txt");
-                        }
+						}
 					} catch {
 						eb.WithTitle("Unable to retrieve weather data!");
 						eb.WithColor(new DiscordColor("#ED4245"));
@@ -73,13 +73,13 @@ namespace WinBot.Commands.Main
 					else if (124 <= winDirDegInt && winDirDegInt <= 146) windDir = "SE";
 					else if (147 <= winDirDegInt && winDirDegInt <= 168) windDir = "SSE";
 					else if (169 <= winDirDegInt && winDirDegInt <= 191) windDir = "S";
-	       			else if (192 <= winDirDegInt && winDirDegInt <= 213) windDir = "SSW";
-	       			else if (214 <= winDirDegInt && winDirDegInt <= 236) windDir = "SW";
-	       			else if (237 <= winDirDegInt && winDirDegInt <= 258) windDir = "WSW";
-	       			else if (259 <= winDirDegInt && winDirDegInt <= 281) windDir = "W";
-	       			else if (282 <= winDirDegInt && winDirDegInt <= 303) windDir = "WNW";
-	       			else if (304 <= winDirDegInt && winDirDegInt <= 326) windDir = "NW";
-	       			else if (327 <= winDirDegInt && winDirDegInt <= 348) windDir = "NNW";
+		   			else if (192 <= winDirDegInt && winDirDegInt <= 213) windDir = "SSW";
+		   			else if (214 <= winDirDegInt && winDirDegInt <= 236) windDir = "SW";
+		   			else if (237 <= winDirDegInt && winDirDegInt <= 258) windDir = "WSW";
+		   			else if (259 <= winDirDegInt && winDirDegInt <= 281) windDir = "W";
+		   			else if (282 <= winDirDegInt && winDirDegInt <= 303) windDir = "WNW";
+		   			else if (304 <= winDirDegInt && winDirDegInt <= 326) windDir = "NW";
+		   			else if (327 <= winDirDegInt && winDirDegInt <= 348) windDir = "NNW";
 					
 					string beaufort = "";
 					
@@ -135,7 +135,7 @@ namespace WinBot.Commands.Main
 						using (WebClient client = new WebClient()) {
 							json = client.DownloadString("http://weather.diskfloppy.me/weatherData.json");
 							time = client.DownloadString("http://weather.diskfloppy.me/got.txt");
-                        }
+						}
 					} catch {
 						eb.WithTitle("Unable to retrieve weather data!");
 						eb.WithColor(new DiscordColor("#ED4245"));

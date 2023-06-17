@@ -1,8 +1,8 @@
 {
-    "FormattingOptions": {
-        "NewLine": "\n",
-        "UseTabs": true,
-        "TabSize": 4,
-        "IndentationSize": 4
-    }
+	"FormattingOptions": {
+		"NewLine": "\n",
+		"UseTabs": true,
+		"TabSize": 4,
+		"IndentationSize": 4
+	}
 }
