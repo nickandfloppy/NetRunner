@@ -40,6 +40,10 @@ Steps:
 
 Note: This bot has been modified for use on 64-bit Windows and may not work out of the box. Some modifications to [``WinBot.csproj``](WinBot.csproj) maybe required.
 
+## Contributing
+
+For contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md)
+
 ## Licensing
 
 This project is under the [MIT Licence](https://choosealicense.com/licenses/mit/)
